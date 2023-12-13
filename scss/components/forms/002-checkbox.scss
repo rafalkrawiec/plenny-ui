@@ -1,0 +1,97 @@
+.control-checkbox,
+.control-radio {
+  display: flex;
+  flex: 1 0;
+  min-width: 0;
+  font-family: var(--fontSans);
+  font-size: 12px;
+  font-weight: var(--fontWeightSemi);
+  position: relative;
+
+  &:focus-within {
+    input:checked ~ .indicator {
+      background-color: var(--themePrimaryBackgroundFocus);
+      border-color: var(--themePrimaryBorderFocus);
+      color: var(--themePrimaryForeground);
+    }
+
+    .indicator {
+      box-shadow: var(--v-control-wrapper-box-shadow-focus);
+      background-color: var(--themeNeutralLightBackgroundFocus);
+      border-color: var(--themeNeutralLightBorderFocus);
+    }
+  }
+
+  &:hover {
+    .indicator {
+      background-color: var(--themeNeutralLightBackgroundHover);
+      border-color: var(--themeNeutralLightBorderHover);
+    }
+  }
+
+  input {
+    width: 20px !important;
+    height: 20px !important;
+    margin-right: 12px;
+    position: relative;
+    opacity: 0;
+
+    &:checked ~ .indicator {
+      background-color: var(--themePrimaryBackground);
+      border-color: var(--themePrimaryBorder);
+      color: var(--themePrimaryForeground);
+
+      .checkmark-filled {
+        display: flex;
+      }
+    }
+
+    &:indeterminate ~ .indicator {
+      color: var(--themeNeutralAltForeground);
+
+      .subtract-filled {
+        display: flex;
+      }
+    }
+
+  }
+
+  .indicator {
+    position: absolute;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    top: 0;
+    left: 0;
+    width: 20px;
+    height: 20px;
+    border: 1px solid var(--themeNeutralLightBorder);
+    border-radius: 4px;
+    background-color: var(--themeNeutralLightBackground);
+    box-shadow: var(--v-control-wrapper-box-shadow);
+    color: transparent;
+    opacity: 1;
+    transition-property: background, border, color;
+    transition-timing-function: var(--v-curve-easy-ease);
+    transition-duration: var(--v-duration-faster);
+    cursor: pointer;
+
+    .icon {
+      display: none;
+      align-items: center;
+      justify-content: center;
+      width: 20px;
+      height: 20px;
+      line-height: 14px;
+      font-size: 14px;
+    }
+  }
+
+  .description {
+    line-height: 20px;
+  }
+}
+
+.control-radio .indicator {
+  border-radius: 10px;
+}

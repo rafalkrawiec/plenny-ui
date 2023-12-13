@@ -1,0 +1,19 @@
+:root {
+  --v-curve-accelerate-max: cubic-bezier(1, 0, 1, 1);
+  --v-curve-accelerate-mid: cubic-bezier(0.7, 0, 1, 0.5);
+  --v-curve-accelerate-min: cubic-bezier(0.8, 0, 1, 1);
+  --v-curve-decelerate-max: cubic-bezier(0, 0, 0, 1);
+  --v-curve-decelerate-mid: cubic-bezier(0.1, 0.9, 0.2, 1);
+  --v-curve-decelerate-min: cubic-bezier(0.33, 0, 0.1, 1);
+  --v-curve-easy-ease-max: cubic-bezier(0.8, 0, 0.1, 1);
+  --v-curve-easy-ease: cubic-bezier(0.33, 0, 0.67, 1);
+  --v-curve-linear: cubic-bezier(0, 0, 1, 1);
+
+  --v-duration-ultra-fast: 50ms;
+  --v-duration-faster: 100ms;
+  --v-duration-fast: 150ms;
+  --v-duration-normal: 200ms;
+  --v-duration-slow: 300ms;
+  --v-duration-slower: 400ms;
+  --v-duration-ultra-slow: 500ms;
+}

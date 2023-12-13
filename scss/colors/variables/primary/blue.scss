@@ -1,0 +1,34 @@
+:root {
+  --themePrimaryBackground: #0f6cbd;
+  --themePrimaryBackgroundHover: #115ea3;
+  --themePrimaryBackgroundActive: #0c3b5e;
+  --themePrimaryBackgroundFocus: #0f548c;
+
+  --themePrimaryBorder: #0f6cbd;
+  --themePrimaryBorderHover: #115ea3;
+  --themePrimaryBorderActive: #0c3b5e;
+  --themePrimaryBorderFocus: #0f548c;
+
+  --themePrimaryForeground: #ffffff;
+  --themePrimaryForegroundHover: #ffffff;
+  --themePrimaryForegroundActive: #ffffff;
+  --themePrimaryForegroundFocus: #ffffff;
+
+  --themePrimaryLightBorder: #b4d6fa;
+
+  --themePrimaryInvertForeground: #0f6cbd;
+}
+
+:root.dark {
+  --themePrimaryBackground: #479ef5;
+  --themePrimaryBackgroundHover: #62abf5;
+  --themePrimaryBackgroundActive: #2886de;
+  --themePrimaryBackgroundFocus: #0f6cbd;
+
+  --themePrimaryBorder: #479ef5;
+  --themePrimaryBorderHover: #62abf5;
+  --themePrimaryBorderActive: #2886de;
+  --themePrimaryBorderFocus: #0f6cbd;
+
+  --themePrimaryInvertForeground: #479ef5;
+}

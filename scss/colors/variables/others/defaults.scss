@@ -1,0 +1,9 @@
+:root {
+  --themeWhite: #ffffff;
+  --themeBlack: #000000;
+}
+
+:root.dark {
+  --themeWhite: #000000;
+  --themeBlack: #ffffff;
+}

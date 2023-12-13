@@ -1,0 +1,11 @@
+:root {
+  --themeDisabledBackground: #e6e6e6;
+  --themeDisabledBorder: #b9b9b9;
+  --themeDisabledForeground: #bdbdbd;
+}
+
+:root.dark {
+  --themeDisabledBackground: #141414;
+  --themeDisabledBorder: #424242;
+  --themeDisabledForeground: #5c5c5c;
+}

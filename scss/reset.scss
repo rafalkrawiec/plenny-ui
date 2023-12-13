@@ -1,0 +1,60 @@
+*, *::before, *::after {
+  box-sizing: border-box;
+  border-collapse: collapse;
+  margin: 0;
+  padding: 0;
+  user-select: none;
+}
+
+:root {
+  overflow: hidden;
+  height: 100dvh;
+}
+
+body {
+  font-family: var(--fontSans);
+  font-weight: var(--fontWeightRegular);
+  font-size: 16px;
+  line-height: 20px;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  text-rendering: optimizeLegibility;
+  background-color: var(--themeNeutralBackground);
+  color: var(--themeNeutralForeground);
+  height: 100dvh;
+  overflow: hidden;
+}
+
+hr {
+  border-style: solid;
+  border-color: var(--themeNeutralBorder);
+  border-width: 0;
+  border-bottom-width: 1px;
+}
+
+h1, h2, h3, h4, h5, h6 {
+  font-size: var(--fontSize400);
+  line-height: var(--size24);
+}
+
+button {
+  font-family: var(--fontSans);
+}
+
+a {
+  font-weight: var(--fontWeightSemi);
+  color: var(--themePrimaryBackground);
+  text-decoration: none;
+  outline: none;
+  transition-property: color;
+  transition-timing-function: var(--v-curve-easy-ease);
+  transition-duration: var(--v-duration-faster);
+
+  &:focus {
+    color: var(--themePrimaryBackgroundFocus);
+  }
+
+  &:hover {
+    color: var(--themePrimaryBackgroundHover);
+  }
+}

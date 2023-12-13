@@ -1,0 +1,130 @@
+.select-wrapper {
+  flex: 1 1 auto;
+  display: flex;
+  flex-direction: row;
+  line-height: 20px;
+
+  select {
+    position: absolute;
+    visibility: hidden;
+    width: 0;
+    height: 0;
+  }
+
+  .select-control {
+    flex: 1 1 auto;
+    display: flex;
+    flex-direction: row;
+    gap: 12px;
+    cursor: text;
+
+    &:focus {
+      outline: none;
+    }
+
+    .select-control-value {
+      flex: 1 1 auto;
+      font-size: 12px;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+
+      &.select-option-disabled {
+        color: var(--themeDisabledForeground);
+      }
+    }
+
+    .select-icon {
+      flex: 0 0 14px;
+      width: 14px;
+      height: 20px;
+      font-size: 14px;
+    }
+  }
+}
+
+.select-list {
+  position: absolute;
+  display: flex;
+  flex-direction: column;
+  background: var(--themeNeutralLightBackground);
+  box-shadow: var(--v-shadow-neutral-8);
+  border-radius: 4px;
+  padding: 4px;
+  gap: 4px;
+
+  .select-list-options-container {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+    overflow-x: hidden;
+    overflow-y: auto;
+  }
+
+  .select-option {
+    flex: 0 0 32px;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: flex-start;
+    width: 100%;
+    height: 32px;
+    padding: 5px 8px;
+    line-height: 20px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    outline: none;
+    color: var(--themeNeutralForeground);
+    background-color: var(--themeNeutralLightBackground);
+    font-size: 12px;
+    font-weight: var(--fontWeightSemi);
+    border-radius: 4px;
+
+    &:focus {
+      color: var(--themeNeutralForegroundFocus);
+      background-color: var(--themeNeutralLightBackgroundFocus);
+    }
+
+    &:hover {
+      cursor: pointer;
+      background-color: var(--themeNeutralLightBackgroundHover);
+    }
+
+    &.select-option-disabled {
+      color: var(--themeDisabledForeground);
+      pointer-events: none;
+    }
+
+    &.select-option-selected {
+      .select-option-icon {
+        visibility: visible;
+      }
+    }
+
+    &.select-option-missing {
+      color: var(--themeNeutralAltForeground);
+
+      .select-option-icon {
+        visibility: visible;
+      }
+    }
+
+    .select-option-icon {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      width: 20px;
+      height: 20px;
+      line-height: 20px;
+      margin-right: 8px;
+      visibility: hidden;
+      font-size: 14px;
+    }
+
+    .select-option-label {
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+  }
+}

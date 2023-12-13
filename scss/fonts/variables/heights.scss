@@ -1,0 +1,22 @@
+:root {
+  --lineHeight100: 0.875rem;
+  --lineHeight200: 1.000rem;
+  --lineHeight300: 1.250rem;
+  --lineHeight400: 1.750rem;
+  --lineHeight500: 2.000rem;
+  --lineHeight600: 2.250rem;
+  --lineHeight700: 2.500rem;
+  --lineHeight800: 3.250rem;
+  --lineHeight900: 5.750rem;
+
+  --lineHeightSmaller: var(--lineHeight100);
+  --lineHeightSmall: var(--lineHeight200);
+  --lineHeightRegular: var(--lineHeight300);
+  --lineHeightMedium: var(--lineHeight400);
+  --lineHeightLarge: var(--lineHeight500);
+  --lineHeightLarger: var(--lineHeight600);
+
+  --lineHeightDisplayRegular: var(--lineHeight700);
+  --lineHeightDisplayMedium: var(--lineHeight800);
+  --lineHeightDisplayLarge: var(--lineHeight900);
+}

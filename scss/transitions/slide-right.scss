@@ -1,0 +1,12 @@
+.slide-right-enter-active,
+.slide-right-leave-active {
+  transition-property: opacity, transform;
+  transition-timing-function: var(--v-curve-easy-ease);
+  transition-duration: var(--v-duration-fast);
+}
+
+.slide-right-enter-from,
+.slide-right-leave-to {
+  transform: translateX(50%);
+  opacity: 0;
+}

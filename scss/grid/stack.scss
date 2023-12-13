@@ -1,0 +1,40 @@
+.stack {
+  --stack-size: 16px;
+
+  display: flex;
+  justify-content: flex-start;
+  align-items: flex-start;
+  gap: var(--stack-size);
+
+  &.vertical {
+    flex-direction: column;
+  }
+
+  &.horizontal {
+    flex-direction: row;
+  }
+
+  &.smaller {
+    --stack-size: 4px;
+  }
+
+  &.small {
+    --stack-size: 8px;
+  }
+
+  &.regular {
+    --stack-size: 16px;
+  }
+
+  &.medium {
+    --stack-size: 18px;
+  }
+
+  &.large {
+    --stack-size: 20px;
+  }
+
+  &.larger {
+    --stack-size: 32px;
+  }
+}

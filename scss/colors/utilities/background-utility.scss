@@ -1,0 +1,21 @@
+.bg-success {
+  background-color: var(--themeSuccessBackground) !important;
+}
+
+.bg-danger {
+  background-color: var(--themeDangerBackground) !important;
+}
+
+.bg-warning {
+  background-color: var(--themeWarningBackground) !important;
+}
+
+.bg-info {
+  background-color: var(--themeInfoBackground) !important;
+}
+
+@each $color in $colors {
+  .bg-#{$color} {
+    background-color: var(--colorPalette#{$color}Background2) !important;
+  }
+}

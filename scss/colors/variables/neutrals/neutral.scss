@@ -1,0 +1,34 @@
+:root {
+  // Background 3 / Foreground 1
+  --themeNeutralBackground: #f5f5f5;
+  --themeNeutralBackgroundHover: #ebebeb;
+  --themeNeutralBackgroundActive: #d6d6d6;
+  --themeNeutralBackgroundFocus: #e0e0e0;
+
+  --themeNeutralBorder: #d1d1d1;
+  --themeNeutralBorderHover: #c7c7c7;
+  --themeNeutralBorderActive: #b3b3b3;
+  --themeNeutralBorderFocus: #bdbdbd;
+
+  --themeNeutralForeground: #242424;
+  --themeNeutralForegroundHover: #242424;
+  --themeNeutralForegroundActive: #242424;
+  --themeNeutralForegroundFocus: #242424;
+}
+
+:root.dark {
+  --themeNeutralBackground: #1f1f1f;
+  --themeNeutralBackgroundHover: #333333;
+  --themeNeutralBackgroundActive: #141414;
+  --themeNeutralBackgroundFocus: #2e2e2e;
+
+  --themeNeutralBorder: #666666;
+  --themeNeutralBorderHover: #757575;
+  --themeNeutralBorderActive: #6b6b6b;
+  --themeNeutralBorderFocus: #707070;
+
+  --themeNeutralForeground: #ffffff;
+  --themeNeutralForegroundHover: #ffffff;
+  --themeNeutralForegroundActive: #ffffff;
+  --themeNeutralForegroundFocus: #ffffff;
+}

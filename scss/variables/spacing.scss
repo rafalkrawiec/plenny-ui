@@ -1,0 +1,72 @@
+:root {
+  --size0: 0.000rem; // 0px
+  --size2: 0.125rem; // 2px
+  --size4: 0.250rem; // 4px
+  --size6: 0.375rem; // 6px
+  --size8: 0.500rem; // 8px
+  --size10: 0.625rem; // 10px
+  --size12: 0.750rem; // 12px
+  --size14: 0.875rem; // 14px
+  --size16: 1.000rem; // 16px
+  --size18: 1.125rem; // 18px
+  --size20: 1.250rem; // 20px
+  --size24: 1.500rem; // 24px
+  --size28: 1.750rem; // 28px
+  --size32: 2.000rem; // 32px
+  --size40: 2.500rem; // 40px
+  --size42: 2.625rem; // 48px
+  --size48: 3.000rem; // 48px
+  --size64: 4.000rem; // 64px
+  --size68: 4.250rem; // 68px
+  --size128: 8rem; // 128px
+  --size256: 16rem; // 526px
+
+  --sizeSmaller: var(--size20);
+  --sizeSmall: var(--size24);
+  --sizeRegular: var(--size32);
+  --sizeMedium: var(--size42);
+  --sizeLarge: var(--size48);
+  --sizeLarger: var(--size64);
+}
+
+$sizes: 0, 2, 4, 6, 8, 10, 12, 16, 18, 20, 24, 28, 32, 40, 48, 64, 68, 128, 256;
+
+@each $size in $sizes {
+  .mt-#{$size} {
+    margin-top: var(--v-gap-#{$size});
+  }
+
+  .ml-#{$size} {
+    margin-left: var(--v-gap-#{$size});
+  }
+
+  .mr-#{$size} {
+    margin-right: var(--v-gap-#{$size});
+  }
+
+  .mb-#{$size} {
+    margin-bottom: var(--v-gap-#{$size});
+  }
+
+  .mx-#{$size} {
+    margin-left: var(--v-gap-#{$size});
+    margin-right: var(--v-gap-#{$size});
+  }
+
+  .my-#{$size} {
+    margin-top: var(--v-gap-#{$size});
+    margin-bottom: var(--v-gap-#{$size});
+  }
+
+  .gap-#{$size} {
+    gap: var(--v-gap-#{$size});
+  }
+
+  .row-gap-#{$size} {
+    row-gap: var(--v-gap-#{$size});
+  }
+
+  .column-gap-#{$size} {
+    column-gap: var(--v-gap-#{$size});
+  }
+}

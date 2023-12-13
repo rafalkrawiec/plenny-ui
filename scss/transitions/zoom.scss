@@ -1,0 +1,12 @@
+.zoom-enter-active,
+.zoom-leave-active {
+  transition-property: opacity, transform;
+  transition-timing-function: var(--v-curve-easy-ease);
+  transition-duration: var(--v-duration-fast);
+}
+
+.zoom-enter-from,
+.zoom-leave-to {
+  transform: translateY(64px) scale(0.5);
+  opacity: 0;
+}

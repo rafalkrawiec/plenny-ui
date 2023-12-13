@@ -1,0 +1,13 @@
+:root {
+  --themeShadowNeutralColor: rgba(0, 0, 0, 0.14);
+  --themeShadowNeutralColorAlt: rgba(0, 0, 0, 0.12);
+  --themeShadowPrimaryColor: rgba(0, 0, 0, 0.30);
+  --themeShadowPrimaryColorAlt: rgba(0, 0, 0, 0.25);
+}
+
+:root.dark {
+  --themeShadowNeutralColor: rgba(0, 0, 0, 0.25);
+  --themeShadowNeutralColorAlt: rgba(0, 0, 0, 0.275);
+  --themeShadowPrimaryColor: rgba(0, 0, 0, 0.50);
+  --themeShadowPrimaryColorAlt: rgba(0, 0, 0, 0.275);
+}

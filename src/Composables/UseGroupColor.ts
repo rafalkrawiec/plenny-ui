@@ -1,0 +1,86 @@
+const colors = [
+  '--colorPaletteRedBorderActive',
+  '--colorPaletteGreenBorderActive',
+  '--colorPaletteDarkOrangeBorderActive',
+  '--colorPaletteYellowBorderActive',
+  '--colorPaletteBerryBorderActive',
+  '--colorPaletteLightGreenBorderActive',
+  '--colorPaletteMarigoldBorderActive',
+  '--colorPaletteDarkRedBorderActive',
+  '--colorPaletteCranberryBorderActive',
+  '--colorPalettePumpkinBorderActive',
+  '--colorPalettePeachBorderActive',
+  '--colorPaletteGoldBorderActive',
+  '--colorPaletteBrassBorderActive',
+  '--colorPaletteBrownBorderActive',
+  '--colorPaletteForestBorderActive',
+  '--colorPaletteSeafoamBorderActive',
+  '--colorPaletteDarkGreenBorderActive',
+  '--colorPaletteLightTealBorderActive',
+  '--colorPaletteTealBorderActive',
+  '--colorPaletteSteelBorderActive',
+  '--colorPaletteBlueBorderActive',
+  '--colorPaletteRoyalBlueBorderActive',
+  '--colorPaletteCornflowerBorderActive',
+  '--colorPaletteNavyBorderActive',
+  '--colorPaletteLavenderBorderActive',
+  '--colorPalettePurpleBorderActive',
+  '--colorPaletteGrapeBorderActive',
+  '--colorPaletteLilacBorderActive',
+  '--colorPalettePinkBorderActive',
+  '--colorPaletteMagentaBorderActive',
+  '--colorPalettePlumBorderActive',
+  '--colorPaletteBeigeBorderActive',
+  '--colorPaletteMinkBorderActive',
+  '--colorPalettePlatinumBorderActive',
+  '--colorPaletteAnchorBorderActive',
+  '--colorPaletteRedBorderActive',
+  '--colorPaletteGreenBorderActive',
+  '--colorPaletteDarkOrangeBorderActive',
+  '--colorPaletteYellowBorderActive',
+  '--colorPaletteBerryBorderActive',
+  '--colorPaletteLightGreenBorderActive',
+  '--colorPaletteMarigoldBorderActive',
+  '--colorPaletteDarkRedBorderActive',
+  '--colorPaletteCranberryBorderActive',
+  '--colorPalettePumpkinBorderActive',
+  '--colorPalettePeachBorderActive',
+  '--colorPaletteGoldBorderActive',
+  '--colorPaletteBrassBorderActive',
+  '--colorPaletteBrownBorderActive',
+  '--colorPaletteForestBorderActive',
+  '--colorPaletteSeafoamBorderActive',
+  '--colorPaletteDarkGreenBorderActive',
+  '--colorPaletteLightTealBorderActive',
+  '--colorPaletteTealBorderActive',
+  '--colorPaletteSteelBorderActive',
+  '--colorPaletteBlueBorderActive',
+  '--colorPaletteRoyalBlueBorderActive',
+  '--colorPaletteCornflowerBorderActive',
+  '--colorPaletteNavyBorderActive',
+  '--colorPaletteLavenderBorderActive',
+  '--colorPalettePurpleBorderActive',
+  '--colorPaletteGrapeBorderActive',
+  '--colorPaletteLilacBorderActive',
+  '--colorPalettePinkBorderActive',
+  '--colorPaletteMagentaBorderActive',
+  '--colorPalettePlumBorderActive',
+  '--colorPaletteBeigeBorderActive',
+  '--colorPaletteMinkBorderActive',
+  '--colorPalettePlatinumBorderActive',
+  '--colorPaletteAnchorBorderActive',
+];
+
+let current = 0;
+
+export function useGroupColor() {
+  const color = 'var(' + colors[current] + ')';
+
+  current++;
+
+  if (current === colors.length) {
+    current = 0;
+  }
+
+  return color;
+}

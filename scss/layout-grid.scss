@@ -1,0 +1,46 @@
+$breakpoints: (
+    xxs: 64px * 2,
+    xs: 64px * 4,
+    sm: 64px * 8,
+    md: 64px * 12,
+    lg: 64px * 16,
+    xl: 64px * 20,
+    xxl: 64px * 24,
+);
+
+$columns: 12;
+
+.row {
+  flex: 0 1 auto;
+  display: grid;
+  grid-template-columns: repeat($columns, minmax(0, 1fr));
+  gap: 16px;
+  container-type: inline-size;
+
+  & > * {
+    grid-column: span $columns;
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+
+    &.gap-larger {
+      gap: 32px;
+    }
+  }
+
+  @for $i from $columns through 1 {
+    .col-#{$i} {
+      grid-column: span $i;
+    }
+  }
+
+  @each $size, $pixels in $breakpoints {
+    @for $i from $columns through 1 {
+      @container (min-width: #{$pixels}) {
+        .col-#{$size}-#{$i} {
+          grid-column: span $i;
+        }
+      }
+    }
+  }
+}

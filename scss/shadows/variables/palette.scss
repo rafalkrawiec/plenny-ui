@@ -1,0 +1,17 @@
+:root {
+
+  --neutralShadow2: var(--themeShadowNeutralColor) 0px 0px 2px, var(--themeShadowNeutralColorAlt) 0px 1px 2px;
+  --neutralShadow4: var(--themeShadowNeutralColor) 0px 0px 2px, var(--themeShadowNeutralColorAlt) 0px 2px 4px;
+  --neutralShadow8: var(--themeShadowNeutralColor) 0px 0px 2px, var(--themeShadowNeutralColorAlt) 0px 4px 8px;
+  --neutralShadow16: var(--themeShadowNeutralColor) 0px 0px 2px, var(--themeShadowNeutralColorAlt) 0px 8px 16px;
+  --neutralShadow28: var(--themeShadowNeutralColor) 0px 0px 8px, var(--themeShadowNeutralColorAlt) 0px 14px 28px;
+  --neutralShadow64: var(--themeShadowNeutralColor) 0px 0px 8px, var(--themeShadowNeutralColorAlt) 0px 32px 64px;
+
+  --primaryShadow2: var(--themeShadowPrimaryColor) 0px 0px 2px, var(--themeShadowPrimaryColorAlt) 0px 1px 2px;
+  --primaryShadow4: var(--themeShadowPrimaryColor) 0px 0px 2px, var(--themeShadowPrimaryColorAlt) 0px 2px 4px;
+  --primaryShadow8: var(--themeShadowPrimaryColor) 0px 0px 2px, var(--themeShadowPrimaryColorAlt) 0px 4px 8px;
+  --primaryShadow16: var(--themeShadowPrimaryColor) 0px 0px 2px, var(--themeShadowPrimaryColorAlt) 0px 8px 16px;
+  --primaryShadow28: var(--themeShadowPrimaryColor) 0px 0px 8px, var(--themeShadowPrimaryColorAlt) 0px 14px 28px;
+  --primaryShadow64: var(--themeShadowPrimaryColor) 0px 0px 8px, var(--themeShadowPrimaryColorAlt) 0px 32px 64px;
+
+}

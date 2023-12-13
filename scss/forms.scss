@@ -1,0 +1,164 @@
+:root {
+  --v-control-wrapper-color: var(--themeNeutralForeground);
+  --v-control-wrapper-color-focus: var(--themeNeutralForegroundFocus);
+  --v-control-wrapper-color-disabled: var(--themeDisabledForeground);
+
+  --v-control-wrapper-border: var(--themeNeutralBorder);
+  --v-control-wrapper-border-hover: var(--themeNeutralBorderHover);
+  --v-control-wrapper-border-focus: var(--themePrimaryBorderFocus);
+  --v-control-wrapper-border-disabled: var(--themeDisabledBorder);
+  --v-control-wrapper-border-error: var(--colorPaletteRedBorder2);
+  --v-control-wrapper-border-error-focus: var(--colorPaletteRedBorder1);
+
+  --v-control-wrapper-background: var(--themeNeutralLightBackground);
+  --v-control-wrapper-background-focus: var(--themeNeutralLightBackground);
+  --v-control-wrapper-background-disabled: var(--themeDisabledBackground);
+
+  --v-control-wrapper-box-shadow: none;
+  --v-control-wrapper-box-shadow-focus: none;
+
+  --v-control-wrapper-height: 32px;
+  --v-control-wrapper-padding: 5px var(--size12);
+}
+
+.formWrapper {
+  flex: 1 1 100%;
+
+  .grid {
+    margin-top: var(--size24);
+    margin-bottom: var(--size24);
+  }
+}
+
+.controlWrapper {
+  flex: 0 0 auto;
+  display: flex;
+  flex-direction: column;
+  gap: var(--size4);
+
+  &.required {
+    .label::after {
+      content: '*';
+      color: var(--colorPaletteRedForeground1);
+      margin-left: var(--size4);
+    }
+  }
+
+  &.disabled {
+    .control {
+      background: var(--v-control-wrapper-background-disabled);
+      border-color: var(--v-control-wrapper-border-disabled);
+
+      input, select {
+        color: var(--v-control-wrapper-color-disabled);
+      }
+    }
+  }
+
+  &.hasErrors {
+    .control {
+      border-color: var(--v-control-wrapper-border-error);
+
+      &:focus-within {
+        border-color: var(--v-control-wrapper-border-error-focus);
+      }
+
+      input, select {
+        color: var(--themeDangerForeground)
+      }
+    }
+  }
+
+  .control {
+    background: var(--v-control-wrapper-background);
+    border: 1px solid var(--v-control-wrapper-border);
+    border-radius: 4px;
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+    font-size: var(--fontSize200);
+    gap: var(--size12);
+    height: var(--v-control-wrapper-height);
+    padding: var(--v-control-wrapper-padding);
+    font-family: var(--fontMono);
+    color: var(--v-control-wrapper-color);
+    box-shadow: var(--v-control-wrapper-box-shadow);
+
+    &:focus-within {
+      box-shadow: var(--v-control-wrapper-box-shadow-focus);
+      background: var(--v-control-wrapper-background-focus);
+      border-color: var(--v-control-wrapper-border-focus);
+      color: var(--v-control-wrapper-color-focus);
+
+      input, select, textarea {
+        color: var(--v-control-wrapper-color-focus);
+      }
+    }
+
+    input, select, textarea {
+      background: transparent;
+      font-family: var(--fontSans);
+      font-weight: var(--fontWeightRegular);
+      font-size: var(--fontSize200);
+      line-height: 20px;
+      width: 100%;
+      border: none;
+      outline: none;
+      color: var(--v-control-wrapper-color);
+
+      &:-webkit-autofill {
+        -webkit-box-shadow: 0 0 0 1000px var(--v-control-wrapper-background) inset !important;
+        -webkit-text-fill-color: var(--v-control-wrapper-color) !important;
+      }
+    }
+
+    input::placeholder {
+      font-family: var(--fontSans);
+      color: var(--themeDisabledForeground);
+      font-weight: var(--fontWeightRegular);
+    }
+
+    input[type="number"] {
+      font-family: var(--fontMono);
+      text-align: right;
+      -moz-appearance: textfield;
+
+      &::-webkit-outer-spin-button,
+      &::-webkit-inner-spin-button {
+        -webkit-appearance: none;
+        margin: 0;
+      }
+    }
+
+    .icon, svg, img {
+      flex: 0 0 20px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 20px;
+      width: 20px;
+      height: 20px;
+      line-height: 20px;
+    }
+
+    .error {
+      color: var(--themeDangerForeground);
+    }
+  }
+
+  .label {
+    display: block;
+    color: var(--themeNeutralAltForeground);
+    font-size: var(--fontSize200);
+    font-weight: var(--fontWeightRegular);
+    line-height: var(--fontSize400);
+  }
+
+  .beforeControl, .afterControl {
+    color: var(--themeNeutralAltForeground);
+    font-size: var(--fontSize100);
+    font-weight: var(--fontWeightRegular);
+    margin-top: var(--size8);
+    margin-bottom: var(--size8);
+  }
+}

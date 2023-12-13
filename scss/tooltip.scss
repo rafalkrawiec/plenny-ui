@@ -1,0 +1,22 @@
+.tooltip {
+  width: max-content;
+  position: absolute;
+  top: 0;
+  left: 0;
+  background: var(--themeBlack);
+  color: var(--themeWhite);
+  font-weight: var(--fontWeightSemi);
+  padding: 5px var(--size12);
+  border-radius: 4px;
+  font-size: var(--fontSize200);
+  z-index: 400000;
+
+  .arrow {
+    position: absolute;
+    width: 10px;
+    height: 10px;
+    background: var(--themeBlack);
+    z-index: -1;
+    pointer-events: none;
+  }
+}

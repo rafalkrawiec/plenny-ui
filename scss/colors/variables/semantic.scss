@@ -1,0 +1,26 @@
+@import "neutrals/neutral";
+@import "neutrals/neutral-alt";
+@import "neutrals/neutral-darken";
+@import "neutrals/neutral-disabled";
+@import "neutrals/neutral-light";
+@import "others/defaults";
+@import "others/shadows";
+@import "others/transparent";
+@import "primary/blue";
+
+:root {
+  --themeDangerForeground: var(--colorPaletteRedForeground3);
+  --themeDangerBackground: var(--colorPaletteRedBackground3);
+
+  --themeSevereForeground: var(--colorPaletteDarkOrangeForeground3);
+  --themeSevereBackground: var(--colorPaletteDarkOrangeBackground3);
+
+  --themeWarningForeground: var(--colorPaletteYellowForeground3);
+  --themeWarningBackground: var(--colorPaletteYellowBackground3);
+
+  --themeSuccessForeground: var(--colorPaletteGreenForeground3);
+  --themeSuccessBackground: var(--colorPaletteGreenBackground3);
+
+  --themeInfoForeground: var(--colorPaletteBlueForeground2);
+  --themeInfoBackground: var(--colorPaletteBlueBackground2);
+}

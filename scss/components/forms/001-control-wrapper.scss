@@ -1,0 +1,152 @@
+:root {
+  --v-control-wrapper-color: var(--themeNeutralForeground);
+  --v-control-wrapper-color-focus: var(--themeNeutralForegroundFocus);
+  --v-control-wrapper-color-disabled: var(--themeDisabledForeground);
+
+  --v-control-wrapper-border: var(--themeNeutralBorder);
+  --v-control-wrapper-border-hover: var(--themeNeutralBorderHover);
+  --v-control-wrapper-border-focus: var(--themePrimaryBorderFocus);
+  --v-control-wrapper-border-disabled: var(--themeDisabledBorder);
+  --v-control-wrapper-border-error: var(--colorPaletteRedBorder2);
+  --v-control-wrapper-border-error-focus: var(--colorPaletteRedBorder1);
+
+  --v-control-wrapper-background: var(--themeNeutralLightBackground);
+  --v-control-wrapper-background-focus: var(--themeNeutralLightBackground);
+  --v-control-wrapper-background-disabled: var(--themeDisabledBackground);
+
+  --v-control-wrapper-box-shadow: var(--themeShadowNeutralColorAlt) 0px 1px 1px;
+  --v-control-wrapper-box-shadow-focus: var(--themeShadowNeutralPrimaryAlt) 0px 1px 2px;
+
+  --v-control-wrapper-height: 32px;
+  --v-control-wrapper-padding: 5px 12px;
+}
+
+.control-wrapper {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+
+  &.required {
+    .label::after {
+      content: '*';
+      color: var(--colorPaletteRedForeground1);
+      margin-left: 4px;
+    }
+  }
+
+  &.readonly {
+    .control {
+      color: var(--v-control-wrapper-color-disabled);
+    }
+  }
+
+  &.disabled {
+    pointer-events: none;
+
+    .control {
+      background: var(--v-control-wrapper-background-disabled);
+      border-color: var(--v-control-wrapper-border-disabled);
+      color: var(--v-control-wrapper-color-disabled);
+
+      input, select {
+        color: var(--v-control-wrapper-color-disabled);
+      }
+    }
+  }
+
+  &.has-errors {
+    .control {
+      border-color: var(--v-control-wrapper-border-error);
+
+      &:focus-within {
+        border-color: var(--v-control-wrapper-border-error-focus);
+      }
+
+      input, select {
+        color: var(--themeDangerForeground)
+      }
+    }
+  }
+
+  .control {
+    background: var(--v-control-wrapper-background);
+    border: 1px solid var(--v-control-wrapper-border);
+    border-radius: 4px;
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+    font-size: 12px;
+    gap: 12px;
+    height: var(--v-control-wrapper-height);
+    padding: var(--v-control-wrapper-padding);
+    font-family: var(--fontSans);
+    color: var(--v-control-wrapper-color);
+    box-shadow: var(--v-control-wrapper-box-shadow);
+
+    &:focus-within {
+      box-shadow: var(--v-control-wrapper-box-shadow-focus);
+      background: var(--v-control-wrapper-background-focus);
+      border-color: var(--v-control-wrapper-border-focus);
+      color: var(--v-control-wrapper-color-focus);
+
+      input, select, textarea {
+        color: var(--v-control-wrapper-color-focus);
+      }
+    }
+
+    input, select, textarea {
+      background: transparent;
+      font-family: var(--fontSans);
+      font-weight: var(--fontWeightRegular);
+      font-size: 12px;
+      line-height: 20px;
+      width: 100%;
+      border: none;
+      outline: none;
+      color: var(--v-control-wrapper-color);
+
+      &:-webkit-autofill {
+        -webkit-box-shadow: 0 0 0 1000px var(--v-control-wrapper-background) inset !important;
+        -webkit-text-fill-color: var(--v-control-wrapper-color) !important;
+      }
+
+      &:read-only, &:disabled {
+        color: var(--themeDisabledForeground);
+      }
+    }
+
+    input::placeholder {
+      font-family: var(--fontSans);
+      color: var(--themeDisabledForeground);
+      font-weight: var(--fontWeightRegular);
+    }
+
+    input[type="number"] {
+      font-family: var(--fontMono);
+      text-align: right;
+      -moz-appearance: textfield;
+
+      &::-webkit-outer-spin-button,
+      &::-webkit-inner-spin-button {
+        -webkit-appearance: none;
+        margin: 0;
+      }
+    }
+  }
+
+  .label {
+    display: block;
+    color: var(--themeNeutralForeground);
+    font-size: 12px;
+    font-weight: var(--fontWeightRegular);
+    line-height: 20px;
+  }
+
+  .control-wrapper-before-control,
+  .control-wrapper-after-control {
+    color: var(--themeNeutralAltForeground);
+    font-weight: var(--fontWeightRegular);
+    font-size: 10px;
+  }
+}

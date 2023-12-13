@@ -1,0 +1,25 @@
+.color-success {
+  color: var(--themeSuccessForeground) !important;
+}
+
+.color-danger {
+  color: var(--themeDangerForeground) !important;
+}
+
+.color-warning {
+  color: var(--themeWarningForeground) !important;
+}
+
+.color-info {
+  color: var(--themeInfoForeground) !important;
+}
+
+.color-disabled {
+  color: var(--themeDisabledForeground) !important;
+}
+
+@each $color in $colors {
+  .color-#{$color} {
+    color: var(--colorPalette#{$color}Foreground2) !important;
+  }
+}

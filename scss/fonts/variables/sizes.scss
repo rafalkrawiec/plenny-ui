@@ -1,0 +1,22 @@
+:root {
+  --fontSize100: 0.625rem; // 10px
+  --fontSize200: 0.750rem; // 12px
+  --fontSize300: 1.000rem; // 16px
+  --fontSize400: 1.250rem; // 20px
+  --fontSize500: 1.500rem; // 24px
+  --fontSize600: 1.750rem; // 28px
+  --fontSize700: 2.000rem; // 32px
+  --fontSize800: 2.500rem; // 40px
+  --fontSize900: 4.250rem; // 68px
+
+  --fontSizeSmaller: var(--fontSize100);
+  --fontSizeSmall: var(--fontSize200);
+  --fontSizeRegular: var(--fontSize300);
+  --fontSizeMedium: var(--fontSize400);
+  --fontSizeLarge: var(--fontSize500);
+  --fontSizeLarger: var(--fontSize600);
+
+  --fontSizeDisplayRegular: var(--fontSize700);
+  --fontSizeDisplayMedium: var(--fontSize800);
+  --fontSizeDisplayLarge: var(--fontSize900);
+}

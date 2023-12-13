@@ -1,0 +1,13 @@
+.slide-up-enter-active,
+.slide-up-leave-active {
+  transition-property: opacity, transform;
+  transition-timing-function: var(--v-curve-easy-ease);
+  transition-duration: var(--v-duration-ultra-fast);
+  transition-delay: var(--v-duration-ultra-fast);
+}
+
+.slide-up-enter-from,
+.slide-up-leave-to {
+  transform: translateY(12px);
+  opacity: 0;
+}

@@ -1,0 +1,50 @@
+@import "colors";
+@import "shadows";
+@import "fonts";
+@import "variables";
+
+@import "reset";
+@import "grid";
+@import "flex";
+@import "forms";
+//@import "layout-grid";
+@import "icons";
+@import "typography";
+@import "tooltip";
+@import "loader";
+@import "components";
+@import "layout";
+@import "utils";
+@import "transitions";
+
+.navigation-enter-active,
+.navigation-leave-active {
+  transition-property: transform;
+  transition-timing-function: var(--v-curve-easy-ease);
+  transition-duration: var(--v-duration-fast);
+}
+
+.navigation-enter-from,
+.navigation-leave-to {
+  transform: translateX(-360px);
+}
+
+.exception-handler-window {
+  position: fixed;
+  display: flex;
+  width: 100%;
+  height: 100vh;
+  top: 0;
+  left: 0;
+  padding: 16px;
+  background: rgb(0 0 0 / .5);
+  z-index: 1000000;
+
+  iframe {
+    display: flex;
+    width: 100%;
+    height: 100%;
+    border-radius: 16px;
+    background: #fff;
+  }
+}
