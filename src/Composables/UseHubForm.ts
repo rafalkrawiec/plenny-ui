@@ -8,7 +8,7 @@ import { useRoute } from 'vue-router';
 import type { AxiosRequestConfig, AxiosResponse } from 'axios';
 import type { ResourceLoader, ResourceOptions } from '@plenny/connect';
 import { useApiClient, buildResourceRequest, dependenciesFromEndpoint } from '@plenny/connect';
-import { lookUpTrue } from '@plenny/support';
+import { lookup } from '@plenny/support';
 
 export type FormResource = Record<string, any> | Record<string, any>[];
 export type Form<T extends FormResource = any> = ReturnType<typeof useHubForm<T>>;
@@ -119,8 +119,8 @@ export function useHubForm<T extends FormResource = any>(options: FormOptions<T>
   const dirty = ref(false);
   const touched = ref(false);
 
-  watch(fieldsTouched, (value) => touched.value = lookUpTrue(value), { deep: true });
-  watch(fieldsDirty, (value) => dirty.value = lookUpTrue(value), { deep: true });
+  watch(fieldsTouched, (value) => touched.value = lookup(value), { deep: true });
+  watch(fieldsDirty, (value) => dirty.value = lookup(value), { deep: true });
 
   async function submitSingleResource({ resource, index, keyBy = 'id' }: { resource: T, index: number, keyBy?: string }) {
     let endpoint = toValue(options.endpoint);
