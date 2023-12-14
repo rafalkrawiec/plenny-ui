@@ -57,9 +57,8 @@ export function MoneyFactory({ currency, currencyKey, decimals, decimalsKey, ...
         let code = currencyCode(data);
         let fractions = fractionDigits(data);
         let formatter = new Intl.NumberFormat(undefined, currencyFormatOptions(code, fractions));
-        let rounded = value.round(fractions);
 
-        return formatter.format(rounded);
+        return formatter.format(value);
       },
       format: ({ value, label }) => {
         return h('data', { class: 'numeric', value }, label);

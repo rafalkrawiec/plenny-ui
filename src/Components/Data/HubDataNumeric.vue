@@ -19,10 +19,6 @@
       return null;
     }
 
-    if (format !== 'percent') {
-      parsed = parsed.round(decimals);
-    }
-
     const formatter = new Intl.NumberFormat(undefined, {
       style: currency ? 'currency' : format,
       minimumFractionDigits: decimals,

@@ -14,7 +14,7 @@ export function NumberFactory({ decimals = 2, style = 'decimal', ...options }: N
     return {
       minimumFractionDigits: decimals,
       maximumFractionDigits: decimals,
-      style
+      style,
     };
   };
 
@@ -35,9 +35,8 @@ export function NumberFactory({ decimals = 2, style = 'decimal', ...options }: N
       },
       label: ({ value }) => {
         let formatter = new Intl.NumberFormat(undefined, numberFormatOptions());
-        let rounded = style === 'percent' ? value : value.round(decimals);
 
-        return formatter.format(rounded);
+        return formatter.format(value);
       },
       format: ({ value, label }) => {
         return h('data', { class: 'numeric', value }, label);
