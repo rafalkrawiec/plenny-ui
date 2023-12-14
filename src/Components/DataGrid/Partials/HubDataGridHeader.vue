@@ -74,13 +74,13 @@
   <div ref="headerEl" class="cell cell-header" :class="{ isMoving }">
     <div class="inner" @click="sort">
       <div class="name">
-        <component :is="column.header.render({ column })"/>
+        <component :is="column.header.render({ column })" />
       </div>
       <div v-if="sortable && column.sort.enabled && grid!.sort.value[column.key]?.direction" class="controls">
-        <span class="icon" :class="grid!.sort.value[column.key]?.direction === 'asc' ? 'text-sort-ascending-regular' : 'text-sort-descending-regular'"/>
+        <span class="icon" :class="grid!.sort.value[column.key]?.direction === 'asc' ? 'text-sort-ascending-regular' : 'text-sort-descending-regular'" />
       </div>
     </div>
-    <div v-if="column.resize.enabled" class="resize" @mousedown="onMouseDown"/>
+    <div v-if="column.resize.enabled" class="resize" @mousedown="onMouseDown" />
   </div>
 </template>
 <style lang="scss">
@@ -154,7 +154,7 @@
     }
   }
 
-  :global(.is-col-resizing) {
+  .is-col-resizing {
     cursor: col-resize !important;
   }
 </style>
