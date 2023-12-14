@@ -10,7 +10,7 @@ import type { ResourceLoader, ResourceOptions } from '@plenny/connect';
 import { useApiClient, buildResourceRequest, dependenciesFromEndpoint } from '@plenny/connect';
 import { lookup } from '@plenny/support';
 
-export type FormResource = Record<string, any> | Record<string, any>[];
+export type FormResource = Record<string, any> | Array<Record<string, any>>;
 export type Form<T extends FormResource = any> = ReturnType<typeof useHubForm<T>>;
 export type FormContext<T extends FormResource = any> = Form<T>['context'];
 
@@ -50,8 +50,8 @@ export function useHubForm<T extends FormResource = any>(options: FormOptions<T>
    * state which we do not expose. Proper API methods are exposed instead.
    */
   const fieldsErrors = ref({});
-  const fieldsDirty = ref({});
-  const fieldsTouched = ref({});
+  const fieldsDirty = ref({} as Record<string, boolean>);
+  const fieldsTouched = ref({} as Record<string, boolean>);
 
   function setValidationErrors(errors: Object, config?: FormSubmitConfig<T>) {
     let index = config?.index;
@@ -81,11 +81,11 @@ export function useHubForm<T extends FormResource = any>(options: FormOptions<T>
     fieldsTouched.value = {};
   });
 
-  function getDefault(name) {
+  function getDefault(name: string) {
     return get(original.value, name);
   }
 
-  function setDefault(name, value) {
+  function setDefault(name: string, value: any) {
     set(original.value, name, value);
     set(data.value, name, value);
 
@@ -93,11 +93,11 @@ export function useHubForm<T extends FormResource = any>(options: FormOptions<T>
     fieldsDirty.value[name] = false;
   }
 
-  function getValue(name, defaultValue = null) {
+  function getValue(name: string, defaultValue: any = null) {
     return get(data.value, name, defaultValue);
   }
 
-  function setValue(name, value) {
+  function setValue(name: string, value: any) {
     set(data.value, name, value);
     fieldsTouched.value[name] = true;
     fieldsDirty.value[name] = !isEqual(getDefault(name), value);
@@ -129,8 +129,8 @@ export function useHubForm<T extends FormResource = any>(options: FormOptions<T>
       return;
     }
 
-    let primaryKeyName = keyBy;
-    let primaryKey = resource[primaryKeyName];
+    let primaryKeyName = String(keyBy);
+    let primaryKey = resource[keyBy as keyof T];
     let params = {};
 
     endpoint = `${endpoint}/{${primaryKeyName}}`;
@@ -160,6 +160,8 @@ export function useHubForm<T extends FormResource = any>(options: FormOptions<T>
         } else {
           if (config?.index != undefined) {
             resource.value[config.index] = response.data;
+            // @ts-expect-error
+            resource.value = [...resource.value];
           }
         }
       } else {
@@ -276,7 +278,7 @@ export function useHubForm<T extends FormResource = any>(options: FormOptions<T>
       endpoint,
       method,
       bindings: { ...route.params, ...config?.params, ...options.bindings },
-      data: config?.data || data,
+      data: (config?.data || data) as T,
     });
 
     return await client.request<T>(args);
@@ -305,25 +307,33 @@ function createInitial<T extends FormResource = any>({ loader, initial }: FormOp
   return transform(initial || {});
 }
 
-function transform(data) {
+function transform(data: FormResource | null | undefined): FormResource {
+  if (!data) {
+    return {};
+  }
+
   if (data instanceof Array) {
     return data.map((record) => transform(record));
-  }
+  } else {
+    if (data.data) {
+      return transform(data.data);
+    }
 
-  if (data.data) {
-    data = data.data;
-  }
-
-  if (data.translations) {
-    data.translations.forEach((translation) => {
-      data[translation.locale] = translation;
-    });
+    if (data.translations) {
+      data.translations.forEach((translation: Record<string, any>) => {
+        data[translation.locale] = translation;
+      });
+    }
   }
 
   return data;
 }
 
-function transformMeta(data) {
+function transformMeta(data: FormResource | null | undefined): Record<string, any> | undefined {
+  if (!data) {
+    return undefined;
+  }
+
   if (data instanceof Array) {
     return undefined;
   }
