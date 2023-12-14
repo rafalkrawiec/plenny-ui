@@ -1,5 +1,15 @@
-.DS_Store
+.fleet
 .idea
+.vscode
+.DS_Store
 dist
 node_modules
+
+npm-debug.log
+yarn-error.log
+
 bun.lockb
+package-lock.json
+composer.lock
+yarn.lock
+pnpm-lock.yaml

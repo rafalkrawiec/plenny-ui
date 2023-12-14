@@ -1,4 +1,9 @@
-export * from './App/Hub';
+import { type Plugin } from 'vue';
+import { registerComponents } from './Components';
+import { registerDirectives } from './Directives';
+
+import '../scss/main.scss';
+
 export * from './Components';
 
 export * from './Components/DataGrid/Services/ColumnFactory/Factory';
@@ -32,3 +37,10 @@ export * from './Utils/ColorPalette';
 export * from './Utils/ReversedSide';
 
 export * from './extensions';
+
+export const UiPlugin: Plugin = {
+  install(app) {
+    registerComponents(app);
+    registerDirectives(app);
+  },
+};
