@@ -1,7 +1,7 @@
 <script setup lang="ts">
+  import { inject } from 'vue';
   import { useControl, Control } from '../../../Composables/UseControl';
-  import { ref } from 'vue';
-  import ClassicEditor from '@ckeditor/ckeditor5-build-classic';
+  import { EditorInstanceKey } from '../../../DependencyInjection/Ui';
 
   defineOptions({
     inheritAttrs: false,
@@ -12,18 +12,22 @@
   });
 
   const emit = defineEmits(['update:modelValue']);
-  const editor = ref(ClassicEditor);
 
-  const { control, input, model } = useControl({ props, emit });
+  /** @ts-expect-error */
+  const { editor, config } = inject(EditorInstanceKey, () => {
+    throw new Error('Missing editor instance in app config! Make sure you have provided it in plugin options.');
+  });
+
+  const { control, model } = useControl({ props, emit });
 </script>
 <template>
   <HubFormControl class="control-textarea" v-bind="control">
     <template v-for="(_, slot) in $slots" v-slot:[slot]="props">
-      <slot :name="slot" v-bind="props"/>
+      <slot :name="slot" v-bind="props" />
     </template>
     <template v-slot:controlElement>
       <div class="editor-wrapper">
-        <ckeditor :editor="editor" v-model="model"/>
+        <ckeditor :editor="editor" :config="config" v-model="model" />
       </div>
     </template>
   </HubFormControl>

@@ -1,11 +1,11 @@
-import { type Plugin } from 'vue';
+import type { Plugin } from 'vue';
 import { registerComponents } from './Components';
 import { registerDirectives } from './Directives';
+import { EditorInstanceKey, type EditorInstance } from './DependencyInjection/Ui';
 
 import '../scss/main.scss';
 
 export * from './Components';
-
 export * from './Components/DataGrid/Services/ColumnFactory/Factory';
 
 export * from './Composables/UseCardsDraggable';
@@ -38,8 +38,14 @@ export * from './Utils/ReversedSide';
 
 export * from './extensions';
 
-export const UiPlugin: Plugin = {
-  install(app) {
+type Options = {
+  editor: EditorInstance;
+}
+
+export const UiPlugin: Plugin<Options> = {
+  install(app, options) {
+    app.provide(EditorInstanceKey, options.editor);
+
     registerComponents(app);
     registerDirectives(app);
   },
