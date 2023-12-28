@@ -18,7 +18,7 @@
   import { useDataGridConfiguration } from '../../Store/DataGridConfigurationStore';
 
   const emit = defineEmits<{
-    (e: 'update:selected', selected: number[]): void
+    (e: 'update:selected', selected: number[] | number | undefined): void
   }>();
 
   const form = inject(FormContextKey, null);
@@ -34,7 +34,8 @@
     editable: { type: Boolean as PropType<boolean>, required: false, default: true },
     autoSubmit: { type: Boolean as PropType<boolean>, required: false, default: true },
     selectable: { type: Boolean as PropType<boolean>, required: false, default: true },
-    selected: { type: Array as PropType<number[]>, required: false },
+    single: { type: Boolean as PropType<boolean>, required: false, default: false },
+    selected: { type: [Array, Number] as PropType<number[] | number>, required: false },
     sortable: { type: Boolean as PropType<boolean>, required: false, default: true },
     exportable: { type: Boolean as PropType<boolean>, required: false, default: true },
     configurable: { type: Boolean as PropType<boolean>, required: false, default: true },
@@ -94,8 +95,8 @@
   });
 
   const selected = computed({
-    get: () => props.selected || [],
-    set: (value) => emit('update:selected', value || []),
+    get: () => props.selected || (props.single ? undefined : []),
+    set: (value) => emit('update:selected', value || (props.single ? undefined : [])),
   });
 
   const selectable = computed(() => {
@@ -103,14 +104,16 @@
   });
 
   function actionToggleAll() {
-    let items = new Set(paginator.elements.value.map(item => item[props.keyBy]));
+    if (!props.single && selected.value instanceof Array) {
+      let items = new Set(paginator.elements.value.map(item => item[props.keyBy]));
 
-    if (allSelected.value) {
-      selected.value = [...selected.value?.filter(key => !items.has(key))];
-      return;
+      if (allSelected.value) {
+        selected.value = [...selected.value?.filter(key => !items.has(key))];
+        return;
+      }
+
+      selected.value = [...new Set([...selected.value, ...items])];
     }
-
-    selected.value = [...new Set([...selected.value, ...items])];
   }
 
 
@@ -119,8 +122,9 @@
       return false;
     }
 
-    if (selected.value) {
+    if (selected.value instanceof Array) {
       return paginator.elements.value.every(element => {
+        // @ts-expect-error
         return selected.value.includes(element[props.keyBy]);
       });
     }
@@ -129,8 +133,11 @@
   });
 
   const someSelected = computed(() => {
-    if (selected.value) {
-      return paginator.elements.value.some(element => selected.value.includes(element[props.keyBy]));
+    if (selected.value instanceof Array) {
+      return paginator.elements.value.some(element => {
+        // @ts-expect-error
+        return selected.value.includes(element[props.keyBy]);
+      });
     }
 
     return false;
@@ -163,10 +170,12 @@
 
 
   function actionSelectAll() {
-    if (selected.value.length <= 0) {
-      selected.value = [...new Set(items.value.map(item => item[props.keyBy]))];
-    } else {
-      selected.value = [];
+    if (!props.single && selected.value instanceof Array) {
+      if (selected.value.length <= 0) {
+        selected.value = [...new Set(items.value.map(item => item[props.keyBy]))];
+      } else {
+        selected.value = [];
+      }
     }
   }
 
@@ -188,19 +197,20 @@
 
   const { handleMoveKeyEvent, updatePointer } = useGridNavigation(body, grid);
 
-  function updateRow(item) {
+  function updateRow(item: any) {
     if (form) {
       if (!props.editable || !props.autoSubmit) {
         return;
       }
 
       let keyBy = props.keyBy;
-      let index = form.data.value.findIndex(r => r[keyBy] === item[keyBy]);
+      let index = form.data.value.findIndex((r: any) => r[keyBy] === item[keyBy]);
 
       if (index < 0) {
         return;
       }
 
+      // @ts-expect-error
       let resource = form.data.value[index];
 
       form.submitSingleResource({ resource, index, keyBy });
@@ -258,7 +268,7 @@
             </HubButtonGroup>
           </div>
         </HubPopover>
-        <HubButton v-if="selectable" before="checkbox-checked-regular" transparent square @click="actionSelectAll">
+        <HubButton v-if="selectable && !single && selected instanceof Array" before="checkbox-checked-regular" transparent square @click="actionSelectAll">
           <template v-if="selected.length <= 0">{{ $t('Zaznacz wszystkie') }}</template>
           <template v-else>{{ $t('Odznacz wszystkie') }}</template>
         </HubButton>
@@ -274,7 +284,7 @@
 
             <div v-if="selectable" class="cell cell-header cell-selectable">
               <div class="inner">
-                <label class="control-checkbox">
+                <label v-if="!single && selected instanceof Array" class="control-checkbox">
                   <input ref="htmlSelectAllCheckbox" type="checkbox" :checked="allSelected" @click="actionToggleAll" />
                   <span class="indicator">
                     <span class="icon checkmark-filled" />
@@ -299,8 +309,8 @@
 
                 <div v-if="selectable" class="cell cell-selectable">
                   <data :value="item[keyBy]">
-                    <label class="control-checkbox">
-                      <input type="checkbox" v-model="selected" :value="item[keyBy]" />
+                    <label :class="single ? 'control-radio' : 'control-checkbox'">
+                      <input :type="single ? 'radio' : 'checkbox'" v-model="selected" :value="item[keyBy]" />
                       <span class="indicator">
                         <span class="icon checkmark-filled" />
                         <span class="icon subtract-filled" />

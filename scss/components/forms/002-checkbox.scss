@@ -94,4 +94,8 @@
 
 .control-radio .indicator {
   border-radius: 10px;
+
+  .subtract-filled {
+    display: none !important;
+  }
 }

@@ -14,5 +14,5 @@ export type DataGrid = {
   sizing: Ref<SizeConfig>;
   visible: Ref<VisibilityConfig>;
   sort: Ref<SortConfig>;
-  selected: WritableComputedRef<number[]>;
+  selected: WritableComputedRef<number[] | number | undefined>;
 }
