@@ -69,7 +69,7 @@
       <slot :name="slot" v-bind="props" />
     </template>
     <template v-slot:control>
-      <input ref="htmlControl" v-bind="{ ...input, ...$attrs, type, value, onFocus, onBlur, onChange }" />
+      <input ref="htmlControl" class="numeric" v-bind="{ ...input, ...$attrs, type, value, onFocus, onBlur, onChange }" />
     </template>
   </HubFormControl>
 </template>
