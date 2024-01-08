@@ -28,6 +28,7 @@
     keyBy: { type: String as PropType<string>, required: false, default: 'id' },
     perPage: { type: Number as PropType<number>, required: false, default: 15 },
     columns: { type: Array as PropType<Array<Column>>, required: true },
+    meta: { type: Object as PropType<any>, required: false, default: null },
     loading: { type: Boolean as PropType<boolean>, required: false, default: false },
     error: { type: Object as PropType<any>, required: false },
     resource: { type: Array as PropType<Array<Record<string, any>>>, required: false, default: [] },
@@ -303,7 +304,7 @@
           </div>
         </div>
         <div ref="body" class="body" @keydown="handleMoveKeyEvent">
-          <HubDataLoader v-bind="{ loading, error }">
+          <HubDataLoader v-bind="{ meta, loading, error }">
             <template v-for="(item, y) in paginator.elements.value" :key="item[keyBy]">
               <div class="row">
 
