@@ -55,6 +55,7 @@ import NewButton from './Button/NewButton.vue';
 import CancelButton from './Button/CancelButton.vue';
 import SaveButton from './Button/SaveButton.vue';
 import BatchDeleteButton from './Button/BatchDeleteButton.vue';
+import HubFormRadioList from './Form/Radio/HubFormRadioList.vue';
 import type { App } from 'vue';
 
 export function registerComponents(app: App) {
@@ -94,6 +95,7 @@ export function registerComponents(app: App) {
   app.component('HubFormInput', HubFormInput);
   app.component('HubFormMoney', HubFormMoney);
   app.component('HubFormRadio', HubFormRadio);
+  app.component('HubFormRadioList', HubFormRadioList);
   app.component('HubFormRadioTree', HubFormRadioTree);
   app.component('HubFormRadioTreeItem', HubFormRadioTreeItem);
   app.component('HubFormActivity', HubFormActivity);
@@ -141,6 +143,7 @@ export {
   HubFormSelect,
   HubFormActivity,
   HubFormRadio,
+  HubFormRadioList,
   HubFormRadioTree,
   HubFormRadioTreeItem,
   HubFormDate,

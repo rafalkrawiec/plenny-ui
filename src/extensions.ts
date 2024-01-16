@@ -55,6 +55,7 @@ import NewButton from './Components/Button/NewButton.vue';
 import CancelButton from './Components/Button/CancelButton.vue';
 import SaveButton from './Components/Button/SaveButton.vue';
 import BatchDeleteButton from './Components/Button/BatchDeleteButton.vue';
+import HubFormRadioList from './Components/Form/Radio/HubFormRadioList.vue';
 
 declare module '@vue/runtime-core' {
   export interface GlobalComponents {
@@ -94,6 +95,7 @@ declare module '@vue/runtime-core' {
     HubFormInput: typeof HubFormInput,
     HubFormMoney: typeof HubFormMoney,
     HubFormRadio: typeof HubFormRadio,
+    HubFormRadioList: typeof HubFormRadioList,
     HubFormRadioTree: typeof HubFormRadioTree,
     HubFormRadioTreeItem: typeof HubFormRadioTreeItem,
     HubFormActivity: typeof HubFormActivity,
