@@ -26,8 +26,6 @@
   .form-wrapper {
     display: flex;
     flex-direction: column;
-    //margin-top: 32px;
-    //margin-bottom: 32px;
-    gap: 64px;
+    gap: 32px;
   }
 </style>
