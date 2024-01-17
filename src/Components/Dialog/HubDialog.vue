@@ -60,13 +60,11 @@
   defineExpose({ show, hide });
 </script>
 <template>
-  <Teleport to="body">
-    <Transition name="fade">
-      <div v-if="open" class="dialog-backdrop" />
-    </Transition>
-    <Transition name="zoom">
-      <div v-if="open" ref="htmlDialog" class="dialog" @keydown.esc="hide" tabindex="-1">
-        <div class="dialog-viewport">
+  <teleport to="body">
+    <transition name="dialog">
+      <div v-if="open" class="dialog">
+        <div class="dialog-backdrop" />
+        <div ref="htmlDialog" class="dialog-viewport" tabindex="-1" @keydown.esc="hide">
           <div class="dialog-viewport-wrapper">
             <div class="dialog-container" :class="{ ...size }">
               <div class="dialog-content">
@@ -76,10 +74,14 @@
           </div>
         </div>
       </div>
-    </Transition>
-  </Teleport>
+    </transition>
+  </teleport>
 </template>
 <style scoped lang="scss">
+  .dialog {
+    display: contents;
+  }
+
   .dialog-backdrop {
     position: fixed;
     top: 0;
@@ -90,19 +92,13 @@
     z-index: 1000;
   }
 
-  .dialog {
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100dvh;
-    outline: none;
-    z-index: 1000;
-  }
-
   .dialog-viewport {
     display: flex;
     flex-direction: column;
+    position: fixed;
+    z-index: 1000;
+    top: 0;
+    left: 0;
     width: 100%;
     height: 100dvh;
     overflow-y: auto;
@@ -166,6 +162,35 @@
         border-bottom-left-radius: 8px;
         border-bottom-right-radius: 8px;
       }
+    }
+  }
+
+  .dialog-enter-from,
+  .dialog-leave-to {
+    .dialog-backdrop {
+      opacity: 0;
+    }
+
+    .dialog-container {
+      opacity: 0;
+      transform: translateY(20%);
+    }
+  }
+
+  .dialog-enter-active,
+  .dialog-leave-active {
+    transition-duration: var(--v-duration-fast);
+
+    .dialog-backdrop {
+      transition-property: opacity;
+      transition-duration: var(--v-duration-fast);
+      transition-timing-function: var(--v-curve-easy-ease);
+    }
+
+    .dialog-container {
+      transition-property: opacity, transform;
+      transition-duration: var(--v-duration-fast);
+      transition-timing-function: var(--v-curve-easy-ease);
     }
   }
 </style>
