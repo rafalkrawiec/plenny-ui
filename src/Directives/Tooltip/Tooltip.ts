@@ -10,6 +10,18 @@ export const Tooltip: Directive<HTMLElement, string> = {
     element.addEventListener('mouseleave', handleMouseLeave);
   },
 
+  updated(element, binding) {
+    if (element.tooltipElement) {
+      let inner = element.tooltipElement.querySelector('span');
+
+      element.tooltipText = binding.value;
+
+      if (inner) {
+        inner.innerText = element.tooltipText;
+      }
+    }
+  },
+
   beforeUnmount(element) {
     element.removeEventListener('mouseenter', handleMouseEnter);
     element.removeEventListener('mouseleave', handleMouseLeave);
@@ -35,7 +47,10 @@ function createTooltip(event) {
 
   const tooltipElement = document.createElement('div');
   tooltipElement.classList.add('tooltip');
-  tooltipElement.innerText = event.target.tooltipText;
+
+  const tooltipTextElement = document.createElement('span');
+  tooltipTextElement.innerText = event.target.tooltipText;
+  tooltipElement.append(tooltipTextElement);
 
   const arrowElement = document.createElement('div');
   arrowElement.classList.add('arrow');
