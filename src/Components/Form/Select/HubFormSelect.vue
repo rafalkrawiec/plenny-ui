@@ -58,6 +58,12 @@
       const searchBy = String(search.value).toLowerCase();
 
       return props.options.filter((option) => {
+        console.log(
+          searchBy,
+          String(option.label).toLowerCase(),
+          String(option.value).toLowerCase(),
+        );
+
         return (
           String(option.label).toLowerCase().includes(searchBy) ||
           String(option.value).toLowerCase().includes(searchBy)
