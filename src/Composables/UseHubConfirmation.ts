@@ -15,26 +15,21 @@ export interface Confirmation extends Config {
 const current = ref<Confirmation>();
 
 export function useHubConfirmation() {
-
-  async function confirm(config?: Config) {
-    return new Promise<void>((resolve, reject) => {
-      function onConfirm() {
-        current.value = undefined;
-        resolve();
-      }
-
-      function onCancel() {
-        current.value = undefined;
-        reject();
-      }
-
-      current.value = createConfirmation(config, onConfirm, onCancel);
-    });
-  }
-
-  return { confirmation: current, confirm };
+  return current;
 }
 
-function createConfirmation(config: Config | undefined, onConfirm: () => void, onCancel: () => void) {
-  return { ...config, confirm: () => onConfirm(), cancel: () => onCancel() };
+export function useConfirm() {
+  return async (config?: Config) => new Promise<void>((resolve, reject) => {
+    function confirm() {
+      current.value = undefined;
+      resolve();
+    }
+
+    function cancel() {
+      current.value = undefined;
+      reject();
+    }
+
+    current.value = { ...config, confirm, cancel };
+  });
 }
