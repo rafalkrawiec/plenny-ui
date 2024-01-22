@@ -1,11 +1,9 @@
 import { make, type FactoryOptions } from '../Factory';
 import { h } from 'vue';
 
-export type PhotoFactoryOptions = FactoryOptions & {
-  photoable: string;
-}
+export type PhotoFactoryOptions = FactoryOptions;
 
-export function PhotoFactory({ photoable, sort, resize, filter, ...options }: PhotoFactoryOptions) {
+export function PhotoFactory({ sort, resize, filter, ...options }: PhotoFactoryOptions) {
   return make(options, {
     width: 56,
     header: {
@@ -24,7 +22,7 @@ export function PhotoFactory({ photoable, sort, resize, filter, ...options }: Ph
     },
     data: {
       format: ({ value }) => {
-        return h('img', { src: `/photos/${photoable}/56x56/${value}` });
+        return h('img', { src: `/photos/56x56/${value}` });
       },
     },
   });
