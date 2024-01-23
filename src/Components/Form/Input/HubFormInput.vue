@@ -7,6 +7,15 @@
     inheritAttrs: false,
   });
 
+  defineSlots<{
+    label(): any,
+    above(): any,
+    controlElement(): any,
+    before(): any,
+    after(): any,
+    below(): any,
+  }>();
+
   const props = defineProps({
     ...Control,
   });
@@ -24,10 +33,11 @@
 <template>
   <HubFormControl v-bind="control">
     <template v-for="(_, slot) in $slots" v-slot:[slot]="props">
-      <slot :name="slot" v-bind="props"/>
+      <!-- @vue-expect-error -->
+      <slot :name="slot" v-bind="props" />
     </template>
     <template v-slot:control>
-      <input ref="htmlControl" type="text" v-bind="{ ...input, ...$attrs }" v-model="model"/>
+      <input ref="htmlControl" type="text" v-bind="{ ...input, ...$attrs }" v-model="model" />
     </template>
   </HubFormControl>
 </template>
