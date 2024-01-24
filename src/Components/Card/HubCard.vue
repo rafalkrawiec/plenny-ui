@@ -1,5 +1,5 @@
 <script setup lang="ts">
-  import { computed, type PropType } from 'vue';
+  import { computed, type PropType, ref } from 'vue';
   import HubFormCheckbox from '../Form/Checkbox/HubFormCheckbox.vue';
   import HubFormRadio from '../Form/Radio/HubFormRadio.vue';
 
@@ -17,6 +17,7 @@
     'update:modelValue',
   ]);
 
+  const cardHtmlElement = ref();
   const vertical = computed(() => !props.horizontal);
 
   const model = computed({
@@ -27,12 +28,18 @@
   const checkComponent = computed(() => {
     return props.multiple ? HubFormCheckbox : HubFormRadio;
   });
+
+  function handleSelectableCardClick() {
+    if (props.selectable) {
+      cardHtmlElement.value.querySelector('.card-select-control').click();
+    }
+  }
 </script>
 <template>
-  <div class="card" :class="{ selectable, horizontal, vertical, subtle, preview }">
+  <div ref="cardHtmlElement" class="card" :class="{ selectable, horizontal, vertical, subtle, preview }" @click="handleSelectableCardClick">
     <slot />
     <div class="card-selector" v-if="selectable">
-      <component :is="checkComponent" :value="value" v-model="model" />
+      <component class="card-select-control" :is="checkComponent" :value="value" v-model="model" />
     </div>
   </div>
 </template>
