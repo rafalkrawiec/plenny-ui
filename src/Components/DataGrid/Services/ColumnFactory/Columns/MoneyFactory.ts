@@ -71,6 +71,11 @@ export function MoneyFactory({ currency, currencyKey, decimals, decimalsKey, ...
         compact: true,
       }),
     },
+    header: {
+      render: ({ column }) => {
+        return h('span', { class: 'numeric' }, column.name);
+      },
+    },
     sort: {
       strategy: SortStrategyNumber,
     },

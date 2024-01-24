@@ -49,6 +49,11 @@ export function NumberFactory({ decimals = 2, style = 'decimal', ...options }: N
         compact: true,
       }),
     },
+    header: {
+      render: ({ column }) => {
+        return h('span', { class: 'numeric' }, column.name);
+      },
+    },
     sort: {
       strategy: SortStrategyNumber,
     },

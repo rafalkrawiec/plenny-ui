@@ -6,10 +6,11 @@
     top: { type: Boolean as PropType<boolean>, required: false, default: false },
     bottom: { type: Boolean as PropType<boolean>, required: false, default: false },
     transparent: { type: Boolean as PropType<boolean>, required: false, default: false },
+    contained: { type: Boolean as PropType<boolean>, required: false, default: false },
   });
 </script>
 <template>
-  <div class="toolbar" :class="{ sticky, top, bottom, transparent }">
+  <div class="toolbar" :class="{ sticky, top, bottom, transparent, contained }">
     <slot />
   </div>
 </template>
@@ -21,7 +22,7 @@
     align-items: center;
     gap: 16px;
     padding: 15px 32px;
-    background: var(--themeNeutralBackground);
+    background-color: var(--themeNeutralBackground);
     border-top: 1px solid transparent;
     border-bottom: 1px solid transparent;
     margin: 0 -32px;
@@ -35,7 +36,13 @@
     }
 
     &.transparent {
+      background-color: transparent !important;
       border-color: transparent !important;
+    }
+
+    &.contained {
+      margin: 0;
+      padding: 0 6px;
     }
 
     &.sticky {

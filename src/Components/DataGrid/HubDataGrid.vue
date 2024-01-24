@@ -43,6 +43,9 @@
     filterable: { type: Boolean as PropType<boolean>, required: false, default: true },
     visibility: { type: Boolean as PropType<boolean>, required: false, default: true },
     searchable: { type: Boolean as PropType<boolean>, required: false, default: true },
+    transparent: { type: Boolean as PropType<boolean>, required: false, default: false },
+    contained: { type: Boolean as PropType<boolean>, required: false, default: false },
+    compact: { type: Boolean as PropType<boolean>, required: false, default: false },
   });
 
 
@@ -83,7 +86,7 @@
     let available = Object.entries(sizing.value).filter(([col]) => visible.value[col]);
 
     if (selectable.value) {
-      available = [['__select', 44], ...available];
+      available = [['__select', props.compact ? 32 : 44], ...available];
     }
 
     return available.map(([, width]) => `${width}px`).join(' ') + ' auto';
@@ -222,7 +225,7 @@
 </script>
 <template>
   <div class="hub-data-grid">
-    <HubToolbar>
+    <HubToolbar :transparent="transparent" :contained="contained">
       <slot name="title" />
       <slot name="commands" v-bind="grid" />
       <HubButtonGroup reversed>
@@ -278,7 +281,7 @@
         </div>
       </HubButtonGroup>
     </HubToolbar>
-    <div class="wrapper">
+    <div class="wrapper" :class="{ transparent, compact }">
       <div class="grid">
         <div class="header">
           <div class="row">
@@ -354,19 +357,76 @@
   </div>
 </template>
 <style lang="scss" scoped>
+  .hub-data-grid {
+    display: flex;
+    flex: 1 1 100%;
+    flex-direction: column;
+    gap: 16px;
+  }
+
   .wrapper {
     --grid-columns: v-bind(template);
 
+    display: block;
     width: 100%;
     font-family: var(--fontSans);
     font-size: 12px;
     background-color: var(--themeNeutralBackground);
     overflow-x: auto;
-    padding: 16px 0;
+
+    &::-webkit-scrollbar {
+      width: 8px;
+      height: 8px;
+    }
+
+    &::-webkit-scrollbar-track {
+      background-color: var(--themeNeutralBorder);
+    }
+
+    &::-webkit-scrollbar-thumb {
+      background-color: var(--themeNeutralLightBorder);
+    }
+
+    &.transparent {
+      background-color: transparent !important;
+    }
+
+    &.compact {
+      .row {
+        .cell {
+          padding: 0 6px;
+
+          :deep(.control) {
+            border: none;
+            height: 32px;
+            padding: 0 6px;
+            box-shadow: var(--neutralShadow16);
+            border-radius: 0;
+
+            &:focus-within {
+              outline: 2px solid var(--themePrimaryBorder);
+              outline-offset: -2px;
+            }
+          }
+
+          :deep(img) {
+            display: block;
+            width: 32px;
+            height: 32px;
+            object-fit: contain;
+            margin: 0 -6px;
+          }
+        }
+      }
+    }
 
     .grid {
+      display: inline-block;
+      min-width: 100%;
+
       .body {
-        width: auto !important;
+        display: inline-block;
+        min-width: 100%;
 
         .row {
           &:hover {

@@ -108,20 +108,35 @@
     .inner {
       display: flex;
       align-items: center;
-      flex: 1 0;
+      flex: 1 1;
+      gap: 2px;
+      min-width: 0;
       cursor: pointer;
-      overflow: hidden;
 
       .name {
         display: flex;
-        flex: 1 0;
+        flex: 1 1;
+        min-width: 0;
         padding: 6px 0;
-        white-space: nowrap;
-        overflow: hidden;
-        text-overflow: ellipsis;
+
+        span {
+          flex: 1 1 auto;
+          min-width: 0;
+          display: block;
+          white-space: nowrap;
+          overflow: hidden;
+          text-overflow: ellipsis;
+
+          &.numeric {
+            text-align: right;
+          }
+        }
       }
 
       .controls {
+        flex: 0 0 16px;
+        min-width: 0;
+
         .icon {
           display: flex;
           justify-content: center;
