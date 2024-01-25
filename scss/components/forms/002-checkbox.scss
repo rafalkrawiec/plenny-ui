@@ -54,6 +54,11 @@
       }
     }
 
+    &:disabled ~ .indicator {
+      background-color: var(--themeDisabledBackground);
+      border-color: var(--themeDisabledBorder);
+      color: var(--themeDisabledForeground);
+    }
   }
 
   .indicator {
