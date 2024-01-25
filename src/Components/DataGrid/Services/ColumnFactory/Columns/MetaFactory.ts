@@ -28,7 +28,7 @@ export function MetaFactory({ dictionary, ...options }: MetaOptions) {
     },
     edit: {
       render: (options) => h(HubFormSelect, {
-        options: dictionary.store,
+        options: dictionary.store.value,
         name: options.column.edit.field(options),
         compact: true,
         ...options.column.edit.props,
@@ -40,7 +40,7 @@ export function MetaFactory({ dictionary, ...options }: MetaOptions) {
         DictionaryConstraint,
       ],
       render: () => h(HubFormSelect, {
-        options: dictionary.store,
+        options: dictionary.store.value,
         compact: true,
         multiple: true,
       }),
