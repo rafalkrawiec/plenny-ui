@@ -314,7 +314,7 @@
                 <div v-if="selectable" class="cell cell-selectable">
                   <data :value="item[keyBy]">
                     <label :class="single ? 'control-radio' : 'control-checkbox'">
-                      <input :type="single ? 'radio' : 'checkbox'" v-model="selected" :value="item[keyBy]" />
+                      <input :type="single ? 'radio' : 'checkbox'" v-model="selected" :value="item[keyBy]" :disabled="!item[keyBy]" />
                       <span class="indicator">
                         <span class="icon checkmark-filled" />
                         <span class="icon subtract-filled" />
