@@ -344,15 +344,7 @@
     <HubPagination :paginator="paginator" />
 
     <HubDrawer v-model:open="showFilter">
-      <h1>{{ $t('Filtrowanie') }}</h1>
-      <HubDataGridFilter :columns="columns" :filter="filter" />
-      <HubToolbar sticky bottom>
-        <HubButtonGroup>
-          <HubButton @click="showFilter = false">
-            {{ $t('Zamknij') }}
-          </HubButton>
-        </HubButtonGroup>
-      </HubToolbar>
+      <HubDataGridFilter :columns="columns" v-model:filter="filter" v-model:open="showFilter" />
     </HubDrawer>
   </div>
 </template>

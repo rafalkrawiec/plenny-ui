@@ -2,8 +2,9 @@ import { h } from 'vue';
 import { SortStrategyNumber } from '../../Sort/Strategy/Number';
 import { make, type FactoryOptions } from '../Factory';
 import HubFormSelect from '../../../../Form/Select/HubFormSelect.vue';
-import { Rule } from '../../Filter/Constraints/Constraint';
 import { useHubDictionaryStore } from '@plenny/connect';
+import { EmptyConstraint } from '../../Filter/Constraints/EmptyConstraint';
+import { DictionaryConstraint } from '../../Filter/Constraints/DictionaryConstraint';
 
 export type DictionaryOptions = FactoryOptions & {
   store: string;
@@ -35,19 +36,14 @@ export function DictionaryFactory({ store, ...options }: DictionaryOptions) {
       }),
     },
     filter: {
-      rules: [
-        Rule.EMPTY,
-        Rule.NOT_EMPTY,
-        Rule.EQUAL,
-        Rule.NOT_EQUAL,
-        Rule.IN,
-        Rule.NOT_IN,
+      constraints: [
+        EmptyConstraint,
+        DictionaryConstraint,
       ],
-
-      render: ({ node }) => h(HubFormSelect, {
+      render: () => h(HubFormSelect, {
         options: dictionary.store(store),
         compact: true,
-        multiple: node.constraint && [Rule.IN, Rule.NOT_IN].includes(node.constraint),
+        multiple: true,
       }),
     },
     sort: {

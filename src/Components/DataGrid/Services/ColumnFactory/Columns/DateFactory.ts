@@ -2,15 +2,15 @@ import { h } from 'vue';
 import { SortStrategyText } from '../../Sort/Strategy/Text';
 import { make, type FactoryOptions } from '../Factory';
 import HubDataDate from '../../../../Data/HubDataDate.vue';
-import HubFormDateTime from '../../../../Form/Input/HubFormDateTime.vue';
+import HubFormDate from '../../../../Form/Input/HubFormDate.vue';
 import { EmptyConstraint } from '../../Filter/Constraints/EmptyConstraint';
-import { DateTimeConstraint } from '../../Filter/Constraints/DateTimeConstraint';
+import { DateConstraint } from '../../Filter/Constraints/DateConstraint';
 
 export type DateTimeOptions = FactoryOptions & {
   format?: string;
 }
 
-export function DateTimeFactory({ format = 'FN', ...options }: DateTimeOptions) {
+export function DateFactory({ format = 'L', ...options }: DateTimeOptions) {
   return make(options, {
     width: 160,
     data: {
@@ -22,7 +22,7 @@ export function DateTimeFactory({ format = 'FN', ...options }: DateTimeOptions) 
       },
     },
     edit: {
-      render: (options) => h(HubFormDateTime, {
+      render: (options) => h(HubFormDate, {
         name: options.column.edit.field(options),
         compact: true,
       }),
@@ -33,9 +33,9 @@ export function DateTimeFactory({ format = 'FN', ...options }: DateTimeOptions) 
     filter: {
       constraints: [
         EmptyConstraint,
-        DateTimeConstraint,
+        DateConstraint,
       ],
-      render: () => h(HubFormDateTime, {
+      render: () => h(HubFormDate, {
         compact: true,
       }),
     },

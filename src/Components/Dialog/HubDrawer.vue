@@ -60,13 +60,11 @@
   defineExpose({ show, hide });
 </script>
 <template>
-  <Teleport to="body">
-    <Transition name="fade">
-      <div v-if="open" class="drawer-backdrop" />
-    </Transition>
-    <Transition name="slide-right">
-      <div v-if="open" ref="htmlDrawer" class="drawer" @keydown.esc="hide" tabindex="-1">
-        <div class="drawer-viewport">
+  <teleport to="body">
+    <transition name="drawer">
+      <div v-if="open" class="drawer">
+        <div class="drawer-backdrop" />
+        <div ref="htmlDrawer" class="drawer-viewport" role="dialog" @keydown.esc="hide" tabindex="-1">
           <div class="drawer-viewport-wrapper">
             <div class="drawer-container" :class="{ ...size }">
               <div class="drawer-content">
@@ -76,45 +74,45 @@
           </div>
         </div>
       </div>
-    </Transition>
-  </Teleport>
+    </transition>
+  </teleport>
 </template>
 <style scoped lang="scss">
+  .drawer {
+    display: contents;
+  }
+
   .drawer-backdrop {
     position: fixed;
     top: 0;
-    right: 0;
+    left: 0;
     width: 100%;
     height: 100dvh;
     background-color: var(--themeBackdropBackground);
     z-index: 1000;
   }
 
-  .drawer {
-    position: fixed;
-    top: 0;
-    right: 0;
-    width: 100%;
-    height: 100dvh;
-    outline: none;
-    z-index: 1000;
-  }
-
   .drawer-viewport {
+    display: flex;
+    flex-direction: column;
+    position: fixed;
+    z-index: 1000;
+    top: 0;
+    left: 0;
     width: 100%;
     height: 100dvh;
-    min-height: 0;
+    overflow-x: hidden;
     overflow-y: auto;
+    -webkit-overflow-scrolling: touch;
   }
 
   .drawer-viewport-wrapper {
-    position: relative;
+    flex: 1 1 auto;
     display: flex;
     justify-content: flex-end;
     align-items: flex-end;
-    flex-direction: column;
+    flex-direction: row;
     width: 100%;
-    min-height: 100dvh;
   }
 
   .drawer-container {
@@ -122,7 +120,9 @@
     flex-direction: row;
     flex: 1 1 auto;
     width: 100%;
-    min-height: 0;
+    max-width: 992px;
+    min-width: 0;
+    min-height: 100vh;
     padding: 0 32px;
     background-color: var(--themeNeutralBackground);
     box-shadow: var(--neutralShadow64);
@@ -151,5 +151,34 @@
     gap: 32px;
     width: 100%;
     min-height: 0;
+  }
+
+  .drawer-enter-from,
+  .drawer-leave-to {
+    .drawer-backdrop {
+      opacity: 0;
+    }
+
+    .drawer-container {
+      opacity: 0;
+      transform: translateX(50%);
+    }
+  }
+
+  .drawer-enter-active,
+  .drawer-leave-active {
+    transition-duration: var(--v-duration-fast);
+
+    .drawer-backdrop {
+      transition-property: opacity;
+      transition-duration: var(--v-duration-fast);
+      transition-timing-function: var(--v-curve-easy-ease);
+    }
+
+    .drawer-container {
+      transition-property: opacity, transform;
+      transition-duration: var(--v-duration-fast);
+      transition-timing-function: var(--v-curve-easy-ease);
+    }
   }
 </style>

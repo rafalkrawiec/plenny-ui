@@ -2,6 +2,7 @@ import { h } from 'vue';
 import { make, type FactoryOptions } from '../Factory';
 import { SortStrategyBoolean } from '../../Sort/Strategy/Boolean';
 import HubFormCheckbox from '../../../../Form/Checkbox/HubFormCheckbox.vue';
+import { BooleanConstraint } from '../../Filter/Constraints/BooleanConstraint';
 
 export function BooleanFactory(options: FactoryOptions) {
 
@@ -30,6 +31,11 @@ export function BooleanFactory(options: FactoryOptions) {
     },
     sort: {
       strategy: SortStrategyBoolean,
+    },
+    filter: {
+      constraints: [
+        BooleanConstraint,
+      ],
     },
   });
 }

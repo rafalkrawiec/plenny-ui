@@ -1,8 +1,10 @@
 import { h } from 'vue';
 import { SortStrategyNumber } from '../../Sort/Strategy/Number';
 import { make, type FactoryOptions } from '../Factory';
-import HubFormInputVue from '../../../../Form/Input/HubFormInput.vue';
+import HubFormInput from '../../../../Form/Input/HubFormInput.vue';
 import get from 'lodash.get';
+import { EmptyConstraint } from '../../Filter/Constraints/EmptyConstraint';
+import { NumberConstraint } from '../../Filter/Constraints/NumberConstraint';
 
 export type MoneyOptions = FactoryOptions & {
   currency?: string;
@@ -65,7 +67,7 @@ export function MoneyFactory({ currency, currencyKey, decimals, decimalsKey, ...
       },
     },
     edit: {
-      render: (options) => h(HubFormInputVue, {
+      render: (options) => h(HubFormInput, {
         type: 'number',
         name: options.column.edit.field(options),
         compact: true,
@@ -75,6 +77,16 @@ export function MoneyFactory({ currency, currencyKey, decimals, decimalsKey, ...
       render: ({ column }) => {
         return h('span', { class: 'numeric' }, column.name);
       },
+    },
+    filter: {
+      constraints: [
+        EmptyConstraint,
+        NumberConstraint,
+      ],
+      render: () => h(HubFormInput, {
+        compact: true,
+        type: 'number',
+      }),
     },
     sort: {
       strategy: SortStrategyNumber,

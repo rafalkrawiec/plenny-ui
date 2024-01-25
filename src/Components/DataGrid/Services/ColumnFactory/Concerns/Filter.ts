@@ -1,8 +1,9 @@
 import type { FactoryOptions } from '../Factory';
 import { h, type VNode } from 'vue';
-import { Rule } from '../../Filter/Constraints/Constraint';
-import HubFormInput from "../../../../Form/Input/HubFormInput.vue";
-import type { Condition } from '../../Filter/ApplyFilter';
+import HubFormInput from '../../../../Form/Input/HubFormInput.vue';
+import type { Condition, Constraint } from '../../Filter/ApplyFilter';
+import { StringConstraint } from '../../Filter/Constraints/StringConstraint';
+import { EmptyConstraint } from '../../Filter/Constraints/EmptyConstraint';
 
 export type FactoryWithFilter = FactoryOptions & WithFilter;
 export type FactoryFilterOptions = { filter?: Partial<Internal> }
@@ -12,7 +13,7 @@ export type FieldRenderer = (options: FieldRendererOptions) => VNode;
 export type WithFilter = {
   filter: {
     enabled: boolean;
-    rules: Rule[];
+    constraints: Constraint[];
     render: FieldRenderer;
   }
 }
@@ -22,7 +23,10 @@ type Defaults = FactoryFilterOptions;
 
 const DEFAULTS: Internal = {
   enabled: true,
-  rules: [],
+  constraints: [
+    EmptyConstraint,
+    StringConstraint,
+  ],
   render: (options) => h(HubFormInput, {
     type: 'text',
     compact: true,
@@ -33,11 +37,11 @@ export function filter(options: FactoryOptions, defaults: Defaults = {}): WithFi
   let filter = { ...DEFAULTS };
 
   if (defaults.filter?.enabled != null) filter.enabled = defaults.filter.enabled;
-  if (defaults.filter?.rules != null) filter.rules = defaults.filter.rules;
+  if (defaults.filter?.constraints != null) filter.constraints = defaults.filter.constraints;
   if (defaults.filter?.render != null) filter.render = defaults.filter.render;
 
   if (options.filter?.enabled != null) filter.enabled = options.filter.enabled;
-  if (options.filter?.rules != null) filter.rules = options.filter.rules;
+  if (options.filter?.constraints != null) filter.constraints = options.filter.constraints;
   if (options.filter?.render != null) filter.render = options.filter?.render;
 
   return { filter };

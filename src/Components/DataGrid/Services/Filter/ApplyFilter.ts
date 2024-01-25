@@ -1,9 +1,16 @@
-import { constraint, Operator, Rule } from './Constraints/Constraint';
+import { Operator, Rule } from './Constraint';
+
+export interface Constraint {
+  rules: Rule[];
+
+  check(rule: Rule, value: any, check: any): boolean | undefined;
+}
 
 export interface Condition {
   column: string | undefined;
-  constraint: Rule | undefined;
-  value: any;
+  constraints: Constraint[] | undefined;
+  rule: Rule | undefined;
+  check: any;
 }
 
 export interface ConditionGroup {
@@ -26,9 +33,9 @@ export function defaultConditionGroup(): ConditionGroup {
  * @param data
  * @param filters
  */
-export function applyFilter(data: Record<string, any>, filters: ConditionGroup) {
+export function applyFilter<T extends Record<string, any>>(data: T, filters: ConditionGroup) {
   if (filters.conditions.length > 0) {
-    return data.filter((entry) => passes(entry, filters));
+    return data.filter((entry: T) => passes(entry, filters));
   }
 
   return data;
@@ -45,12 +52,8 @@ export function applyFilter(data: Record<string, any>, filters: ConditionGroup) 
  *
  * When no parent is provided (meaning it's root level group),
  * we always return `true` to display all results.
- *
- * @param entry
- * @param group
- * @param parent
  */
-function passes(entry: Record<string, any>, group: ConditionGroup, parent?: ConditionGroup) {
+function passes(entry: Record<string, any>, group: ConditionGroup, parent?: ConditionGroup): boolean {
   if (group.conditions.length === 0) {
     return parent ? parent.operator === Operator.AND : true;
   }
@@ -70,10 +73,27 @@ function processNode(entry: Record<string, any>, node: ConditionGroup | Conditio
   }
 }
 
-function check(entry, condition) {
-  if (!condition.column) {
+function check(entry: Record<string, any>, condition: Condition) {
+  let column = condition.column;
+  let rule = condition.rule;
+  let constraints = condition.constraints;
+
+  if (!column || !rule || !constraints) {
     return true;
   }
 
-  return constraint(condition.constraint, entry[condition.column], condition.value);
+  let value = entry[column];
+  let check = condition.check;
+
+  for (let constraint of constraints) {
+    let result = constraint.check(rule, value, check);
+
+    if (result == undefined) {
+      continue;
+    }
+
+    return result;
+  }
+
+  return false;
 }

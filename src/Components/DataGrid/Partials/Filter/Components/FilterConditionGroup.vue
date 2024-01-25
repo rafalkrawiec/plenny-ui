@@ -1,49 +1,43 @@
 <script setup lang="ts">
-  import { ref } from 'vue';
-  import { Operator, Rule } from '../../../Services/Filter/Constraints/Constraint';
+  import type { PropType } from 'vue';
+  import { Operator } from '../../../Services/Filter/Constraint';
   import FilterNode from './FilterNode.vue';
   import type { ConditionGroup } from '../../../Services/Filter/ApplyFilter';
-  import type { PropType } from 'vue';
   import type { Column } from '../../../Services/ColumnFactory/Factory';
   import { useGroupColor } from '../../../../../Composables/UseGroupColor';
 
-  const props = defineProps({
+  const emit = defineEmits(['remove']);
+
+  defineProps({
     columns: { type: Array as PropType<Array<Column>>, required: true },
     parent: { type: Object as PropType<ConditionGroup>, required: false },
-    node: { type: Object as PropType<ConditionGroup>, required: true },
   });
 
-  const open = ref(!props.parent);
+  const node = defineModel('node', { type: Object as PropType<ConditionGroup>, required: true });
   const color = useGroupColor();
 
-  const options = [
-    { label: 'ORAZ', value: Operator.AND },
-    { label: 'LUB', value: Operator.OR },
-  ];
-
   function addConditionGroup() {
-    props.node.conditions.push({
+    node.value.conditions.push({
       conditions: [],
       operator: Operator.AND,
     });
   }
 
   function addCondition() {
-    props.node.conditions.push({
+    node.value.conditions.push({
       column: undefined,
-      constraint: Rule.EQUAL,
-      value: undefined,
+      constraints: undefined,
+      rule: undefined,
+      check: undefined,
     });
   }
-
-  defineEmits(['remove']);
 </script>
 <template>
   <div class="stack vertical small">
     <div class="stack horizontal justify-content-between align-items-center">
       <div class="stack horizontal">
-        <HubFormRadio :value="Operator.AND" v-model="node.operator" label="oraz"/>
-        <HubFormRadio :value="Operator.OR" v-model="node.operator" label="lub"/>
+        <HubFormRadio :value="Operator.AND" v-model="node.operator" label="oraz" />
+        <HubFormRadio :value="Operator.OR" v-model="node.operator" label="lub" />
       </div>
       <div class="stack smaller horizontal">
         <HubButton transparent before="add-regular" @click="addCondition">
@@ -52,9 +46,7 @@
         <HubButton transparent before="add-regular" @click="addConditionGroup">
           {{ $t('Dodaj grupę') }}
         </HubButton>
-        <HubButton v-if="!!parent" transparent square before="delete-regular"
-          v-tooltip="$t('Usuń')" @click="$emit('remove')"
-        />
+        <HubButton v-if="!!parent" transparent square before="delete-regular" v-tooltip="$t('Usuń')" @click="$emit('remove')" />
       </div>
     </div>
     <div class="wrapper">
@@ -62,7 +54,7 @@
         <template v-for="(child, index) in node.conditions" :key="index">
           <div class="node">
             <div class="point"></div>
-            <FilterNode :columns="columns" :node="child" :parent="node" @remove="node.conditions.splice(index, 1)"/>
+            <FilterNode :columns="columns" :parent="node" v-model:node="node.conditions[index]" @remove="node.conditions.splice(index, 1)" />
           </div>
         </template>
       </div>

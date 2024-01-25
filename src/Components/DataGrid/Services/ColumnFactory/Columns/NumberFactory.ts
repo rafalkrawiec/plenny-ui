@@ -2,6 +2,9 @@ import { h } from 'vue';
 import { SortStrategyNumber } from '../../Sort/Strategy/Number';
 import { make, type FactoryOptions } from '../Factory';
 import HubFormInputVue from '../../../../Form/Input/HubFormInput.vue';
+import HubFormInput from '../../../../Form/Input/HubFormInput.vue';
+import { EmptyConstraint } from '../../Filter/Constraints/EmptyConstraint';
+import { NumberConstraint } from '../../Filter/Constraints/NumberConstraint';
 
 export type NumberOptions = FactoryOptions & {
   decimals?: number;
@@ -53,6 +56,16 @@ export function NumberFactory({ decimals = 2, style = 'decimal', ...options }: N
       render: ({ column }) => {
         return h('span', { class: 'numeric' }, column.name);
       },
+    },
+    filter: {
+      constraints: [
+        EmptyConstraint,
+        NumberConstraint,
+      ],
+      render: () => h(HubFormInput, {
+        compact: true,
+        type: 'number',
+      }),
     },
     sort: {
       strategy: SortStrategyNumber,
