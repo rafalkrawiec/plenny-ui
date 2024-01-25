@@ -441,6 +441,7 @@
         border-bottom: 1px solid var(--themeNeutralBorder);
         outline: none;
         white-space: nowrap;
+        display: flex;
 
         &:focus {
           outline: 2px solid var(--themePrimaryBorder);
@@ -480,6 +481,7 @@
           white-space: nowrap;
           overflow: hidden;
           text-overflow: ellipsis;
+          flex: 1 1 100%;
 
           &.numeric {
             font-family: var(--fontMono);

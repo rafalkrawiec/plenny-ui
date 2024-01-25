@@ -56,7 +56,7 @@ export function useHubForm<T extends FormResource = any>(options: FormOptions<T>
   function setValidationErrors(errors: Object, config?: FormSubmitConfig<T>) {
     let index = config?.index;
 
-    if (index) {
+    if (index != undefined) {
       errors = Object.fromEntries(Object.entries(errors).map(([key, value]) => [index + '.' + key, value]));
     }
 
