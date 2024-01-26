@@ -324,9 +324,13 @@
                 </div>
 
                 <template v-for="(column, x) in columns" :key="column.key">
-                  <HubDataGridColumn v-if="visible[column.key]"
-                    v-bind="{ column, data: item, index: paginator.start.value + y, visibility }" :data-x="x" :data-y="y"
-                    @change="updateRow(item)" @focus="updatePointer(x, y)" />
+                  <HubDataGridColumn
+                    v-if="visible[column.key]"
+                    v-bind="{ column, data: item, index: paginator.start.value + y, visibility }"
+                    :data-x="x" :data-y="y"
+                    @change="updateRow(item)"
+                    @focus="updatePointer(x, y)"
+                  />
                 </template>
 
                 <div class="cell cell-spacer" />
@@ -472,6 +476,13 @@
           height: 48px;
           object-fit: contain;
           margin: -8px;
+        }
+
+        :deep(a) {
+          display: block;
+          white-space: nowrap;
+          overflow: hidden;
+          text-overflow: ellipsis;
         }
 
         :deep(data) {
