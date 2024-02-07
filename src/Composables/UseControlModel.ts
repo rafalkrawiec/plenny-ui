@@ -21,7 +21,7 @@ export function useControlModel({ props, emit, transform }: UseControlModelOptio
       }
 
       // Otherwise use a standard Vue's modelValue prop.
-      return props.modelValue || props.defaultValue;
+      return props.value || props.modelValue || props.defaultValue;
     },
 
     set(value) {

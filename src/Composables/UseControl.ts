@@ -13,6 +13,7 @@ export const Control = {
   before: { type: String as PropType<string>, required: false },
   after: { type: String as PropType<string>, required: false },
   errors: { type: Array as PropType<string[]>, required: false, default: [] },
+  value: { type: [String, Number, Array, Boolean] as PropType<any>, required: false },
   modelValue: { type: [String, Number, Array, Boolean] as PropType<any>, required: false },
   defaultValue: { type: [String, Number, Array, Boolean] as PropType<any>, required: false, default: '' },
 };
