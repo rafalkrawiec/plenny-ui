@@ -1,15 +1,16 @@
 <script setup lang="ts">
   defineSlots<{
-    more(props: {}): any;
+    default(): any;
+    more(): any;
   }>();
 </script>
 <template>
   <div class="card-footer">
     <div class="actions">
-      <slot/>
+      <slot />
     </div>
     <div class="more" v-if="$slots.more">
-      <slot name="more"/>
+      <slot name="more" />
     </div>
   </div>
 </template>

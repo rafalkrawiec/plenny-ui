@@ -91,7 +91,7 @@
       min-width: 0;
 
       .title {
-        color: var(--themeBlack);
+        color: var(--card-theme-title);
         font-weight: var(--fontWeightBold);
         font-size: 14px;
         overflow: hidden;
@@ -105,7 +105,7 @@
       }
 
       .subtitle {
-        color: var(--themeNeutralAltForeground);
+        color: var(--card-theme-subtitle);
         font-size: 12px;
         overflow: hidden;
         text-overflow: ellipsis;

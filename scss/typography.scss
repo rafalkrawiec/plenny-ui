@@ -1,5 +1,5 @@
 h1, h2, h3, h4, h5, h6 {
-  color: var(--themeNeutralForeground);
+  color: inherit;
   margin-top: 6px;
   margin-bottom: 6px;
   line-height: 20px;
@@ -13,7 +13,7 @@ h1 {
 }
 
 p {
-  color: var(--themeNeutralAltForeground);
+  color: inherit;
   font-size: 14px;
 }
 

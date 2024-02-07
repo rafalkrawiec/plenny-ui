@@ -1,11 +1,35 @@
 .font-regular {
-  font-weight: var(--fontWeightRegular);
+  font-weight: var(--fontWeightRegular) !important;
 }
 
 .font-semi-bold {
-  font-weight: var(--fontWeightSemi);
+  font-weight: var(--fontWeightSemi) !important;
 }
 
 .font-bold {
-  font-weight: var(--fontWeightBold);
+  font-weight: var(--fontWeightBold) !important;
+}
+
+.font-smaller {
+  font-size: var(--fontSizeSmaller) !important;
+}
+
+.font-small {
+  font-size: var(--fontSizeSmall) !important;
+}
+
+.font-regular {
+  font-size: var(--fontSizeRegular) !important;
+}
+
+.font-medium {
+  font-size: var(--fontSizeMedium) !important;
+}
+
+.font-large {
+  font-size: var(--fontSizeLarge) !important;
+}
+
+.font-larger {
+  font-size: var(--fontSizeLarger) !important;
 }

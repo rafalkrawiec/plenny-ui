@@ -2,8 +2,10 @@
   import { computed, type PropType, ref } from 'vue';
   import HubFormCheckbox from '../Form/Checkbox/HubFormCheckbox.vue';
   import HubFormRadio from '../Form/Radio/HubFormRadio.vue';
+  import { AppearanceProps, useComponentAppearance } from '../../Composables/UseComponentAppearance';
 
   const props = defineProps({
+    ...AppearanceProps,
     selectable: { type: Boolean as PropType<boolean>, required: false, default: false },
     horizontal: { type: Boolean as PropType<boolean>, required: false, default: false },
     subtle: { type: Boolean as PropType<boolean>, required: false, default: false },
@@ -19,6 +21,7 @@
 
   const cardHtmlElement = ref();
   const vertical = computed(() => !props.horizontal);
+  const { appearance } = useComponentAppearance(props);
 
   const model = computed({
     get: () => props.modelValue,
@@ -36,7 +39,7 @@
   }
 </script>
 <template>
-  <div ref="cardHtmlElement" class="card" :class="{ selectable, horizontal, vertical, subtle, preview }" @click="handleSelectableCardClick">
+  <div ref="cardHtmlElement" class="card" :class="{ selectable, horizontal, vertical, subtle, preview, ...appearance }" @click="handleSelectableCardClick">
     <slot />
     <div class="card-selector" v-if="selectable">
       <component class="card-select-control" :is="checkComponent" :value="value" v-model="model" />
@@ -45,7 +48,11 @@
 </template>
 <style>
   :root {
-    --cardSize: 12px;
+    --card-size: 12px;
+    --card-theme-title: var(--themeBlack);
+    --card-theme-subtitle: var(--themeNeutralAltForeground);
+    --card-theme-background: var(--themeNeutralLightBackground);
+    --card-theme-color: var(--themeNeutralForeground);
   }
 </style>
 <style scoped lang="scss">
@@ -53,10 +60,11 @@
     position: relative;
     display: flex;
     flex-direction: column;
-    gap: var(--cardSize);
-    background-color: var(--themeNeutralLightBackground);
+    gap: var(--card-size);
+    background-color: var(--card-theme-background);
+    color: var(--card-theme-color);
     border-radius: 8px;
-    padding: var(--cardSize);
+    padding: var(--card-size);
     box-shadow: var(--v-shadow-neutral-4);
     width: 100%;
 
@@ -65,10 +73,17 @@
       align-items: center;
     }
 
-    &.subtle {
+    &.subtle, &.transparent {
       box-shadow: none;
       background-color: transparent;
       border-radius: 0;
+    }
+
+    &.warning {
+      --card-theme-title: var(--colorPaletteYellowForeground2);
+      --card-theme-subtitle: var(--colorPaletteYellowForeground2);
+      --card-theme-background: var(--colorPaletteYellowBackground2);
+      --card-theme-color: var(--colorPaletteYellowForeground2);
     }
 
     &.preview {
@@ -109,19 +124,19 @@
     }
 
     &.large {
-      --cardSize: var(--size20);
+      --card-size: var(--size20);
     }
 
     &.larger {
-      --cardSize: var(--size32);
+      --card-size: var(--size32);
     }
   }
 
   .card {
     .card-selector {
       position: absolute;
-      top: var(--cardSize);
-      right: var(--cardSize);
+      top: var(--card-size);
+      right: var(--card-size);
       opacity: 0;
       transition-timing-function: var(--v-curve-easy-ease);
       transition-duration: var(--v-duration-faster);
@@ -160,12 +175,12 @@
 
     &.vertical {
       :deep(.card-preview) {
-        margin-left: calc(var(--cardSize) * -1);
-        margin-right: calc(var(--cardSize) * -1);
+        margin-left: calc(var(--card-size) * -1);
+        margin-right: calc(var(--card-size) * -1);
         aspect-ratio: 16 / 9;
 
         &:first-child {
-          margin-top: calc(var(--cardSize) * -1);
+          margin-top: calc(var(--card-size) * -1);
 
           &, &:after, img {
             border-top-left-radius: 8px;
@@ -174,7 +189,7 @@
         }
 
         &:last-child {
-          margin-bottom: calc(var(--cardSize) * -1);
+          margin-bottom: calc(var(--card-size) * -1);
 
           &, &:after, img {
             border-bottom-left-radius: 8px;
@@ -192,7 +207,7 @@
 
       &.preview {
         :deep(.card-preview) {
-          margin: calc(var(--cardSize) * -1);
+          margin: calc(var(--card-size) * -1);
 
           &, img {
             border-radius: 0;
@@ -204,7 +219,7 @@
     &.horizontal {
       &.preview {
         :deep(.card-preview) {
-          margin: calc(var(--cardSize) * -1);
+          margin: calc(var(--card-size) * -1);
 
           &, img {
             border-radius: 0;
@@ -213,12 +228,12 @@
       }
 
       :deep(.card-preview) {
-        margin-top: calc(var(--cardSize) * -1);
-        margin-bottom: calc(var(--cardSize) * -1);
+        margin-top: calc(var(--card-size) * -1);
+        margin-bottom: calc(var(--card-size) * -1);
         aspect-ratio: 1 / 1;
 
         &:first-child {
-          margin-left: calc(var(--cardSize) * -1);
+          margin-left: calc(var(--card-size) * -1);
 
           &, img {
             border-top-left-radius: 8px;
@@ -227,7 +242,7 @@
         }
 
         &:last-child {
-          margin-right: calc(var(--cardSize) * -1);
+          margin-right: calc(var(--card-size) * -1);
 
           &, img {
             border-top-right-radius: 8px;
