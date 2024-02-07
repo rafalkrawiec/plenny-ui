@@ -21,6 +21,13 @@
     (e: 'update:selected', selected: number[] | number | undefined): void
   }>();
 
+  defineSlots<{
+    title(): any,
+    commands(): any,
+    aboveBody(): any,
+    belowBody(): any,
+  }>();
+
   const form = inject(FormContextKey, null);
 
   const props = defineProps({
@@ -308,6 +315,8 @@
         </div>
         <div ref="body" class="body" @keydown="handleMoveKeyEvent">
           <HubDataLoader v-bind="{ meta, loading, error }">
+            <slot name="aboveBody" />
+
             <template v-for="(item, y) in paginator.elements.value" :key="item[keyBy]">
               <div class="row">
 
@@ -340,6 +349,8 @@
             <template v-if="paginator.elements.value.length <= 0">
               <HubDataPlaceholder />
             </template>
+
+            <slot name="belowBody" />
           </HubDataLoader>
         </div>
       </div>
@@ -388,11 +399,11 @@
     }
 
     &.compact {
-      .row {
+      :deep(.row) {
         .cell {
           padding: 0 6px;
 
-          :deep(.control) {
+          .control {
             border: none;
             height: 32px;
             padding: 0 6px;
@@ -405,7 +416,7 @@
             }
           }
 
-          :deep(img) {
+          img {
             display: block;
             width: 32px;
             height: 32px;
@@ -436,7 +447,7 @@
       }
     }
 
-    .row {
+    :deep(.row) {
       display: grid;
       grid-template-columns: var(--grid-columns);
 
@@ -457,7 +468,7 @@
           z-index: 100;
         }
 
-        :deep(.control) {
+        .control {
           border: none;
           height: 48px;
           padding: 14px 12px;
@@ -470,7 +481,7 @@
           }
         }
 
-        :deep(img) {
+        img {
           display: block;
           width: 48px;
           height: 48px;
@@ -478,14 +489,14 @@
           margin: -8px;
         }
 
-        :deep(a) {
+        a {
           display: block;
           white-space: nowrap;
           overflow: hidden;
           text-overflow: ellipsis;
         }
 
-        :deep(data) {
+        data {
           display: block;
           padding: 6px 0;
           line-height: 20px;
@@ -504,7 +515,7 @@
           }
         }
 
-        :deep(.popover-trigger) {
+        .popover-trigger {
           padding: 6px 0;
           vertical-align: middle;
           margin-left: 12px;
