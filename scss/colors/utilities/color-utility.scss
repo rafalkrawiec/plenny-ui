@@ -30,8 +30,8 @@
   color: var(--themeNeutralDarkenForeground) !important;
 }
 
-@each $color in $colors {
+@each $name, $color in $colors {
   .color-#{$color} {
-    color: var(--colorPalette#{$color}Foreground2) !important;
+    color: var(--colorPalette#{$name}Foreground2) !important;
   }
 }

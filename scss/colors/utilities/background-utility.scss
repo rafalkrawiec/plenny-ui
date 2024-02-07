@@ -34,8 +34,8 @@
   background-color: var(--themeNeutralLightBackground) !important;
 }
 
-@each $color in $colors {
+@each $name, $color in $colors {
   .bg-#{$color} {
-    background-color: var(--colorPalette#{$color}Background2) !important;
+    background-color: var(--colorPalette#{$name}Background2) !important;
   }
 }
