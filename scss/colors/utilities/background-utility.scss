@@ -14,6 +14,26 @@
   background-color: var(--themeInfoBackground) !important;
 }
 
+.bg-neutral {
+  background-color: var(--themeNeutralBackground) !important;
+}
+
+.bg-neutral-alt {
+  background-color: var(--themeNeutralAltBackground) !important;
+}
+
+.bg-neutral-darken {
+  background-color: var(--themeNeutralDarkenBackground) !important;
+}
+
+.bg-neutral-disabled {
+  background-color: var(--themeDisabledBackground) !important;
+}
+
+.bg-neutral-light {
+  background-color: var(--themeNeutralLightBackground) !important;
+}
+
 @each $color in $colors {
   .bg-#{$color} {
     background-color: var(--colorPalette#{$color}Background2) !important;

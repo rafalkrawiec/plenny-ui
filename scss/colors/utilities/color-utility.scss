@@ -18,6 +18,18 @@
   color: var(--themeDisabledForeground) !important;
 }
 
+.color-neutral {
+  color: var(--themeNeutralForeground) !important;
+}
+
+.color-neutral-alt {
+  color: var(--themeNeutralAltForeground) !important;
+}
+
+.color-neutral-darken {
+  color: var(--themeNeutralDarkenForeground) !important;
+}
+
 @each $color in $colors {
   .color-#{$color} {
     color: var(--colorPalette#{$color}Foreground2) !important;
