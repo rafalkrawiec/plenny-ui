@@ -77,6 +77,7 @@
       box-shadow: none;
       background-color: transparent;
       border-radius: 0;
+      padding: 0;
     }
 
     &.warning {
