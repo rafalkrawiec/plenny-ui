@@ -5,54 +5,17 @@
   import { useComponentSize, SizeProps } from '../../Composables/UseComponentSize';
 
   const props = defineProps({
-
-    type: {
-      type: String as PropType<'button' | 'submit'>,
-      required: false,
-      default: 'button',
-    },
-
-    to: {
-      type: [String, Object] as PropType<RouteLocationRaw>,
-      required: false,
-    },
-
-    href: {
-      type: String as PropType<string>,
-      required: false,
-    },
-
-    before: {
-      type: String as PropType<string>,
-      required: false,
-    },
-
-    after: {
-      type: String as PropType<string>,
-      required: false,
-    },
-
-    disabled: {
-      type: Boolean as PropType<boolean>,
-      required: false,
-      default: false,
-    },
-
-    loading: {
-      type: Boolean as PropType<boolean>,
-      required: false,
-      default: false,
-    },
-
-    square: {
-      type: Boolean as PropType<boolean>,
-      required: false,
-      default: false,
-    },
-
+    type: { type: String as PropType<'button' | 'submit'>, required: false, default: 'button' },
+    to: { type: [String, Object] as PropType<RouteLocationRaw>, required: false },
+    href: { type: String as PropType<string>, required: false },
+    before: { type: String as PropType<string>, required: false },
+    after: { type: String as PropType<string>, required: false },
+    enabled: { type: Boolean as PropType<boolean>, required: false, default: true },
+    disabled: { type: Boolean as PropType<boolean>, required: false, default: false },
+    loading: { type: Boolean as PropType<boolean>, required: false, default: false },
+    square: { type: Boolean as PropType<boolean>, required: false, default: false },
     ...AppearanceProps,
     ...SizeProps,
-
   });
 
   const { appearance } = useComponentAppearance(props);
@@ -70,7 +33,7 @@
     return 'button';
   });
 
-  const specificProps = computed(() => {
+  const specific = computed(() => {
     if (props.to) {
       return { to: props.to };
     }
@@ -82,25 +45,27 @@
     return { type: props.type };
   });
 
-  const disabled = computed(() => props.disabled || props.loading);
+  const disabled = computed(() => {
+    return props.disabled || !props.enabled || props.loading;
+  });
 </script>
 <template>
-  <component :is="component" class="btn" :class="{ square, ...appearance, ...size }" v-bind="{ ...specificProps, disabled }">
+  <component :is="component" class="btn" :class="{ square, ...appearance, ...size }" v-bind="{ ...specific, disabled }">
     <span class="before" v-if="before || $slots.before">
       <slot name="before">
-        <span class="icon" :class="before"/>
+        <span class="icon" :class="before" />
       </slot>
     </span>
     <span class="inner" v-if="$slots.default">
-      <slot/>
+      <slot />
     </span>
     <span class="after" v-if="after || $slots.after">
       <slot name="before">
-        <span class="icon" :class="after"/>
+        <span class="icon" :class="after" />
       </slot>
     </span>
     <span class="spinner-wrapper" v-if="loading">
-      <HubSpinner v-bind="{ ...appearance, ...size }"/>
+      <HubSpinner v-bind="{ ...appearance, ...size }" />
     </span>
   </component>
 </template>

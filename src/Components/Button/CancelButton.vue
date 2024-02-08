@@ -1,7 +1,10 @@
+<script setup lang="ts">
+  
+</script>
 <template>
   <HubButton>
-    {{ $t('Anuluj') }}
+    <slot>
+      {{ $t('Anuluj') }}
+    </slot>
   </HubButton>
 </template>
-<script setup lang="ts">
-</script>

@@ -5,7 +5,9 @@
 </script>
 <template>
   <HubButton before="delete-regular" danger :disabled="selected.length <= 0">
-    {{ $t('Usuń wybrane') }}
+    <slot>
+      {{ $t('Usuń wybrane') }}
+    </slot>
     <HubBadge v-if="selected.length > 0" danger>
       {{ selected.length }}
     </HubBadge>

@@ -1,5 +1,10 @@
+<script setup lang="ts">
+
+</script>
 <template>
   <HubButton before="edit-regular">
-    {{ $t('Edytuj') }}
+    <slot>
+      {{ $t('Edytuj') }}
+    </slot>
   </HubButton>
 </template>
