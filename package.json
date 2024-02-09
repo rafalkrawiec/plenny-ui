@@ -54,7 +54,7 @@
     "@plenny/connect": "^0.1.0",
     "@plenny/support": "^0.1.0",
     "@plenny/translator": "^0.1.0",
-    "@ckeditor/ckeditor5-core": "^40.0.0",
+    "@ckeditor/ckeditor5-core": "^41.0.0",
     "@ckeditor/ckeditor5-vue": "^5.0.0",
     "@floating-ui/vue": "^1.0.0",
     "@vue/server-renderer": "^3.0.0",
