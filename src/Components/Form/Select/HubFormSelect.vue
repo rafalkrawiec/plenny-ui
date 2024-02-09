@@ -5,6 +5,7 @@
   import { useFormSelectFloating } from './Composables/UseFormSelectFloating';
   import { useFormSelectFocusTrap } from './Composables/UseFormSelectFocusTrap';
   import { useFocusNavigation } from '../../../Composables/UseFocusNavigation';
+  import { trans } from '@plenny/translator';
 
   defineOptions({
     inheritAttrs: false,
@@ -17,6 +18,7 @@
     clearable: { type: Boolean as PropType<boolean>, required: false, default: true },
     options: { type: Array as PropType<{ value: any, label: string }[]>, required: true, default: [] },
     placeholder: { type: String as PropType<string>, required: false },
+    clear: { type: String as PropType<string>, required: false },
   });
 
   const emit = defineEmits([
@@ -54,24 +56,27 @@
   });
 
   const filtered = computed(() => {
+    let options = [...props.options];
+
+    if (!props.multiple && !props.required && props.clearable) {
+      options = [
+        { label: props.clear || trans('Wyczyść wartość'), value: null },
+        ...options,
+      ];
+    }
+
     if (search.value != null && search.value !== '') {
       const searchBy = String(search.value).toLowerCase();
 
-      return props.options.filter((option) => {
-        console.log(
-          searchBy,
-          String(option.label).toLowerCase(),
-          String(option.value).toLowerCase(),
-        );
-
+      return options.filter((option) => {
         return (
           String(option.label).toLowerCase().includes(searchBy) ||
           String(option.value).toLowerCase().includes(searchBy)
         );
       });
-    } else {
-      return props.options;
     }
+
+    return options;
   });
 
   const { list, containerProps, wrapperProps } = useVirtualList(filtered, {
@@ -96,7 +101,7 @@
     });
   };
 
-  const select = (value) => {
+  function select(value: any) {
     if (props.multiple) {
       if (model.value instanceof Array) {
         if (model.value.includes(value)) {
@@ -117,17 +122,9 @@
     nextTick(() => {
       htmlInput.value.dispatchEvent(new Event('change', { bubbles: true }));
     });
-  };
+  }
 
-  const clear = () => {
-    if (props.multiple) {
-      model.value = [];
-    } else {
-      model.value = '';
-    }
-  };
-
-  const computeOptionClasses = (option) => ({
+  const computeOptionClasses = (option: { label: string, value: any }) => ({
     'selected': (
       props.multiple
         ? model.value?.includes(option.value)
@@ -172,33 +169,23 @@
             {{ option.label }}
           </option>
         </select>
-
         <div ref="htmlControl" class="select-control" @click="show()" @keydown.space.prevent="show()" tabindex="0">
           <span class="select-control-value" :class="selectedClasses" v-text="selectedText || $t('Wybierz wartość')" />
           <span class="select-icon icon chevron-up-down-regular" />
         </div>
-
-        <Teleport to="body">
-          <Transition name="select">
-            <div v-if="open" ref="htmlList" class="select-list" tabindex="-1"
-              v-bind:style="floatingStyles"
-              @keydown.esc="hide()"
-              @keydown.down="focusNext()"
-              @keydown.up="focusPrev()"
-            >
+        <teleport to="body">
+          <transition name="select">
+            <div v-if="open" ref="htmlList" class="select-list" tabindex="-1" v-bind:style="floatingStyles" @keydown.esc="hide()" @keydown.down="focusNext()" @keydown.up="focusPrev()">
               <div v-if="searchable" class="select-list-search-container">
                 <HubFormInput type="text" placeholder="Szukaj" before="search-regular" v-model="search" />
               </div>
-
+              <!-- @vue-ignore -->
               <div class="select-list-options-container" v-bind="containerProps">
                 <template v-if="filtered.length > 0">
                   <div class="select-option-wrapper" v-bind="wrapperProps">
+                    <!-- @vue-ignore -->
                     <template v-for="{ data, index } in list" :key="index">
-                      <div class="select-option" tabindex="0" :class="computeOptionClasses(data)"
-                        @click="select(data.value)"
-                        @keydown.enter="select(data.value)"
-                        @keydown.space="select(data.value)"
-                      >
+                      <div class="select-option" tabindex="0" :class="computeOptionClasses(data)" @click="select(data.value)" @keydown.enter="select(data.value)" @keydown.space="select(data.value)">
                         <span class="select-option-icon icon checkmark-filled" />
                         <span class="select-option-label" v-text="data.label" />
                       </div>
@@ -213,15 +200,9 @@
                   </div>
                 </template>
               </div>
-
-              <div v-if="(!required && clearable) && !!model" class="select-list-clear-container">
-                <HubButton small @click.prevent.stop="clear">
-                  Wyczyść wartość
-                </HubButton>
-              </div>
             </div>
-          </Transition>
-        </Teleport>
+          </transition>
+        </teleport>
       </div>
     </template>
   </HubFormControl>
