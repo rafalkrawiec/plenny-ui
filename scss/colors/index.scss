@@ -6,3 +6,11 @@
 
 @import "utilities/background-utility";
 @import "utilities/color-utility";
+
+:root {
+  color-scheme: light;
+
+  &.dark {
+    color-scheme: dark;
+  }
+}
