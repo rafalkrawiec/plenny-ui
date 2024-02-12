@@ -152,6 +152,37 @@
   --colorPaletteAnchorBackground2: #bcc3c7;
   --colorPaletteAnchorForeground2: #202427;
   --colorPaletteAnchorBorderActive: #394146;
+
+  --colorStatusSuccessBackground1: #f1faf1;
+  --colorStatusSuccessBackground2: #9fd89f;
+  --colorStatusSuccessBackground3: #107c10;
+  --colorStatusSuccessForeground1: #0e700e;
+  --colorStatusSuccessForeground2: #094509;
+  --colorStatusSuccessForeground3: #107c10;
+  --colorStatusSuccessForegroundInverted: #54b054;
+  --colorStatusSuccessBorderActive: #107c10;
+  --colorStatusSuccessBorder1: #9fd89f;
+  --colorStatusSuccessBorder2: #107c10;
+  --colorStatusWarningBackground1: #fff9f5;
+  --colorStatusWarningBackground2: #fdcfb4;
+  --colorStatusWarningBackground3: #f7630c;
+  --colorStatusWarningForeground1: #bc4b09;
+  --colorStatusWarningForeground2: #8a3707;
+  --colorStatusWarningForeground3: #bc4b09;
+  --colorStatusWarningForegroundInverted: #faa06b;
+  --colorStatusWarningBorderActive: #f7630c;
+  --colorStatusWarningBorder1: #fdcfb4;
+  --colorStatusWarningBorder2: #bc4b09;
+  --colorStatusDangerBackground1: #fdf3f4;
+  --colorStatusDangerBackground2: #eeacb2;
+  --colorStatusDangerBackground3: #c50f1f;
+  --colorStatusDangerForeground1: #b10e1c;
+  --colorStatusDangerForeground2: #6e0811;
+  --colorStatusDangerForeground3: #c50f1f;
+  --colorStatusDangerForegroundInverted: #dc626d;
+  --colorStatusDangerBorderActive: #c50f1f;
+  --colorStatusDangerBorder1: #eeacb2;
+  --colorStatusDangerBorder2: #c50f1f;
 }
 
 :root.dark {
@@ -308,4 +339,35 @@
   --colorPaletteAnchorBackground2: #202427;
   --colorPaletteAnchorForeground2: #bcc3c7;
   --colorPaletteAnchorBorderActive: #808a90;
+
+  --colorStatusSuccessBackground1: #052505;
+  --colorStatusSuccessBackground2: #094509;
+  --colorStatusSuccessBackground3: #107c10;
+  --colorStatusSuccessForeground1: #54b054;
+  --colorStatusSuccessForeground2: #9fd89f;
+  --colorStatusSuccessForeground3: #9fd89f;
+  --colorStatusSuccessForegroundInverted: #0e700e;
+  --colorStatusSuccessBorderActive: #54b054;
+  --colorStatusSuccessBorder1: #107c10;
+  --colorStatusSuccessBorder2: #9fd89f;
+  --colorStatusWarningBackground1: #4a1e04;
+  --colorStatusWarningBackground2: #8a3707;
+  --colorStatusWarningBackground3: #f7630c;
+  --colorStatusWarningForeground1: #faa06b;
+  --colorStatusWarningForeground2: #fdcfb4;
+  --colorStatusWarningForeground3: #f98845;
+  --colorStatusWarningForegroundInverted: #bc4b09;
+  --colorStatusWarningBorderActive: #faa06b;
+  --colorStatusWarningBorder1: #f7630c;
+  --colorStatusWarningBorder2: #f98845;
+  --colorStatusDangerBackground1: #3b0509;
+  --colorStatusDangerBackground2: #6e0811;
+  --colorStatusDangerBackground3: #c50f1f;
+  --colorStatusDangerForeground1: #dc626d;
+  --colorStatusDangerForeground2: #eeacb2;
+  --colorStatusDangerForeground3: #dc626d;
+  --colorStatusDangerForegroundInverted: #b10e1c;
+  --colorStatusDangerBorderActive: #dc626d;
+  --colorStatusDangerBorder1: #c50f1f;
+  --colorStatusDangerBorder2: #dc626d;
 }

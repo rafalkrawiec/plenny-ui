@@ -6,7 +6,7 @@
   import 'moment/dist/locale/en-gb';
 
   const { value, format } = defineProps({
-    value: { type: String as PropType<string>, required: true },
+    value: { type: String as PropType<string | null>, required: false },
     format: { type: String as PropType<string>, required: false, default: 'L LT' },
   });
 

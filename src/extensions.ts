@@ -1,5 +1,8 @@
 import HubBlock from './Components/Blocks/HubBlock.vue';
 import HubAlert from './Components/Alert/HubAlert.vue';
+import HubDanger from './Components/Alert/HubDanger.vue';
+import HubInfo from './Components/Alert/HubInfo.vue';
+import HubWarning from './Components/Alert/HubWarning.vue';
 import HubBadge from './Components/Badge/HubBadge.vue';
 import HubButton from './Components/Button/HubButton.vue';
 import HubButtonGroup from './Components/Button/HubButtonGroup.vue';
@@ -56,10 +59,15 @@ import CancelButton from './Components/Button/CancelButton.vue';
 import SaveButton from './Components/Button/SaveButton.vue';
 import BatchDeleteButton from './Components/Button/BatchDeleteButton.vue';
 import HubFormRadioList from './Components/Form/Radio/HubFormRadioList.vue';
+import HubSuccess from './Components/Alert/HubSuccess.vue';
 
 declare module '@vue/runtime-core' {
   export interface GlobalComponents {
     HubAlert: typeof HubAlert,
+    HubDanger: typeof HubDanger,
+    HubInfo: typeof HubInfo,
+    HubSuccess: typeof HubSuccess,
+    HubWarning: typeof HubWarning,
     HubBadge: typeof HubBadge,
     HubBlock: typeof HubBlock,
     NewButton: typeof NewButton,

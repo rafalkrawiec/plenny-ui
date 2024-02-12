@@ -1,5 +1,9 @@
 import HubBlock from './Blocks/HubBlock.vue';
 import HubAlert from './Alert/HubAlert.vue';
+import HubDanger from './Alert/HubDanger.vue';
+import HubInfo from './Alert/HubInfo.vue';
+import HubSuccess from './Alert/HubSuccess.vue';
+import HubWarning from './Alert/HubWarning.vue';
 import HubBadge from './Badge/HubBadge.vue';
 import HubButton from './Button/HubButton.vue';
 import HubButtonGroup from './Button/HubButtonGroup.vue';
@@ -60,6 +64,10 @@ import type { App } from 'vue';
 
 export function registerComponents(app: App) {
   app.component('HubAlert', HubAlert);
+  app.component('HubDanger', HubDanger);
+  app.component('HubInfo', HubInfo);
+  app.component('HubSuccess', HubSuccess);
+  app.component('HubWarning', HubWarning);
   app.component('HubBadge', HubBadge);
   app.component('HubBlock', HubBlock);
   app.component('NewButton', NewButton);
@@ -122,6 +130,10 @@ export function registerComponents(app: App) {
 export {
   HubBlock,
   HubAlert,
+  HubDanger,
+  HubInfo,
+  HubSuccess,
+  HubWarning,
   HubBadge,
   HubButton,
   HubButtonGroup,
