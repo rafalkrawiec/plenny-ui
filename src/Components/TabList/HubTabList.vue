@@ -1,14 +1,14 @@
 <script setup lang="ts">
-
+  //
 </script>
 <template>
   <div class="tab-list">
-    <slot/>
+    <slot />
   </div>
 </template>
 <style scoped lang="scss">
   .tab-list {
     display: flex;
-    gap: 16px;
+    gap: 20px;
   }
 </style>

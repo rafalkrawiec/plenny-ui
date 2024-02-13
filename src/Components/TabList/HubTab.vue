@@ -67,7 +67,7 @@
     cursor: pointer;
     outline: none;
     color: var(--themeNeutralForeground);
-    gap: 12px;
+    gap: 4px;
 
     &.router-link-active, &.active {
       color: var(--themeBlack);
