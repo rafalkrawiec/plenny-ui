@@ -2,7 +2,7 @@
   "name": "@plenny/ui",
   "description": "User interface library written in Vue.",
   "keywords": ["plenny", "vue", "ui"],
-  "version": "0.1.25",
+  "version": "0.1.26",
   "license": "MIT",
   "homepage": "https://github.com/rafalkrawiec/plenny-ui",
   "repository": {
@@ -31,7 +31,7 @@
   },
   "scripts": {
     "dev": "vite build -m development --watch",
-    "build": "vite build && tail -n +58 src/extensions.ts >> dist/ui.d.ts"
+    "build": "vite build && tail -n +64 src/extensions.ts >> dist/ui.d.ts"
   },
   "devDependencies": {
     "@plenny/vite-externalizer": "^0.1.0",
