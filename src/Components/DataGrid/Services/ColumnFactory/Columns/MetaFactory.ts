@@ -2,15 +2,15 @@ import { h } from 'vue';
 import { SortStrategyNumber } from '../../Sort/Strategy/Number';
 import { make, type FactoryOptions } from '../Factory';
 import HubFormSelect from '../../../../Form/Select/HubFormSelect.vue';
-import type { MetaDictionary } from '@plenny/connect';
+import type { MetaDictionary, MetaEntry } from '@plenny/connect';
 import { EmptyConstraint } from '../../Filter/Constraints/EmptyConstraint';
 import { DictionaryConstraint } from '../../Filter/Constraints/DictionaryConstraint';
 
-export type MetaOptions = FactoryOptions & {
-  dictionary: MetaDictionary;
+export type MetaOptions<T extends MetaEntry = never> = FactoryOptions & {
+  dictionary: MetaDictionary<T>;
 }
 
-export function MetaFactory({ dictionary, ...options }: MetaOptions) {
+export function MetaFactory<T extends MetaEntry = never>({ dictionary, ...options }: MetaOptions<T>) {
   return make(options, {
     data: {
       label: ({ value }) => {
