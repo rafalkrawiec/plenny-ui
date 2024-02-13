@@ -1,5 +1,4 @@
 <script setup lang="ts">
-  import type { PropType } from 'vue';
   import { useComponentAppearance, AppearanceProps } from '../../Composables/UseComponentAppearance';
   import HubButtonGroup from '../Button/HubButtonGroup.vue';
 
@@ -10,13 +9,14 @@
 
   const props = defineProps({
     ...AppearanceProps,
-    icon: { type: String as PropType<string>, required: false },
+    icon: { type: String, required: false },
+    square: { type: Boolean, required: false, default: false },
   });
 
   const { appearance } = useComponentAppearance(props);
 </script>
 <template>
-  <div class="alert" :class="{ ...appearance }">
+  <div class="alert" :class="{ ...appearance, square }">
     <div class="alert-icon" v-if="icon">
       <span class="icon" :class="icon" />
     </div>
@@ -38,14 +38,16 @@
     justify-content: flex-start;
     gap: 8px;
     background-color: var(--themeNeutralAltBackground);
+    color: var(--themeNeutralAltForeground);
     border: 1px solid var(--themeNeutralAltBorder);
     border-radius: 4px;
-    color: var(--themeNeutralAltForeground);
     padding: 8px 12px;
-    margin-top: 4px;
-    margin-bottom: 4px;
     font-size: 12px;
     font-weight: var(--fontWeightRegular);
+
+    &.square {
+      border-radius: 0;
+    }
 
     &.info {
       background-color: var(--themeNeutralAltBackground);
