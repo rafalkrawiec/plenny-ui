@@ -29,44 +29,42 @@
   --sizeLarger: var(--size64);
 }
 
-$sizes: 0, 2, 4, 6, 8, 10, 12, 16, 18, 20, 24, 28, 32, 40, 48, 64, 68, 128, 256;
+$sizes: (
+    xs: 4,
+    sm: 8,
+    md: 16,
+    lg: 32,
+    xl: 64,
+);
 
-@each $size in $sizes {
-  .mt-#{$size} {
-    margin-top: var(--v-gap-#{$size});
+@each $name, $size in $sizes {
+  .mt-#{$name} {
+    margin-top: #{$size}px !important;
   }
 
-  .ml-#{$size} {
-    margin-left: var(--v-gap-#{$size});
+  .ml-#{$name} {
+    margin-left: #{$size}px !important;
   }
 
-  .mr-#{$size} {
-    margin-right: var(--v-gap-#{$size});
+  .mr-#{$name} {
+    margin-right: #{$size}px !important;
   }
 
-  .mb-#{$size} {
-    margin-bottom: var(--v-gap-#{$size});
+  .mb-#{$name} {
+    margin-bottom: #{$size}px !important;
   }
 
-  .mx-#{$size} {
-    margin-left: var(--v-gap-#{$size});
-    margin-right: var(--v-gap-#{$size});
+  .mx-#{$name} {
+    margin-left: #{$size}px !important;
+    margin-right: #{$size}px !important;
   }
 
-  .my-#{$size} {
-    margin-top: var(--v-gap-#{$size});
-    margin-bottom: var(--v-gap-#{$size});
+  .my-#{$name} {
+    margin-top: #{$size}px !important;
+    margin-bottom: #{$size}px !important;
   }
 
-  .gap-#{$size} {
-    gap: var(--v-gap-#{$size});
-  }
-
-  .row-gap-#{$size} {
-    row-gap: var(--v-gap-#{$size});
-  }
-
-  .column-gap-#{$size} {
-    column-gap: var(--v-gap-#{$size});
+  .gap-#{$name} {
+    gap: #{$size}px !important;
   }
 }
