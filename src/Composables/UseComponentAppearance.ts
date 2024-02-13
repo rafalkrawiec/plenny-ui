@@ -1,5 +1,5 @@
 import { objectPick } from '@vueuse/core';
-import type { PropType, ExtractPropTypes, ComputedRef } from 'vue';
+import type { ExtractPropTypes, ComputedRef } from 'vue';
 import { computed } from 'vue';
 
 export enum Appearance {
@@ -13,13 +13,13 @@ export enum Appearance {
 }
 
 export const AppearanceProps = {
-  primary: { type: Boolean as PropType<boolean>, required: false, default: false },
-  transparent: { type: Boolean as PropType<boolean>, required: false, default: false },
-  danger: { type: Boolean as PropType<boolean>, required: false, default: false },
-  success: { type: Boolean as PropType<boolean>, required: false, default: false },
-  severe: { type: Boolean as PropType<boolean>, required: false, default: false },
-  warning: { type: Boolean as PropType<boolean>, required: false, default: false },
-  info: { type: Boolean as PropType<boolean>, required: false, default: false },
+  primary: { type: Boolean, required: false, default: false },
+  transparent: { type: Boolean, required: false, default: false },
+  danger: { type: Boolean, required: false, default: false },
+  success: { type: Boolean, required: false, default: false },
+  severe: { type: Boolean, required: false, default: false },
+  warning: { type: Boolean, required: false, default: false },
+  info: { type: Boolean, required: false, default: false },
 };
 
 
