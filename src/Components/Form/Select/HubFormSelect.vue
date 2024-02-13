@@ -16,7 +16,7 @@
     multiple: { type: Boolean as PropType<boolean>, required: false, default: false },
     searchable: { type: Boolean as PropType<boolean>, required: false, default: true },
     clearable: { type: Boolean as PropType<boolean>, required: false, default: true },
-    options: { type: Array as PropType<{ value: any, label: string }[]>, required: true, default: [] },
+    options: { type: [Array, Object] as PropType<Iterable<{ value: any, label: string }>>, required: true, default: [] },
     placeholder: { type: String as PropType<string>, required: false },
     clear: { type: String as PropType<string>, required: false },
   });
@@ -46,9 +46,9 @@
   const selected = computed(() => {
     if (model.value != null) {
       if (model.value instanceof Array) {
-        return props.options.filter((option) => model.value.includes(option.value));
+        return Array.from(props.options).filter((option) => model.value.includes(option.value));
       } else {
-        return props.options.filter((option) => option.value === model.value);
+        return Array.from(props.options).filter((option) => option.value === model.value);
       }
     } else {
       return [];
