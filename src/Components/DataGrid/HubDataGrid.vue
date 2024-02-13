@@ -508,7 +508,7 @@
           text-overflow: ellipsis;
         }
 
-        & > data, & > .data {
+        & > data, & > .data, & > a > data, & > a > .data {
           display: block;
           padding: 6px 0;
           line-height: 20px;
