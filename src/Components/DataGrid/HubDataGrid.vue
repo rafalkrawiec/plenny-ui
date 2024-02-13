@@ -24,8 +24,16 @@
   defineSlots<{
     title(): any,
     commands(): any,
+    aboveToolbar(): any,
+    belowToolbar(): any,
+    aboveWrapper(): any,
+    aboveHeader(): any,
+    belowHeader(): any,
     aboveBody(): any,
     belowBody(): any,
+    belowWrapper(): any,
+    abovePagination(): any,
+    belowPagination(): any,
   }>();
 
   const form = inject(FormContextKey, null);
@@ -232,6 +240,7 @@
 </script>
 <template>
   <div class="hub-data-grid">
+    <slot name="aboveToolbar" />
     <HubToolbar :transparent="transparent" :contained="contained">
       <slot name="title" />
       <slot name="commands" v-bind="grid" />
@@ -288,11 +297,13 @@
         </div>
       </HubButtonGroup>
     </HubToolbar>
+    <slot name="belowToolbar" />
+    <slot name="aboveWrapper" />
     <div class="wrapper" :class="{ transparent, compact }">
       <div class="grid">
         <div class="header">
+          <slot name="aboveHeader" />
           <div class="row">
-
             <div v-if="selectable" class="cell cell-header cell-selectable">
               <div class="inner">
                 <label v-if="!single && selected instanceof Array" class="control-checkbox">
@@ -304,14 +315,12 @@
                 </label>
               </div>
             </div>
-
             <template v-for="column in columns" :key="column.key">
               <DataGridHeader v-if="visible[column.key]" v-bind="{ column, sortable }" />
             </template>
-
             <div class="cell cell-header cell-spacer" />
-
           </div>
+          <slot name="belowHeader" />
         </div>
         <div ref="body" class="body" @keydown="handleMoveKeyEvent">
           <HubDataLoader v-bind="{ meta, loading, error }">
@@ -355,8 +364,11 @@
         </div>
       </div>
     </div>
+    <slot name="belowWrapper" />
 
+    <slot name="abovePagination" />
     <HubPagination :paginator="paginator" />
+    <slot name="belowPagination" />
 
     <HubDrawer v-model:open="showFilter">
       <HubDataGridFilter :columns="columns" v-model:filter="filter" v-model:open="showFilter" />
@@ -496,7 +508,7 @@
           text-overflow: ellipsis;
         }
 
-        data {
+        & > data, & > .data {
           display: block;
           padding: 6px 0;
           line-height: 20px;
