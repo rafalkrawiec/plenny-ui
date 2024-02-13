@@ -4,36 +4,21 @@
   import type { RouteLocationRaw } from 'vue-router';
 
   defineSlots<{
-    before(props: any): any;
-    after(props: any): any;
+    before(): any;
+    after(): any;
+    default(): any;
   }>();
 
   const props = defineProps({
-    to: {
-      type: [String, Object, Function] as PropType<RouteLocationRaw | (() => RouteLocationRaw)>,
-      required: false,
-    },
-    before: {
-      type: String as PropType<string>,
-      required: false,
-    },
-    after: {
-      type: String as PropType<string>,
-      required: false,
-    },
-    disabled: {
-      type: Boolean as PropType<boolean>,
-      required: false,
-      default: false,
-    },
-  });
-
-  const disabled = computed(() => {
-    return props.disabled || !props.to;
+    to: { type: [String, Object, Function] as PropType<RouteLocationRaw | (() => RouteLocationRaw)>, required: false },
+    before: { type: String as PropType<string>, required: false },
+    after: { type: String as PropType<string>, required: false },
+    disabled: { type: Boolean as PropType<boolean>, required: false, default: false },
+    active: { type: Boolean as PropType<boolean>, required: false, default: false },
   });
 
   const component = computed(() => {
-    if (!disabled.value) {
+    if (!props.disabled && toValue(props.to)) {
       return 'router-link';
     }
 
@@ -41,7 +26,7 @@
   });
 
   const specific = computed(() => {
-    if (!disabled.value) {
+    if (component.value === 'router-link') {
       return { to: toValue(props.to) };
     } else {
       return {};
@@ -49,7 +34,7 @@
   });
 </script>
 <template>
-  <component :is="component" v-bind="specific" class="tab" :class="{ disabled }">
+  <component :is="component" v-bind="specific" class="tab" :class="{ disabled, active }">
     <span class="before" v-if="before || $slots.before">
       <slot name="before">
         <span class="icon" :class="before" />
@@ -75,16 +60,16 @@
     align-items: center;
     font-weight: var(--fontWeightBold);
     height: 44px;
-    padding: 12px;
+    padding: 12px 0;
     font-size: 14px;
     line-height: 20px;
     vertical-align: middle;
     cursor: pointer;
     outline: none;
     color: var(--themeNeutralForeground);
-    gap: 4px;
+    gap: 12px;
 
-    &.router-link-active {
+    &.router-link-active, &.active {
       color: var(--themeBlack);
 
       &::after {
@@ -118,9 +103,9 @@
     &::after {
       content: "";
       position: absolute;
-      left: 12px;
       bottom: 0;
-      right: 12px;
+      left: 6px;
+      right: 6px;
       height: 3px;
       border-bottom: 3px solid var(--themeNeutralBorder);
       border-radius: 3px;
