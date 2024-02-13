@@ -1,37 +1,43 @@
 <script setup lang="ts">
-  import { computed, type PropType } from 'vue';
+  import { computed } from 'vue';
   import moment from 'moment';
   import 'moment-timezone';
   import 'moment/dist/locale/pl';
   import 'moment/dist/locale/en-gb';
 
-  const { value, format } = defineProps({
-    value: { type: String as PropType<string | null>, required: false },
-    format: { type: String as PropType<string>, required: false, default: 'L LT' },
+  defineSlots<{
+    default(props: { formatted: string }): any;
+  }>();
+
+  const props = defineProps({
+    value: { type: String, required: false },
+    format: { type: String, required: false, default: 'L LT' },
   });
 
   const formatted = computed(() => {
-    if (!value) {
-      return null;
+    if (!props.value) {
+      return '';
     }
 
-    const date = moment.tz(value, __app_timezone).locale(__i18n_fallback).local();
+    const date = moment.tz(props.value, __app_timezone).locale(__i18n_fallback).local();
 
-    if (format === 'FN') {
+    if (props.format === 'FN') {
       return date.fromNow();
     }
 
-    return date.format(format);
+    return date.format(props.format);
   });
 
   const full = computed(() => {
-    if (value) {
-      return moment.tz(value, __app_timezone).locale(__i18n_fallback).local().format('LLLL');
+    if (props.value) {
+      return moment.tz(props.value, __app_timezone).locale(__i18n_fallback).local().format('LLLL');
     }
   });
 </script>
 <template>
-  <data :value="value" :title="full">
-    {{ formatted }}
+  <data :value="String(value)" :title="full">
+    <slot v-bind="{ formatted }">
+      {{ formatted }}
+    </slot>
   </data>
 </template>

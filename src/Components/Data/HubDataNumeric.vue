@@ -1,29 +1,33 @@
 <script setup lang="ts">
-  import { computed, type PropType } from 'vue';
+  import { computed } from 'vue';
 
-  const { value, format, decimals, currency } = defineProps({
-    value: { type: [String, Number] as PropType<string | number>, required: true },
-    format: { type: String as PropType<string>, required: false, default: 'decimal' },
-    decimals: { type: Number as PropType<number>, required: false, default: 0 },
-    currency: { type: String as PropType<string>, required: false },
+  defineSlots<{
+    default(props: { formatted: string }): any;
+  }>();
+
+  const props = defineProps({
+    value: { type: [String, Number], required: false },
+    format: { type: String, required: false, default: 'decimal' },
+    decimals: { type: Number, required: false, default: 0 },
+    currency: { type: String, required: false },
   });
 
   const formatted = computed(() => {
-    if (value == null) {
-      return null;
+    if (props.value == undefined) {
+      return '';
     }
 
-    let parsed = Number(value);
+    let parsed = Number(props.value);
 
-    if (parsed == null || isNaN(parsed)) {
-      return null;
+    if (isNaN(parsed)) {
+      return '';
     }
 
     const formatter = new Intl.NumberFormat(undefined, {
-      style: currency ? 'currency' : format,
-      minimumFractionDigits: decimals,
-      maximumFractionDigits: decimals,
-      currency,
+      style: props.currency ? 'currency' : props.format,
+      minimumFractionDigits: props.decimals,
+      maximumFractionDigits: props.decimals,
+      currency: props.currency,
     });
 
     return formatter.format(parsed);
@@ -31,6 +35,8 @@
 </script>
 <template>
   <data :value="value">
-    {{ formatted }}
+    <slot v-bind="{ formatted }">
+      {{ formatted }}
+    </slot>
   </data>
 </template>
