@@ -19,7 +19,7 @@ export type FormOptions<T extends FormResource = any> = {
   method?: 'POST' | 'PATCH' | 'PUT' | 'DELETE';
   load?: boolean;
   loader?: ResourceLoader<T>;
-  initial?: T;
+  initial?: Partial<T>;
   bindings?: Record<string, any>;
   onSuccess?: (options: {
     response: AxiosResponse<T>,

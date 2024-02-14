@@ -8,7 +8,7 @@
 
   const props = defineProps({
     ...Control,
-    options: { type: Array as PropType<{ value: any, label: string }[]>, required: true, default: [] },
+    options: { type: [Array, Object] as PropType<Iterable<{ value: any, label: string }>>, required: true, default: [] },
     defaultValue: { type: Array as PropType<any[]>, required: false, default: [] },
   });
 

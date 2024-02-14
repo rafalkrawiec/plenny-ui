@@ -8,7 +8,7 @@
 
   const props = defineProps({
     ...Control,
-    options: { type: Array as PropType<{ value: any, label: string }[]>, required: true, default: [] },
+    options: { type: [Array, Object] as PropType<Iterable<{ value: any, label: string }>>, required: true, default: [] },
     defaultValue: { type: Array as PropType<any[]>, required: false, default: [] },
   });
 
@@ -21,7 +21,7 @@
 <template>
   <HubFormControl v-bind="control">
     <template v-for="(_, slot) in $slots" v-slot:[slot]="props">
-      <slot :name="slot" v-bind="props"/>
+      <slot :name="slot" v-bind="props" />
     </template>
     <template #controlElement>
       <div class="checkbox-list">
@@ -36,7 +36,7 @@
                   v-model="model"
                 />
                 <span class="indicator">
-                  <span class="icon checkmark-filled"/>
+                  <span class="icon checkmark-filled" />
                 </span>
                 <span class="description">
                   {{ option.label }}
