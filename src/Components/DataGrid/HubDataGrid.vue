@@ -437,6 +437,15 @@
           }
         }
       }
+
+      .grid {
+        .body {
+          .data-placeholder {
+            padding: 12px;
+            margin: 12px 0 0 0;
+          }
+        }
+      }
     }
 
     .grid {
