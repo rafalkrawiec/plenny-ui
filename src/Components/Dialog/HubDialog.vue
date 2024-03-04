@@ -1,8 +1,17 @@
+<script lang="ts">
+  export type DialogContext = {
+    show: () => void;
+    hide: () => void;
+    activate: () => void;
+    deactivate: () => void;
+  }
+</script>
 <script setup lang="ts">
-  import { watch, ref, nextTick, onMounted, computed, type PropType } from 'vue';
+  import { watch, ref, nextTick, onMounted, computed, type PropType, provide } from 'vue';
 
   import { useDialogFocusTrap } from './Composables/UseDialogFocusTrap';
   import { useComponentSize, SizeProps } from '../../Composables/UseComponentSize';
+  import { DialogContextKey } from '../../DependencyInjection/Ui';
 
   const emit = defineEmits([
     'update:open',
@@ -57,7 +66,19 @@
     }
   });
 
-  defineExpose({ show, hide });
+  defineExpose({
+    show,
+    hide,
+    activate,
+    deactivate,
+  });
+
+  provide(DialogContextKey, {
+    show,
+    hide,
+    activate,
+    deactivate,
+  });
 </script>
 <template>
   <teleport to="body">

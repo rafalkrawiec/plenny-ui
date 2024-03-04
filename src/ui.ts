@@ -15,6 +15,7 @@ export * from './Composables/UseComponentSize';
 export * from './Composables/UseControl';
 export * from './Composables/UseControlErrors';
 export * from './Composables/UseControlModel';
+export * from './Composables/UseDialogContext';
 export * from './Composables/UseFocusNavigation';
 export * from './Composables/UseFormContext';
 export * from './Composables/UseGroupColor';
