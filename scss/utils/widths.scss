@@ -1,7 +1,20 @@
-$widths: (20, 25, 50, 75, 100);
+$flexible: (20, 25, 50, 75, 100);
+$fixed: (32, 64, 128, 144, 256, 352);
 
-@each $width in $widths {
+@each $width in $flexible {
   .w-#{$width} {
     width: #{$width}#{'%'};
+  }
+}
+
+@each $width in $fixed {
+  .f-#{$width} {
+    flex: 0 0 #{$width}px;
+  }
+}
+
+@each $width in $fixed {
+  .wf-#{$width} {
+    width: #{$width}px;
   }
 }
