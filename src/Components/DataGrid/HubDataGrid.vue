@@ -16,6 +16,7 @@
   import { useApplyConfiguration, fillConfiguration, defaultSizingConfiguration, defaultVisibleConfiguration, defaultSortConfiguration, resetConfiguration } from './Composables/UseApplyConfiguration';
   import HubDataGridConfig from './HubDataGridConfig.vue';
   import { useDataGridConfiguration } from '../../Store/DataGridConfigurationStore';
+  import { trans } from '@plenny/translator';
 
   const emit = defineEmits<{
     (e: 'update:selected', selected: number[] | number | undefined): void
@@ -105,6 +106,14 @@
     }
 
     return available.map(([, width]) => `${width}px`).join(' ') + ' auto';
+  });
+
+  const exportFormats = computed(() => {
+    return [
+      { value: 'CSV', label: trans('CSV') },
+      { value: 'XLS', label: trans('XLS') },
+      { value: 'XLSX', label: trans('XLSX') },
+    ];
   });
 
   const paginator = usePaginator({
@@ -275,12 +284,12 @@
             </HubButton>
           </template>
           <div class="stack vertical">
-            <div class="stack vertical smaller">
-              <HubFormRadio label="CSV" id="export-csv" value="CSV" v-model="exports" />
-              <HubFormRadio label="XLS" id="export-xls" value="XLS" v-model="exports" />
-              <HubFormRadio label="XLSX" id="export-xlsx" value="XLSX" v-model="exports" />
+            <div class="stack vertical smaller w-100">
+              <div class="w-100">
+                <HubFormSelect :options="exportFormats" v-model="exports" :clearable="false" :searchable="false" />
+              </div>
             </div>
-            <div class="stack vertical smaller">
+            <div class="stack vertical smaller w-100">
               <HubFormCheckbox :label="$t('Pomiń eksport nagłówka')" v-model="header" />
             </div>
             <HubButtonGroup>

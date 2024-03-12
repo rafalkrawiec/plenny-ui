@@ -90,7 +90,7 @@
   .condition {
     display: flex;
     align-items: center;
-    flex: 0;
+    justify-content: space-between;
     gap: 4px;
   }
 </style>

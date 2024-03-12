@@ -1,10 +1,11 @@
 <script setup lang="ts">
-  import type { PropType } from 'vue';
+  import { type PropType, computed } from 'vue';
   import { Operator } from '../../../Services/Filter/Constraint';
   import FilterNode from './FilterNode.vue';
   import type { ConditionGroup } from '../../../Services/Filter/ApplyFilter';
   import type { Column } from '../../../Services/ColumnFactory/Factory';
   import { useGroupColor } from '../../../../../Composables/UseGroupColor';
+  import { trans } from '@plenny/translator';
 
   const emit = defineEmits(['remove']);
 
@@ -31,25 +32,33 @@
       check: undefined,
     });
   }
+
+  const operators = computed(() => {
+    return [
+      { value: Operator.AND, label: trans('oraz') },
+      { value: Operator.OR, label: trans('lub') },
+    ];
+  });
 </script>
 <template>
-  <div class="stack vertical small">
-    <div class="stack horizontal justify-content-between align-items-center">
-      <div class="stack horizontal">
-        <HubFormRadio :value="Operator.AND" v-model="node.operator" label="oraz" />
-        <HubFormRadio :value="Operator.OR" v-model="node.operator" label="lub" />
+  <div class="stack vertical small w-100">
+    <div class="stack horizontal align-items-center w-100">
+      <div class="f-96">
+        <HubFormSelect :options="operators" v-model="node.operator" :clearable="false" :searchable="false" />
       </div>
-      <div class="stack smaller horizontal">
-        <HubButton transparent before="add-regular" @click="addCondition">
-          {{ $t('Dodaj warunek') }}
-        </HubButton>
-        <HubButton transparent before="add-regular" @click="addConditionGroup">
-          {{ $t('Dodaj grupę') }}
-        </HubButton>
+      <div class="stack smaller horizontal justify-content-between flex-grow">
+        <HubButtonGroup>
+          <HubButton transparent before="add-regular" @click="addCondition">
+            {{ $t('Dodaj warunek') }}
+          </HubButton>
+          <HubButton transparent before="add-regular" @click="addConditionGroup">
+            {{ $t('Dodaj grupę') }}
+          </HubButton>
+        </HubButtonGroup>
         <HubButton v-if="!!parent" transparent square before="delete-regular" v-tooltip="$t('Usuń')" @click="$emit('remove')" />
       </div>
     </div>
-    <div class="wrapper">
+    <div v-if="node.conditions.length > 0" class="wrapper">
       <div class="children">
         <template v-for="(child, index) in node.conditions" :key="index">
           <div class="node">
@@ -69,6 +78,7 @@
     flex-direction: column;
     gap: 4px;
     padding-left: 16px;
+    width: 100%;
 
     .children {
       display: flex;

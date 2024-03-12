@@ -28,6 +28,6 @@
 </template>
 <style scoped lang="scss">
   .data-grid-filters {
-    display: flex;
+    flex: 1 1 100%;
   }
 </style>
