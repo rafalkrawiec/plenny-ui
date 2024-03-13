@@ -31,7 +31,8 @@
 <style scoped lang="scss">
   .card-header {
     display: flex;
-    flex: 0;
+    flex: 1 1 100%;
+    min-width: 0;
     flex-direction: row;
     align-items: center;
     gap: var(--size12);
@@ -123,7 +124,8 @@
 
   .card.horizontal {
     .card-header {
-      flex: 1;
+      flex: 1 1 100%;
+      min-width: 0;
     }
   }
 </style>
