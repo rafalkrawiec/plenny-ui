@@ -27,5 +27,6 @@
     display: flex;
     flex-direction: column;
     gap: 32px;
+    width: 100%;
   }
 </style>
