@@ -159,7 +159,7 @@
   });
 </script>
 <template>
-  <HubFormControl ref="htmlWrapper" v-bind="control">
+  <HubFormControl ref="htmlWrapper" class="control-select" v-bind="control">
     <template v-for="(_, slot) in $slots" v-slot:[slot]="props">
       <slot :name="slot" v-bind="props" />
     </template>
@@ -174,7 +174,14 @@
           </option>
         </select>
         <div ref="htmlControl" class="select-control" @click="show()" @keydown.space.prevent="show()" tabindex="0">
-          <span class="select-control-value" :class="selectedClasses" v-text="selectedText || $t('Wybierz wartość')" />
+          <span class="select-control-value" :class="selectedClasses">
+            <span v-if="props.multiple" v-for="option in selected" class="pill">
+              {{ option.label }}
+            </span>
+            <span v-else>
+              {{ selectedText || $t('Wybierz wartość') }}
+            </span>
+          </span>
           <span class="select-icon icon chevron-up-down-regular" />
         </div>
         <teleport to="body">
@@ -211,9 +218,15 @@
     </template>
   </HubFormControl>
 </template>
+<style lang="scss">
+  .control-select {
+    height: auto !important;
+  }
+</style>
 <style scoped lang="scss">
   .select-wrapper {
     flex: 1 1 auto;
+    min-width: 0;
     display: flex;
     flex-direction: row;
     line-height: 20px;
@@ -226,7 +239,8 @@
     }
 
     .select-control {
-      flex: 1 1 auto;
+      flex: 0 0 100%;
+      min-width: 0;
       display: flex;
       flex-direction: row;
       gap: 12px;
@@ -238,6 +252,9 @@
 
       .select-control-value {
         flex: 1 1 auto;
+        display: flex;
+        flex-wrap: wrap;
+        gap: 2px;
         font-family: var(--fontSans);
         font-size: 12px;
         white-space: nowrap;
@@ -246,6 +263,20 @@
 
         &.disabled {
           color: var(--themeDisabledForeground);
+        }
+
+        .pill {
+          background-color: var(--themeNeutralBackgroundActive);
+          font-size: 12px;
+          line-height: 20px;
+          border-radius: 4px;
+          padding: 0 6px;
+          max-width: 100%;
+          text-overflow: ellipsis;
+          white-space: nowrap;
+          overflow: hidden;
+          display: inline-block;
+          flex: 0 0 auto;
         }
       }
 
