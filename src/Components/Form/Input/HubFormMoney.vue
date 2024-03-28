@@ -39,7 +39,7 @@
 
   const value = computed(() => {
     if (!focused.value) {
-      if (model.value === null || model.value === undefined) {
+      if (model.value === null || model.value === undefined || model.value === '') {
         return '';
       } else {
         return formatter.value.format(model.value);
