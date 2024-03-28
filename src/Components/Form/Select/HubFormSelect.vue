@@ -110,7 +110,11 @@
           model.value = [...model.value, value];
         }
       } else {
-        model.value = [value];
+        if (value === null || value === undefined || value === '') {
+          model.value = [];
+        } else {
+          model.value = [value];
+        }
       }
     } else {
       model.value = value;
@@ -161,7 +165,7 @@
     </template>
     <template #control>
       <div class="select-wrapper">
-        <select ref="htmlInput" v-bind="{ multiple, ...input, ...$attrs }" v-model="model">
+        <select ref="htmlInput" v-bind="{ multiple, ...input, ...$attrs }">
           <option v-if="required" value="" disabled>
             {{ placeholder || $t('Wybierz wartość') }}
           </option>
