@@ -39,7 +39,11 @@
 
   const value = computed(() => {
     if (!focused.value) {
-      return formatter.value.format(model.value);
+      if (model.value === null || model.value === undefined) {
+        return '';
+      } else {
+        return formatter.value.format(model.value);
+      }
     } else {
       return model.value;
     }
@@ -59,8 +63,8 @@
     focused.value = false;
   }
 
-  function onChange(event) {
-    model.value = event.target?.value;
+  function onInput(event: any) {
+    model.value = event.target.value;
   }
 </script>
 <template>
@@ -69,7 +73,7 @@
       <slot :name="slot" v-bind="props" />
     </template>
     <template v-slot:control>
-      <input ref="htmlControl" class="numeric" v-bind="{ ...input, ...$attrs, type, value, onFocus, onBlur, onChange }" />
+      <input ref="htmlControl" class="numeric" v-bind="{ ...input, ...$attrs, type, value, onFocus, onBlur, onInput }" />
     </template>
   </HubFormControl>
 </template>
