@@ -4,6 +4,12 @@
   import { useComponentAppearance, AppearanceProps } from '../../Composables/UseComponentAppearance';
   import { useComponentSize, SizeProps } from '../../Composables/UseComponentSize';
 
+  defineSlots<{
+    before(props: { disabled: boolean }): any,
+    default(props: { disabled: boolean }): any,
+    after(props: { disabled: boolean }): any,
+  }>();
+
   const props = defineProps({
     type: { type: String as PropType<'button' | 'submit'>, required: false, default: 'button' },
     to: { type: [String, Object] as PropType<RouteLocationRaw>, required: false },
@@ -52,15 +58,15 @@
 <template>
   <component :is="component" class="btn" :class="{ square, ...appearance, ...size }" v-bind="{ ...specific, disabled }">
     <span class="before" v-if="before || $slots.before">
-      <slot name="before">
+      <slot name="before" v-bind="{ disabled }">
         <span class="icon" :class="before" />
       </slot>
     </span>
     <span class="inner" v-if="$slots.default">
-      <slot />
+      <slot v-bind="{ disabled }" />
     </span>
     <span class="after" v-if="after || $slots.after">
-      <slot name="before">
+      <slot name="after" v-bind="{ disabled }">
         <span class="icon" :class="after" />
       </slot>
     </span>

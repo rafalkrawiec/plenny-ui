@@ -4,11 +4,11 @@
   });
 </script>
 <template>
-  <HubButton before="delete-regular" danger :disabled="selected.length <= 0">
-    <slot>
+  <HubButton before="delete-regular" danger :disabled="selected.length <= 0" v-slot="{ disabled }">
+    <slot name="default" v-bind="{ disabled }">
       {{ $t('Usuń wybrane') }}
     </slot>
-    <HubBadge v-if="selected.length > 0" danger>
+    <HubBadge v-if="!disabled && selected.length > 0" danger>
       {{ selected.length }}
     </HubBadge>
   </HubButton>
