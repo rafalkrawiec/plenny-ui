@@ -41,7 +41,7 @@
 <template>
   <div ref="cardHtmlElement" class="card" :class="{ selectable, horizontal, vertical, subtle, preview, ...appearance }" @click="handleSelectableCardClick">
     <slot />
-    <div class="card-selector" v-if="selectable">
+    <div class="card-selector" v-if="selectable" @click.stop="void 0">
       <component class="card-select-control" :is="checkComponent" :value="value" v-model="model" />
     </div>
   </div>

@@ -29,7 +29,7 @@
     </template>
     <template v-slot:controlElement>
       <label class="control-checkbox">
-        <input ref="htmlControl" type="checkbox" v-bind="{ ...input, ...$attrs }" v-model="model" />
+        <input ref="htmlControl" type="checkbox" v-bind="{ ...input, ...$attrs }" :value="value" v-model="model" />
         <span class="indicator">
           <span class="icon checkmark-filled" />
         </span>
