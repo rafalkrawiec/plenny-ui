@@ -15,6 +15,10 @@
     align-items: stretch;
   }
 
+  &.compact {
+    --stack-size: 0;
+  }
+
   &.smaller {
     --stack-size: 4px;
   }
