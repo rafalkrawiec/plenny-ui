@@ -12,6 +12,7 @@
 
   const props = defineProps({
     open: { type: Boolean as PropType<boolean>, required: false, default: false },
+    full: { type: Boolean as PropType<boolean>, required: false, default: false },
     ...SizeProps,
   });
 
@@ -64,9 +65,9 @@
     <transition name="drawer">
       <div v-if="open" class="drawer">
         <div class="drawer-backdrop" />
-        <div ref="htmlDrawer" class="drawer-viewport" role="dialog" @keydown.esc="hide" tabindex="-1">
+        <div ref="htmlDrawer" class="drawer-viewport" role="dialog" tabindex="-1" @keydown.esc="hide">
           <div class="drawer-viewport-wrapper">
-            <div class="drawer-container" :class="{ ...size }">
+            <div class="drawer-container" :class="{ ...size, full }">
               <div class="drawer-content">
                 <slot />
               </div>
@@ -141,6 +142,11 @@
 
     &.larger {
       max-width: 1400px;
+    }
+
+    &.full {
+      width: 100%;
+      max-width: 100%;
     }
   }
 
