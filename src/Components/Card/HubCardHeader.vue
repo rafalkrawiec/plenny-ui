@@ -31,11 +31,11 @@
 <style scoped lang="scss">
   .card-header {
     display: flex;
-    flex: 1 1 100%;
-    min-width: 0;
     flex-direction: row;
     align-items: center;
     gap: var(--size12);
+    width: 100%;
+    min-width: 0;
     height: 42px;
 
     .handler {
