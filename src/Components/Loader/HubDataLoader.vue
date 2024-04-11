@@ -20,7 +20,7 @@
 <template>
   <template v-if="error">
     <slot name="whenError">
-      <HubAlert danger>
+      <HubAlert danger class="my-lg">
         {{ $t('Wystąpił błąd podczas przetwarzania danych!') }}
       </HubAlert>
     </slot>
