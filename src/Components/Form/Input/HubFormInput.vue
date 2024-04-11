@@ -26,7 +26,7 @@
   const { control, input, model } = useControl({ props, emit });
 
   defineExpose({
-    el: htmlControl,
+    el: () => htmlControl.value,
     focus: () => htmlControl.value?.focus(),
     select: () => htmlControl.value?.select(),
   });
