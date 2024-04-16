@@ -1,9 +1,9 @@
-import { ref, onMounted, nextTick, watchEffect, toValue } from 'vue';
+import { ref, onMounted, nextTick, watchEffect, toValue, type Ref } from 'vue';
 import { useResizeObserver } from '@vueuse/core';
 
 type Node = { key: number, node: any };
 
-export function useComponentExpander(group, children) {
+export function useComponentExpander(group: Ref<HTMLElement | undefined>, children: Ref<Node[]>) {
   const visible = ref<Node[]>([]);
   const hidden = ref<Node[]>([]);
 

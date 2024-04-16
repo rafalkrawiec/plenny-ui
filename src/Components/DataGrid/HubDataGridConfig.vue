@@ -1,8 +1,11 @@
 <script setup lang="ts">
-  import { computed, ref, type PropType, toValue } from 'vue';
-  import { watch } from 'vue';
+  import { computed, ref, type PropType, toValue, watch } from 'vue';
   import { useResource, useRequest } from '@plenny/connect';
 
+  type MetaConfiguration = {
+    id: number;
+    name: string;
+  }
 
   const request = useRequest();
 
@@ -13,116 +16,114 @@
     visible: { type: Object as PropType<any>, required: true },
     filter: { type: Object as PropType<any>, required: true },
     sizing: { type: Object as PropType<any>, required: true },
-    sort: { type: Object as PropType<any>, required: true},
+    sort: { type: Object as PropType<any>, required: true },
     search: { type: String as PropType<string>, required: true },
-  })
+  });
 
+  const nameConfig = ref();
+  const isPrivate = ref(true);
 
-  const nameConfig = ref()
-  const isPrivate = ref(true)
-
-
-  const { resource, loading, error, reload } = useResource({
+  const { resource, loading, error, reload } = useResource<MetaConfiguration[]>({
     endpoint: `/api/v1/hub/grid/${props.name}/configuration`,
   });
 
-
   function makeData() {
-    return { visible: toValue(props.visible), filter: toValue(props.filter), sizing: toValue(props.sizing), sort: toValue(props.sort), search: toValue(props.search) }
+    return {
+      visible: toValue(props.visible),
+      filter: toValue(props.filter),
+      sizing: toValue(props.sizing),
+      sort: toValue(props.sort),
+      search: toValue(props.search),
+    };
   }
 
   function addConfig() {
-
-    let data = { name: toValue(nameConfig), private: toValue(isPrivate), configuration: makeData() }
-
     request({
       endpoint: `/api/v1/hub/grid/${props.name}/configuration`,
       method: 'POST',
-      data: data
+      data: {
+        name: toValue(nameConfig),
+        private: toValue(isPrivate),
+        configuration: makeData(),
+      },
     }).then(() => {
-      current.value = undefined
-      nameConfig.value = undefined
-      isPrivate.value = true
-      reload()
+      current.value = undefined;
+      nameConfig.value = undefined;
+      isPrivate.value = true;
+      reload();
     }).catch((error) => {
-      error.value = error
+      error.value = error;
     });
-
   }
 
   function updateConfig() {
-
-
-    let data = { name: toValue(nameConfig), private: toValue(isPrivate), configuration: makeData() };
-
-
     if (props.config.id && props.name) {
       request({
         endpoint: `/api/v1/hub/grid/${props.name}/configuration/${props.config.id}`,
         method: 'PATCH',
-        data: data
+        data: {
+          name: toValue(nameConfig),
+          private: toValue(isPrivate),
+          configuration: makeData(),
+        },
       }).then(() => {
-        current.value = undefined
-        nameConfig.value = undefined
-        isPrivate.value = true
-        reload()
+        current.value = undefined;
+        nameConfig.value = undefined;
+        isPrivate.value = true;
+        reload();
       }).catch((error) => {
-        error.value = error
+        error.value = error;
       });
     }
-
   }
 
-
   function deleteConfig() {
-
-
     if (props.config.id && props.name) {
       request({
         endpoint: `/api/v1/hub/grid/${props.name}/configuration/${props.config.id}`,
         method: 'DELETE',
       }).then(() => {
-        current.value = undefined
-        nameConfig.value = undefined
-        isPrivate.value = true
-        reload()
-        emit('reset:current')
+        current.value = undefined;
+        nameConfig.value = undefined;
+        isPrivate.value = true;
+        reload();
+        emit('reset:current');
       }).catch((error) => {
-        error.value = error
+        error.value = error;
       });
     }
-
   }
 
   function reset() {
-    current.value = undefined
-    nameConfig.value = undefined
-    isPrivate.value = true
-    emit('reset:current')
+    current.value = undefined;
+    nameConfig.value = undefined;
+    isPrivate.value = true;
+    emit('reset:current');
   }
-
 
   const options = computed(() => {
     if (resource.value) {
-      return resource.value.map((element) => ({ label: element.name, value: element.id }))
+      return resource.value.map((element) => ({
+        label: element.name,
+        value: element.id,
+      }));
     }
-    return
-  })
+  });
 
-  const emit = defineEmits(['update:current', 'reset:current'])
+  const emit = defineEmits(['update:current', 'reset:current']);
 
 
   const current = computed({
     get: () => props.current?.id,
-    set: (value) => emit('update:current', resource.value.find((element) => element.id === value))
+    set: (value) => emit('update:current', resource.value?.find((element) => element.id === value)),
   });
 
   watch(() => props.config, () => {
     if (props.config) {
       nameConfig.value = props.config.name;
-      isPrivate.value = props.config.private
+      isPrivate.value = props.config.private;
     }
-  }, { immediate: true })
+  }, { immediate: true });
 
 
 </script>

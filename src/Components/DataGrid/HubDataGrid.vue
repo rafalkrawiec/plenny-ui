@@ -189,7 +189,7 @@
   watch(config, () => {
     if (props.configurable) {
       if (config.value?.configuration) {
-        fillConfiguration({ data: config.value.configuration, columns, visible, filter, sizing, sort, search });
+        fillConfiguration(config.value.configuration, { columns, visible, filter, sizing, sort, search });
       } else {
         resetConfiguration({ columns, visible, filter, sizing, sort, search });
       }
@@ -221,7 +221,17 @@
   const { save } = useExport({ columns, visible, items, exports, header });
 
   const body = ref();
-  const grid: DataGrid = { data: props.resource, items, columns, loading: props.loading, error: props.error, sizing, visible, sort, selected };
+  const grid: DataGrid = {
+    data: props.resource,
+    items,
+    columns,
+    loading: props.loading,
+    error: props.error,
+    sizing,
+    visible,
+    sort,
+    selected,
+  };
 
   const { handleMoveKeyEvent, updatePointer } = useGridNavigation(body, grid);
 

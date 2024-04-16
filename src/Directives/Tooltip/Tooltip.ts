@@ -32,16 +32,18 @@ export const Tooltip: Directive<HTMLElement, string> = {
   },
 };
 
-function handleMouseEnter(event) {
+function handleMouseEnter(event: MouseEvent) {
   createTooltip(event);
 }
 
-function handleMouseLeave(event) {
-  cleanup(event.target);
+function handleMouseLeave(event: MouseEvent) {
+  cleanup(event.target as HTMLElement);
 }
 
-function createTooltip(event) {
-  if (event.target.tooltipElement) {
+function createTooltip(event: MouseEvent) {
+  let targetElement = event.target as HTMLElement;
+
+  if (targetElement.tooltipElement) {
     return;
   }
 
@@ -49,19 +51,19 @@ function createTooltip(event) {
   tooltipElement.classList.add('tooltip');
 
   const tooltipTextElement = document.createElement('span');
-  tooltipTextElement.innerText = event.target.tooltipText;
+  tooltipTextElement.innerText = targetElement.tooltipText || '';
   tooltipElement.append(tooltipTextElement);
 
   const arrowElement = document.createElement('div');
   arrowElement.classList.add('arrow');
   tooltipElement.append(arrowElement);
 
-  event.target.tooltipElement = tooltipElement;
+  targetElement.tooltipElement = tooltipElement;
 
   document.body.append(tooltipElement);
 
-  event.target.tooltipCleanup = autoUpdate(event.target, tooltipElement, () => {
-    computePosition(event.target, tooltipElement, {
+  targetElement.tooltipCleanup = autoUpdate(targetElement, tooltipElement, () => {
+    computePosition(targetElement, tooltipElement, {
       middleware: [
         offset(5),
         autoPlacement(),
@@ -85,7 +87,7 @@ function createTooltip(event) {
 
       if (middlewareData.arrow) {
         const { x, y } = middlewareData.arrow;
-        const side = placement.split('-')[0];
+        const side = placement.split('-')[0] as 'left' | 'right' | 'top' | 'bottom';
 
         Object.assign(arrowElement.style, {
           left: x != null ? `${x}px` : '',

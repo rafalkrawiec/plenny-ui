@@ -9,9 +9,9 @@
     default(props: {}): any,
   }>();
 
-  const htmlTrigger = ref(null);
-  const htmlPopover = ref(null);
-  const htmlArrow = ref(null);
+  const htmlTrigger = ref();
+  const htmlPopover = ref();
+  const htmlArrow = ref();
 
   const open = ref(false);
 
@@ -51,14 +51,14 @@
 <template>
   <div class="popover-wrapper">
     <div ref="htmlTrigger" class="popover-trigger" @click.prevent.stop="toggle()">
-      <slot name="trigger"/>
+      <slot name="trigger" />
     </div>
     <Teleport to="body">
       <Transition name="popover">
         <div v-if="open" ref="htmlPopover" class="popover" v-bind:style="floatingStyles" tabindex="-1" @keydown.esc="hide">
-          <div ref="htmlArrow" class="arrow" v-bind:style="arrowStyles"/>
+          <div ref="htmlArrow" class="arrow" v-bind:style="arrowStyles" />
           <div class="inner-wrapper">
-            <slot/>
+            <slot />
           </div>
         </div>
       </Transition>

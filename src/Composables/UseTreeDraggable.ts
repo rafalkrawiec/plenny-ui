@@ -6,18 +6,18 @@ type DraggableOptions<T extends NestedSetItem = any> = {
 
 export type DragHandlers<T extends NestedSetItem = any> = ReturnType<typeof useTreeDraggable<T>>;
 
-let originalParentElement;
-let originalPosition;
+let originalParentElement: HTMLDivElement | undefined;
+let originalPosition: number | undefined;
 
-let draggedTreeElement;
-let draggedTreeChildren;
-let draggedCardElement;
+let draggedTreeElement: HTMLDivElement | undefined;
+let draggedTreeChildren: HTMLDivElement | undefined;
+let draggedCardElement: HTMLDivElement | undefined;
 
-let hasBeenDropped;
+let hasBeenDropped: boolean | undefined;
 
-let dragged;
-let target;
-let position;
+let dragged: NestedSetItem | undefined;
+let target: NestedSetItem | undefined;
+let position: 'before' | 'inside' | 'after' | undefined;
 
 let moveInsideCardElement: HTMLDivElement | undefined = undefined;
 let moveInsideTimeout: number | undefined = undefined;
@@ -31,8 +31,8 @@ export function useTreeDraggable<T extends NestedSetItem = any>(options: Draggab
     event.dataTransfer!.effectAllowed = 'move';
 
     draggedCardElement = event.target as HTMLDivElement;
-    draggedTreeElement = draggedCardElement.closest('.tree-view-item');
-    draggedTreeChildren = draggedTreeElement.querySelector('.children');
+    draggedTreeElement = draggedCardElement.closest('.tree-view-item') as HTMLDivElement;
+    draggedTreeChildren = draggedTreeElement.querySelector('.children') as HTMLDivElement;
 
     originalParentElement = draggedTreeElement.parentNode as HTMLDivElement;
     originalPosition = [...originalParentElement.children].indexOf(draggedTreeElement) + 1;
@@ -67,10 +67,10 @@ export function useTreeDraggable<T extends NestedSetItem = any>(options: Draggab
 
     if (event.clientY > middle) {
       position = 'after';
-      targetTreeElement.after(draggedTreeElement);
+      targetTreeElement.after(draggedTreeElement!);
     } else {
       position = 'before';
-      targetTreeElement.before(draggedTreeElement);
+      targetTreeElement.before(draggedTreeElement!);
     }
   }
 
@@ -108,8 +108,8 @@ export function useTreeDraggable<T extends NestedSetItem = any>(options: Draggab
     resetMoveInsideCardElement();
 
     options.update({
-      dragged: dragged,
-      target: target,
+      dragged: dragged as T,
+      target: target as T,
       position: position,
     });
 
@@ -125,7 +125,7 @@ export function useTreeDraggable<T extends NestedSetItem = any>(options: Draggab
 
     if (!hasBeenDropped) {
       let parent = originalParentElement as HTMLDivElement;
-      let child = parent.children[originalPosition];
+      let child = parent.children[originalPosition!];
 
       if (child) {
         parent.insertBefore(draggedTreeElement, child);
@@ -159,7 +159,7 @@ export function useTreeDraggable<T extends NestedSetItem = any>(options: Draggab
   };
 }
 
-function cannotHandleEvent(event: DragEvent, item) {
+function cannotHandleEvent(event: DragEvent, item: NestedSetItem) {
   let current = event.currentTarget as HTMLElement;
   let related = event.relatedTarget as HTMLElement;
 
@@ -175,11 +175,10 @@ function cannotHandleEvent(event: DragEvent, item) {
     return true;
   }
 
-  if (dragged._lft < item._lft && dragged._rgt > item._rgt) {
-    return true;
-  }
-
-  return false;
+  return (
+    dragged._lft < item._lft &&
+    dragged._rgt > item._rgt
+  );
 }
 
 function resetMoveInsideTimeout() {

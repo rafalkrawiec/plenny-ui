@@ -21,4 +21,7 @@ export default defineConfig({
     minify: 'terser',
     cssMinify: 'lightningcss',
   },
+  resolve: {
+    dedupe: ['vue', 'pinia'],
+  },
 });

@@ -1,12 +1,12 @@
 import { make, type FactoryOptions } from '../Factory';
-import { type MetaDictionary } from '@plenny/connect';
+import { type MetaDictionary, type MetaEntry } from '@plenny/connect';
 import { h } from 'vue';
 import HubFormSelect from '../../../../Form/Select/HubFormSelect.vue';
 import { EmptyConstraint } from '../../Filter/Constraints/EmptyConstraint';
 import { CollectionConstraint } from '../../Filter/Constraints/CollectionConstraint';
 
-export type CollectionOptions = FactoryOptions & {
-  dictionary: MetaDictionary;
+export type CollectionOptions<T extends MetaEntry = MetaEntry> = FactoryOptions & {
+  dictionary: MetaDictionary<T>;
 }
 
 export function CollectionFactory({ dictionary, ...options }: CollectionOptions) {
@@ -22,7 +22,7 @@ export function CollectionFactory({ dictionary, ...options }: CollectionOptions)
         CollectionConstraint,
       ],
       render: () => h(HubFormSelect, {
-        options: dictionary.store,
+        options: dictionary,
         compact: true,
         multiple: true,
       }),

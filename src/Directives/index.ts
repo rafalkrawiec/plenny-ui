@@ -1,6 +1,7 @@
 import { Tooltip } from './Tooltip/Tooltip';
+import type { App } from 'vue';
 
-export function registerDirectives(app) {
+export function registerDirectives(app: App) {
   app.directive('tooltip', Tooltip);
 }
 

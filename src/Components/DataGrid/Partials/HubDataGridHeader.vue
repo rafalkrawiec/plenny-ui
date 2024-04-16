@@ -34,7 +34,7 @@
     }
   }
 
-  function onMouseMove(event) {
+  function onMouseMove(event: MouseEvent) {
     event.stopPropagation();
     event.preventDefault();
 
@@ -48,7 +48,7 @@
     });
   }
 
-  function onMouseUp(event) {
+  function onMouseUp(event: MouseEvent) {
     event.stopPropagation();
     event.preventDefault();
 
@@ -59,7 +59,7 @@
     document.body.classList.remove('is-col-resizing');
   }
 
-  function onMouseDown(event) {
+  function onMouseDown(event: MouseEvent) {
     event.stopPropagation();
     event.preventDefault();
 

@@ -1,4 +1,4 @@
-import { focusable } from 'tabbable';
+import { focusable, type FocusableElement } from 'tabbable';
 import { watch, ref } from 'vue';
 import { unrefElement, type MaybeComputedElementRef, type MaybeElement } from '@vueuse/core';
 
@@ -45,15 +45,15 @@ export function useFocusNavigation<T extends MaybeElement = MaybeElement>(within
     return list[current - 1];
   }
 
-  function focusNext(options = undefined) {
+  function focusNext(options: FocusOptions | undefined = undefined) {
     focus(getNextFocusable(), options);
   }
 
-  function focusPrev(options = undefined) {
+  function focusPrev(options: FocusOptions | undefined = undefined) {
     focus(getPrevFocusable(), options);
   }
 
-  function focus(element, options = undefined) {
+  function focus(element: FocusableElement | null | undefined, options: FocusOptions | undefined = undefined) {
     if (element) {
       element.focus(options);
     }

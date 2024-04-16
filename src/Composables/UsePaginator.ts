@@ -72,7 +72,7 @@ export function usePaginator<T = any>(options: PaginatorOptions<T>) {
     }
   }
 
-  function go(page) {
+  function go(page: number) {
     current.value = page;
   }
 

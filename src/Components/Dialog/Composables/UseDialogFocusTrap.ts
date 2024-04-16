@@ -1,6 +1,7 @@
 import { useFocusTrap } from '@vueuse/integrations/useFocusTrap';
+import type { Ref } from 'vue';
 
-export function useDialogFocusTrap(target) {
+export function useDialogFocusTrap(target: Ref<HTMLElement>) {
   return useFocusTrap(target, {
     fallbackFocus: () => target.value,
 

@@ -1,7 +1,11 @@
 import { inject, computed, toValue } from 'vue';
 import { FormContextKey } from '../DependencyInjection/Ui';
 
-export function useControlErrors(options) {
+type ControlErrorsOptions = {
+  name?: string;
+}
+
+export function useControlErrors(options: ControlErrorsOptions) {
   const name = computed(() => toValue(options.name));
   const ctx = inject(FormContextKey, null);
 

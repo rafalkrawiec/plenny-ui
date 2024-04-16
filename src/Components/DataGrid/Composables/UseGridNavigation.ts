@@ -4,7 +4,7 @@ import type { DataGrid } from '../Types';
 export function useGridNavigation(body: Ref, grid: DataGrid) {
   const pointer = { x: 0, y: 0 };
 
-  function movePointer(horizontal, vertical) {
+  function movePointer(horizontal: number, vertical: number) {
     // Dispatch blur for currently focused cell.
     // This will prevent cell blur handlers to overwrite position which runs
     // when exiting edit mode, and edited cell is focused back for navigation.
@@ -29,7 +29,7 @@ export function useGridNavigation(body: Ref, grid: DataGrid) {
     });
   }
 
-  function handleMoveKeyEvent(event) {
+  function handleMoveKeyEvent(event: KeyboardEvent) {
     switch (event.code) {
       case 'ArrowLeft':
         event.preventDefault();
@@ -54,7 +54,7 @@ export function useGridNavigation(body: Ref, grid: DataGrid) {
     }
   }
 
-  function updatePointer(x, y) {
+  function updatePointer(x: number, y: number) {
     pointer.x = x;
     pointer.y = y;
   }

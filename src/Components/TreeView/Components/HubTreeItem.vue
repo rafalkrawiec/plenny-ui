@@ -5,6 +5,11 @@
   import { nestedSetChildren } from '@plenny/support';
   import type { DragHandlers } from '../../../Composables/UseTreeDraggable';
 
+  defineSlots<{
+    title(props: { item: NestedSetItem }): any;
+    actions(props: { item: NestedSetItem }): any;
+  }>();
+
   const props = defineProps({
     data: { type: Object as PropType<NestedSet>, required: true },
     item: { type: Object as PropType<NestedSetItem>, required: true },
@@ -21,11 +26,11 @@
     <HubCard
       :data-id="item.id"
       :draggable="allow(item)"
-      @dragstart="(e) => draggable.onDragStart(e, item)"
-      @dragover="(e) => draggable.onDragOver(e, item)"
-      @dragenter="(e) => draggable.onDragEnter(e, item)"
-      @dragleave="(e) => draggable.onDragLeave(e, item)"
-      @dragend="(e) => draggable.onDragEnd(e)"
+      @dragstart="(e: DragEvent) => draggable.onDragStart(e, item)"
+      @dragover="(e: DragEvent) => draggable.onDragOver(e, item)"
+      @dragenter="(e: DragEvent) => draggable.onDragEnter(e, item)"
+      @dragleave="(e: DragEvent) => draggable.onDragLeave(e, item)"
+      @dragend="(e: DragEvent) => draggable.onDragEnd(e)"
     >
       <HubCardHeader>
         <template #title>

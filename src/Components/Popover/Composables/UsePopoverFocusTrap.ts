@@ -1,6 +1,7 @@
 import { useFocusTrap } from '@vueuse/integrations/useFocusTrap';
+import type { Ref } from 'vue';
 
-export function usePopoverFocusTrap(target) {
+export function usePopoverFocusTrap(target: Ref<HTMLElement>) {
   return useFocusTrap(target, {
     fallbackFocus: () => target.value,
 

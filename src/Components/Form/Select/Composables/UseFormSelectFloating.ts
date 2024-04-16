@@ -1,7 +1,16 @@
-import { useFloating, autoUpdate, offset, size, flip, shift } from '@floating-ui/vue';
-import { watch, ref } from 'vue';
+import { useFloating, autoUpdate, offset, size, flip, shift, type MiddlewareState } from '@floating-ui/vue';
+import { watch, ref, type Ref } from 'vue';
 
-export function useFormSelectFloating(reference, floating) {
+type FormControl = {
+  htmlControl: HTMLElement
+}
+
+type SizeMiddlewareState = MiddlewareState & {
+  availableWidth: number;
+  availableHeight: number;
+};
+
+export function useFormSelectFloating(reference: Ref<FormControl>, floating: Ref<HTMLElement>) {
   const target = ref();
 
   watch(reference, () => {
@@ -77,7 +86,7 @@ export function useFormSelectFloating(reference, floating) {
   });
 }
 
-function applySelectListSizeBoundaries({ availableHeight, rects }, floating) {
+function applySelectListSizeBoundaries({ availableHeight, rects }: SizeMiddlewareState, floating: Ref<HTMLElement>) {
   Object.assign(floating.value.style, {
 
     /**

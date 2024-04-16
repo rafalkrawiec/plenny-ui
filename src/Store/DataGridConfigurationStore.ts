@@ -1,5 +1,6 @@
 import { defineStore } from 'pinia';
-import { ref, toValue } from 'vue';
+import { ref, toValue, type Ref } from 'vue';
+import type { ConditionGroup } from '../Components/DataGrid/Services/Filter/ApplyFilter';
 
 export type DataGridConfiguration = ReturnType<typeof useDataGridConfiguration>;
 
@@ -42,7 +43,14 @@ export const useDataGridConfiguration = defineStore('hub_data_grid_configuration
     });
   }
 
-  async function update(name, visible, filter, sizing, sort, search) {
+  async function update(
+    name: string,
+    visible: Ref<Record<string, boolean>>,
+    filter: Ref<ConditionGroup>,
+    sizing: Ref<Record<string, number>>,
+    sort: Ref<Record<string, 'asc' | 'desc'>>,
+    search: Ref<string>,
+  ) {
     const db = connection.value;
 
     if (!db) {

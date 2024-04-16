@@ -1,6 +1,7 @@
 import { useFocusTrap } from '@vueuse/integrations/useFocusTrap';
+import type { Ref } from 'vue';
 
-export function useFormSelectFocusTrap(target) {
+export function useFormSelectFocusTrap(target: Ref<HTMLElement>) {
   return useFocusTrap(target, {
 
     /**

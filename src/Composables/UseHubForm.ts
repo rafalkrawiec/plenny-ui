@@ -1,4 +1,4 @@
-import type { MaybeRef } from 'vue';
+import type { MaybeRef, Ref } from 'vue';
 import { watch, ref, nextTick, toValue, toRef } from 'vue';
 import cloneDeep from 'lodash.clonedeep';
 import get from 'lodash.get';
@@ -21,20 +21,9 @@ export type FormOptions<T extends FormResource = any> = {
   loader?: ResourceLoader<T>;
   initial?: Partial<T>;
   bindings?: Record<string, any>;
-  onSuccess?: (options: {
-    response: AxiosResponse<T>,
-    context: FormContext<T>,
-    index?: number,
-  }) => Promise<any> | any;
-  onFailure?: (options: {
-    error: any,
-    context: FormContext<T>,
-    index?: number,
-  }) => boolean;
-  onSubmit?: (options: {
-    context: FormContext<T>,
-    index?: number,
-  }) => Promise<AxiosResponse<T>>;
+  onSuccess?: (options: { response: AxiosResponse<T>, context: FormContext<T>, index?: number }) => Promise<any> | any;
+  onFailure?: (options: { error: any, context: FormContext<T>, index?: number }) => boolean;
+  onSubmit?: (options: { context: FormContext<T>, index?: number }) => Promise<AxiosResponse<T>>;
 }
 
 export type FormSubmitConfig<T extends FormResource = any> = Partial<ResourceOptions<T>> & {
@@ -49,25 +38,27 @@ export function useHubForm<T extends FormResource = any>(options: FormOptions<T>
    * These are form internals for tracking fields errors, dirty and touched
    * state which we do not expose. Proper API methods are exposed instead.
    */
-  const fieldsErrors = ref({});
+  const fieldsErrors = ref({} as Record<string, string[]>);
   const fieldsDirty = ref({} as Record<string, boolean>);
   const fieldsTouched = ref({} as Record<string, boolean>);
 
-  function setValidationErrors(errors: Object, config?: FormSubmitConfig<T>) {
+  function setValidationErrors(errors: Record<string, string[]>, config?: FormSubmitConfig<T>) {
     let index = config?.index;
 
     if (index != undefined) {
-      errors = Object.fromEntries(Object.entries(errors).map(([key, value]) => [index + '.' + key, value]));
+      errors = Object.fromEntries(Object.entries(errors).map(([key, value]) => {
+        return [index + '.' + key, value];
+      }));
     }
 
-    fieldsErrors.value = errors;
+    fieldsErrors.value = errors as Record<string, string[]>;
   }
 
   /**
    * These props are responsible for form data state.
    */
-  const resource = toRef(options.loader?.resource);
-  const exists = toRef(options.loader?.exists || false);
+  const resource = toRef(options.loader?.resource || {}) as Ref<T>;
+  const exists = toRef(options.loader?.exists || false) as Ref<boolean>;
   const meta = ref();
   const original = ref(createOriginal(options));
   const data = ref(createInitial(options));

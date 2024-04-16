@@ -2,7 +2,7 @@
   "name": "@plenny/ui",
   "description": "User interface library written in Vue.",
   "keywords": ["plenny", "vue", "ui"],
-  "version": "0.1.49",
+  "version": "0.1.50",
   "license": "MIT",
   "homepage": "https://github.com/rafalkrawiec/plenny-ui",
   "repository": {
@@ -50,13 +50,13 @@
     "vite-plugin-dts": "^3.0.0",
     "vite-plugin-lib-inject-css": "^1.0.0"
   },
-  "dependencies": {
-    "@plenny/connect": "^0.1.0",
-    "@plenny/support": "^0.1.0",
-    "@plenny/translator": "^0.1.0",
+  "peerDependencies": {
     "@ckeditor/ckeditor5-core": "^41.0.0",
     "@ckeditor/ckeditor5-vue": "^5.0.0",
     "@floating-ui/vue": "^1.0.0",
+    "@plenny/connect": "^0.1.0",
+    "@plenny/support": "^0.1.0",
+    "@plenny/translator": "^0.1.0",
     "@vue/server-renderer": "^3.0.0",
     "@vueuse/core": "^10.0.0",
     "@vueuse/integrations": "^10.0.0",
@@ -64,14 +64,14 @@
     "focus-trap-vue": "^4.0.0",
     "lodash.clonedeep": "^4.0.0",
     "lodash.get": "^4.0.0",
-    "lodash.set": "^4.0.0",
     "lodash.isequal": "^4.0.0",
-    "tabbable": "^6.0.0",
+    "lodash.set": "^4.0.0",
     "moment": "^2.0.0",
     "moment-timezone": "^0.5.0",
     "pinia": "^2.0.0",
+    "tabbable": "^6.0.0",
     "vue": "^3.0.0",
     "vue-router": "^4.0.0",
-    "xlsx": "^0.18.5"
+    "xlsx": "https://cdn.sheetjs.com/xlsx-0.20.2/xlsx-0.20.2.tgz"
   }
 }

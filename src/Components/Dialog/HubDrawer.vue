@@ -16,7 +16,7 @@
     ...SizeProps,
   });
 
-  const htmlDrawer = ref(null);
+  const htmlDrawer = ref();
 
   const open = computed({
     get: () => props.open,

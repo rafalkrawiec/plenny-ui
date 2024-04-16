@@ -24,7 +24,7 @@
     ...SizeProps,
   });
 
-  const htmlDialog = ref(null);
+  const htmlDialog = ref();
 
   const open = computed({
     get: () => props.open,

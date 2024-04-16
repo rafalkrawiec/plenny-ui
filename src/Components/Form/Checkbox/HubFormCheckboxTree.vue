@@ -1,6 +1,6 @@
 <script setup lang="ts">
   import { ref, type PropType, computed } from 'vue';
-  import { type NestedSet, nestedSetRoot, nestedSetAncestors, nestedSetDescendants } from '@plenny/support';
+  import { type NestedSet, nestedSetRoot, nestedSetAncestors, nestedSetDescendants, type NestedSetItem } from '@plenny/support';
   import { Control, useControl } from '../../../Composables/UseControl';
   import HubFormCheckboxTreeItem from './HubFormCheckboxTreeItem.vue';
 
@@ -22,7 +22,7 @@
     set: (value) => model.value = value.map(item => item.id),
   });
 
-  const closed = ref<number[]>([]);
+  const closed = ref<NestedSetItem[]>([]);
 
   const items = computed(() => {
     return nestedSetRoot(props.data);
@@ -42,7 +42,7 @@
     }))];
   });
 
-  function onUpdate(item) {
+  function onUpdate(item: NestedSetItem) {
     let index = selected.value.findIndex((i) => i.id == item.id);
 
     if (index >= 0) {
@@ -54,8 +54,8 @@
     selected.value = [...selected.value, item];
   }
 
-  function onClose(item) {
-    let index = closed.value.findIndex((i) => i == item);
+  function onClose(item: NestedSetItem) {
+    let index = closed.value.findIndex((i) => i.id == item.id);
 
     if (index >= 0) {
       closed.value.splice(index, 1);

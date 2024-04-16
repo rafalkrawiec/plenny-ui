@@ -1,8 +1,12 @@
-import { computed } from 'vue';
-import { useFloating, offset, flip, shift, arrow as arrowMiddleware } from '@floating-ui/vue';
+import { computed, type Ref } from 'vue';
+import { useFloating, offset, flip, shift, arrow as arrowMiddleware, type MaybeElement, type ReferenceElement } from '@floating-ui/vue';
 import { ReversedSide } from '../../../Utils/ReversedSide';
 
-export function usePopoverFloating(reference, floating, arrow) {
+export function usePopoverFloating<T extends ReferenceElement = ReferenceElement>(
+  reference: Readonly<Ref<MaybeElement<T>>>,
+  floating: Readonly<Ref<MaybeElement<HTMLElement>>>,
+  arrow: Readonly<Ref<MaybeElement<HTMLElement>>>,
+) {
   const { middlewareData, placement, ...other } = useFloating(reference, floating, {
     placement: 'bottom-start',
     middleware: [
@@ -26,7 +30,7 @@ export function usePopoverFloating(reference, floating, arrow) {
     }
 
     const { x, y } = arrow;
-    const side = placement.value.split('-')[0];
+    const side = placement.value.split('-')[0] as 'left' | 'right' | 'top' | 'bottom';
 
     return {
       left: x != null ? `${x}px` : '',

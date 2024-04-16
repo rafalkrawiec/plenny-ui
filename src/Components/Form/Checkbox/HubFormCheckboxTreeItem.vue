@@ -11,7 +11,7 @@
     data: { type: Array as PropType<NestedSet>, required: true },
     selected: { type: Array as PropType<NestedSetItem[]>, required: true },
     indeterminate: { type: Array as PropType<NestedSetItem[]>, required: true },
-    closed: { type: Array as PropType<number[]>, required: true },
+    closed: { type: Array as PropType<NestedSetItem[]>, required: true },
   });
 
   const children = computed(() => {
@@ -23,7 +23,7 @@
   });
 
   const close = computed(() => {
-    return !!props.closed.find((item) => props.item.id == item);
+    return !!props.closed.find((item) => props.item.id == item.id);
   });
 
   const indeterminate = computed(() => {
@@ -47,7 +47,7 @@
   }
 
   function onClose() {
-    emit('close', props.item.id);
+    emit('close', props.item);
   }
 
   function passThroughUpdate(item: NestedSetItem) {

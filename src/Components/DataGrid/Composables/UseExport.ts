@@ -1,9 +1,18 @@
-import { utils, writeFile, writeFileXLSX } from "xlsx";
+import { utils, writeFile, writeFileXLSX } from 'xlsx';
+import type { Column } from '../Services/ColumnFactory/Factory';
+import type { Ref } from 'vue';
 
+type Options = {
+  columns: Ref<Column[]>;
+  visible: Ref<Record<string, boolean>>;
+  items: Ref<any[]>;
+  exports: Ref<string>;
+  header: Ref<boolean>;
+}
 
-export function useExport({columns, visible, items, exports, header}) {
+export function useExport({ columns, visible, items, exports, header }: Options) {
 
-  function save (){
+  function save() {
     const available = columns.value.filter((column) => visible.value[column.key]);
     const headers = [available.map((column) => column.name)];
 
@@ -18,19 +27,18 @@ export function useExport({columns, visible, items, exports, header}) {
 
     utils.book_append_sheet(wb, ws, 'Dane');
 
-    if (exports.value == "XLSX") {
+    if (exports.value == 'XLSX') {
       writeFileXLSX(wb, 'SheetJSVueAoO.xlsx');
       return;
     }
-    if (exports.value == "XLS") {
 
+    if (exports.value == 'XLS') {
       writeFile(wb, 'SheetJSVueAoO.xls', { bookType: 'biff8' });
       return;
     }
 
     writeFile(wb, 'SheetJSVueAoO.csv');
-
   }
 
-  return {save};
-  }
+  return { save };
+}

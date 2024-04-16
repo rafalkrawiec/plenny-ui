@@ -11,7 +11,7 @@
     reversed: { type: Boolean as PropType<boolean>, required: false, default: false },
   });
 
-  const htmlGroup = ref();
+  const htmlGroup = ref<HTMLDivElement>();
   const children = ref(slots.default && slots.default({}));
 
   const { visible, hidden } = useComponentExpander(htmlGroup, children);

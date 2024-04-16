@@ -103,13 +103,13 @@ function runBatchCallback(batch: Batch) {
 
 function resolveBatchId(batch: AxiosResponse | string): string[] | string {
   if (typeof batch === 'object') {
-    let header = batch.headers['x-watch-batch'] || [];
+    let header: string | string[] = batch.headers['x-watch-batch'] || [];
 
     if (header instanceof Array) {
       return header;
     }
 
-    return header.split(',').map(h => h.trim());
+    return header.split(',').map((h) => h.trim());
   }
 
   return batch;
