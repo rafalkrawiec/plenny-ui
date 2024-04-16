@@ -57,7 +57,7 @@ export function useHubForm<T extends FormResource = any>(options: FormOptions<T>
   /**
    * These props are responsible for form data state.
    */
-  const resource = toRef(options.loader?.resource || {}) as Ref<T>;
+  const resource = toRef(options.loader?.resource) as Ref<T>;
   const exists = toRef(options.loader?.exists || false) as Ref<boolean>;
   const meta = ref();
   const original = ref(createOriginal(options));
