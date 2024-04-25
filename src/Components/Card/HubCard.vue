@@ -88,6 +88,9 @@
     }
 
     &.preview {
+      --card-theme-title: #000;
+      --v-btn-color: #000;
+
       box-shadow: none;
       background-color: transparent;
       border-radius: 0;
