@@ -175,7 +175,7 @@
         </select>
         <div ref="htmlControl" class="select-control" @click="show()" @keydown.space.prevent="show()" tabindex="0">
           <span class="select-control-value" :class="selectedClasses">
-            <span v-if="props.multiple" v-for="option in selected" class="pill">
+            <span v-if="props.multiple && selected.length > 0" v-for="option in selected" class="pill">
               {{ option.label }}
             </span>
             <span v-else>
