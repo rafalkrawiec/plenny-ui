@@ -21,11 +21,11 @@
 <template>
   <div class="avatar" :class="[ foreground, background, { ...size } ]">
     <template v-if="guest">
-      <span class="icon person-regular"/>
+      <span class="icon person-regular" />
     </template>
     <template v-else>
-      <img v-if="avatar" :src="`/photos/administrator/128x128/${avatar}`" :alt="initials"/>
-      <span v-else v-text="initials"/>
+      <img v-if="avatar" :src="`/photos/128x128/${avatar}`" :alt="initials" />
+      <span v-else v-text="initials" />
     </template>
   </div>
 </template>
