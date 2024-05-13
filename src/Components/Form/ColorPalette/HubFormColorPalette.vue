@@ -12,7 +12,7 @@
 
   const emit = defineEmits(['update:modelValue']);
 
-  const { control, model } = useControl({ props, emit, except: ['id', 'name'] });
+  const { control, model } = useControl({ props, emit });
 </script>
 <template>
   <HubFormControl v-bind="control">
