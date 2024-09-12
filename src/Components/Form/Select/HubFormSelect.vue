@@ -6,17 +6,20 @@
   import { useFormSelectFocusTrap } from './Composables/UseFormSelectFocusTrap';
   import { useFocusNavigation } from '../../../Composables/UseFocusNavigation';
   import { trans } from '@plenny/translator';
+  import type { MetaDictionary } from '@plenny/connect';
 
   defineOptions({
     inheritAttrs: false,
   });
+
+  type Options = Array<{ value: any, label: string }> | MetaDictionary;
 
   const props = defineProps({
     ...Control,
     multiple: { type: Boolean as PropType<boolean>, required: false, default: false },
     searchable: { type: Boolean as PropType<boolean>, required: false, default: true },
     clearable: { type: Boolean as PropType<boolean>, required: false, default: true },
-    options: { type: [Array, Object] as PropType<Iterable<{ value: any, label: string }>>, required: true, default: [] },
+    options: { type: [Array, Object] as PropType<Options>, required: true, default: [] },
     placeholder: { type: String as PropType<string>, required: false },
     clear: { type: String as PropType<string>, required: false },
   });
@@ -49,15 +52,18 @@
   watch(() => props.options, (options) => {
     if (model.value != null) {
       if (model.value instanceof Array) {
-        model.value = model.value.filter((value) => Array.from(options).some((option) => option.value == value));
+        model.value = model.value.filter((v) => {
+          return Array.from(options, (o) => o.value).some((o) => o == v);
+        });
       } else {
-        if (!Array.from(options).some((option) => option.value == model.value)) {
+        if (!Array.from(options, (o) => o.value).some((o) => o == model.value)) {
           model.value = null;
         }
       }
     }
   }, {
     immediate: true,
+    deep: true,
   });
 
   const selected = computed(() => {
