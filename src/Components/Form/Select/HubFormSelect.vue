@@ -1,5 +1,5 @@
 <script setup lang="ts">
-  import { ref, computed, nextTick, type PropType } from 'vue';
+  import { ref, computed, nextTick, type PropType, watch } from 'vue';
   import { onClickOutside, useVirtualList } from '@vueuse/core';
   import { useControl, Control } from '../../../Composables/UseControl';
   import { useFormSelectFloating } from './Composables/UseFormSelectFloating';
@@ -46,15 +46,19 @@
   // On startup, get model and options, and throw out any value from model,
   // that is no longer available in options. This can lead to problems,
   // as in some cases old non-available values are kept within select.
-  if (model.value != null) {
-    if (model.value instanceof Array) {
-      model.value = model.value.filter((value) => Array.from(props.options).some((option) => option.value == value));
-    } else {
-      if (!Array.from(props.options).some((option) => option.value == model.value)) {
-        model.value = null;
+  watch(() => props.options, (options) => {
+    if (model.value != null) {
+      if (model.value instanceof Array) {
+        model.value = model.value.filter((value) => Array.from(options).some((option) => option.value == value));
+      } else {
+        if (!Array.from(options).some((option) => option.value == model.value)) {
+          model.value = null;
+        }
       }
     }
-  }
+  }, {
+    immediate: true,
+  });
 
   const selected = computed(() => {
     if (model.value != null) {
