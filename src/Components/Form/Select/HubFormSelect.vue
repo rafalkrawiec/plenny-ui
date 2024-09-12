@@ -43,6 +43,19 @@
   const open = ref(false);
   const search = ref('');
 
+  // On startup, get model and options, and throw out any value from model,
+  // that is no longer available in options. This can lead to problems,
+  // as in some cases old non-available values are kept within select.
+  if (model.value != null) {
+    if (model.value instanceof Array) {
+      model.value = model.value.filter((value) => Array.from(props.options).some((option) => option.value == value));
+    } else {
+      if (!Array.from(props.options).some((option) => option.value == model.value)) {
+        model.value = null;
+      }
+    }
+  }
+
   const selected = computed(() => {
     if (model.value != null) {
       if (model.value instanceof Array) {
