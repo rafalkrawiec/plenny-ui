@@ -7,6 +7,7 @@
   const props = defineProps({
     column: { type: Object as PropType<Column>, required: true },
     data: { type: Object as PropType<Record<string, any>>, required: true },
+    editable: { type: Boolean as PropType<boolean>, required: false, default: true },
     index: { type: Number as PropType<number>, required: true },
   });
 
@@ -32,8 +33,8 @@
 <template>
   <div ref="cell" class="cell" :class="{ editing }" tabindex="0" @dblclick="start" @keydown="start">
     <template v-if="!editing">
-      <component :is="component"/>
-      <HubFormValidationPopover :name="name"/>
+      <component :is="component" />
+      <HubFormValidationPopover :name="name" />
     </template>
     <template v-if="editing">
       <component

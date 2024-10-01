@@ -13,13 +13,14 @@ type Cell = Ref<{
 
 type Props = {
   readonly column: Column;
+  readonly editable: boolean;
 }
 
-export function useEditableColumn(control: Control, cell: Cell, { column }: Props) {
+export function useEditableColumn(control: Control, cell: Cell, { column, editable }: Props) {
   const editing = ref(false);
 
   function start(event: Event) {
-    if (!column.edit.enabled || editing.value) return;
+    if (!column.edit.enabled || !editable || editing.value) return;
     if (!doesEventStartEdit(event)) return;
 
     if ((event as KeyboardEvent).key === ' ') {
@@ -45,7 +46,7 @@ export function useEditableColumn(control: Control, cell: Cell, { column }: Prop
   }
 
   function stop() {
-    if (!column.edit.enabled || !editing.value) return;
+    if (!column.edit.enabled || !editable || !editing.value) return;
 
     // Wait for next tick. Some components might need to trigger change event
     // which might not be possible since the input would have been hidden

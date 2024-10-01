@@ -363,7 +363,7 @@
                 <template v-for="(column, x) in columns" :key="column.key">
                   <HubDataGridColumn
                     v-if="visible[column.key]"
-                    v-bind="{ column, data: item, index: paginator.start.value + y, visibility }"
+                    v-bind="{ editable, column, data: item, index: paginator.start.value + y, visibility }"
                     :data-x="x" :data-y="y"
                     @change="updateRow(item)"
                     @focus="updatePointer(x, y)"
