@@ -12,14 +12,14 @@
     inheritAttrs: false,
   });
 
-  type Options = Array<{ value: any, label: string }> | MetaDictionary;
+  type Options = Array<{ value: any, label: string }> | MetaDictionary | null | undefined;
 
   const props = defineProps({
     ...Control,
     multiple: { type: Boolean as PropType<boolean>, required: false, default: false },
     searchable: { type: Boolean as PropType<boolean>, required: false, default: true },
     clearable: { type: Boolean as PropType<boolean>, required: false, default: true },
-    options: { type: [Array, Object] as PropType<Options>, required: true, default: [] },
+    options: { type: [Array, Object] as PropType<Options>, required: false },
     placeholder: { type: String as PropType<string>, required: false },
     clear: { type: String as PropType<string>, required: false },
   });
@@ -50,7 +50,7 @@
   // that is no longer available in options. This can lead to problems,
   // as in some cases old non-available values are kept within select.
   watch(() => props.options, (options) => {
-    if (!('hydrated' in options) || options.hydrated.value) {
+    if (options && (!('hydrated' in options) || options.hydrated.value)) {
       if (model.value != null) {
         if (model.value instanceof Array) {
           model.value = model.value.filter((v) => {
@@ -69,7 +69,7 @@
   });
 
   const selected = computed(() => {
-    if (model.value != null) {
+    if (props.options && model.value != null) {
       if (model.value instanceof Array) {
         return Array.from(props.options).filter((option) => model.value.includes(option.value));
       } else {
@@ -81,7 +81,7 @@
   });
 
   const filtered = computed(() => {
-    let options = [...props.options];
+    let options = [...(props.options || [])];
 
     if (!props.multiple && !props.required && props.clearable) {
       options = [
