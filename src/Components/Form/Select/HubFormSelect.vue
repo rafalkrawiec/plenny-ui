@@ -50,14 +50,16 @@
   // that is no longer available in options. This can lead to problems,
   // as in some cases old non-available values are kept within select.
   watch(() => props.options, (options) => {
-    if (model.value != null) {
-      if (model.value instanceof Array) {
-        model.value = model.value.filter((v) => {
-          return Array.from(options, (o) => o.value).some((o) => o == v);
-        });
-      } else {
-        if (!Array.from(options, (o) => o.value).some((o) => o == model.value)) {
-          model.value = null;
+    if (!('hydrated' in options) || options.hydrated.value) {
+      if (model.value != null) {
+        if (model.value instanceof Array) {
+          model.value = model.value.filter((v) => {
+            return Array.from(options, (o) => o.value).some((o) => o == v);
+          });
+        } else {
+          if (!Array.from(options, (o) => o.value).some((o) => o == model.value)) {
+            model.value = null;
+          }
         }
       }
     }
