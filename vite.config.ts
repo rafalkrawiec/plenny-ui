@@ -24,4 +24,11 @@ export default defineConfig({
   resolve: {
     dedupe: ['vue', 'pinia'],
   },
+  css: {
+    preprocessorOptions: {
+      scss: {
+        api: 'modern-compiler',
+      },
+    },
+  },
 });
