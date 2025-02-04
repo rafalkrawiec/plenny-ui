@@ -28,7 +28,7 @@ export function MetaFactory<T extends MetaEntry = never>({ dictionary, ...option
     },
     edit: {
       render: (options) => h(HubFormSelect, {
-        options: dictionary.store.value,
+        options: dictionary,
         name: options.column.edit.field(options),
         compact: true,
         ...options.column.edit.props,
@@ -40,7 +40,7 @@ export function MetaFactory<T extends MetaEntry = never>({ dictionary, ...option
         DictionaryConstraint,
       ],
       render: () => h(HubFormSelect, {
-        options: dictionary.store.value,
+        options: dictionary,
         compact: true,
         multiple: true,
       }),
