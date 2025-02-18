@@ -47,12 +47,12 @@
 
     nextTick(() => {
       emit('modal:visible');
-      activate();
+      // activate();
     });
   }
 
   function hide() {
-    deactivate();
+    // deactivate();
     open.value = false;
 
     nextTick(() => {
