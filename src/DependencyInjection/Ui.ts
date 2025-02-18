@@ -1,5 +1,5 @@
 import type { InjectionKey } from 'vue';
-import type { Editor, EditorConfig } from '@ckeditor/ckeditor5-core';
+import type { Editor, EditorConfig } from 'ckeditor5';
 import type { DataGrid } from '../Components/DataGrid/Types';
 import type { FormContext } from '../Composables/UseHubForm';
 import type { DialogContext } from '../Components/Dialog/HubDialog.vue';
